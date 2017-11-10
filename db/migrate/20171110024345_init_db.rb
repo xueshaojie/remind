@@ -21,20 +21,13 @@ class InitDb < ActiveRecord::Migration
     end
 
     create_table "users", :force => true do |t|
-      t.integer  "department_id",                               :null => false
-      t.integer  "user_type",                    :default => 1, :null => false
       t.string   "login_name",                                  :null => false
-      t.string   "no",                                          :null => false
       t.string   "name",                                        :null => false
-      t.integer  "gender",                       :default => 0, :null => false
       t.string   "mobile"
-      t.string   "email"
-      t.string   "avatar_key"
       t.string   "password_digest"
       t.integer  "status",          :limit => 1, :default => 1, :null => false
       t.datetime "created_at",                                  :null => false
       t.datetime "updated_at",                                  :null => false
-      t.text     "metadata"
     end
 
     create_table "user_role_maps", :force => true do |t|
