@@ -1,0 +1,15 @@
+<% parent_class = 'active'%>
+<ul class="nav nav-tabs padding-24 tab-size-bigger">
+	<li class="<%= parent_class if @type == 0%>">
+		<a href="<%= admin_asset_check_maps_path(id: @asset_check.id)%>">应盘(<%= @asset_check.asset_check_maps.count %>)</a>
+	</li>
+	<li class="<%= parent_class if @type == 1%>">
+		<a href="<%= admin_asset_check_maps_path(id: @asset_check.id, type: 1)%>">实盘(<%= @asset_check.asset_check_maps.checked.count %>)</a>
+	</li>
+	<li class="<%= parent_class if @type == 2%>">
+		<a href="<%= admin_asset_check_maps_path(id: @asset_check.id, type: 2)%>">盘盈(<%= @asset_check.asset_check_maps.type2.count %>)</a>
+	</li>
+	<li class="<%= parent_class if @type == 3%>">
+		<a href="<%= admin_asset_check_maps_path(id: @asset_check.id, type: 3)%>">盘亏(<%= @asset_check.asset_check_maps.type3.count %>)</a>
+	</li>
+</ul>

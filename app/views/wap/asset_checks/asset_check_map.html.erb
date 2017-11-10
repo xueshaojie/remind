@@ -1,0 +1,106 @@
+<%provide(:title,"#{@asset_check_map_name}资产")%>
+
+<div class="html listing">
+  <div class="topline">
+    <a href="javascript:;" class="back" id="J_back" data-back='<%= wap_asset_check_url(@asset_check) %>'></a>
+    <p class="text"><%= @asset_check_map_name %>资产(<%= @asset_check_maps.count %>)</p>
+  </div>
+
+  <% if @asset_check_maps.blank? %>
+    <div class="empty">
+      <img src="/asset/images/empty.png" class="im">
+      <p class="text">暂无盘点资产</p>
+    </div>
+  <% else %>
+    <% @asset_check_maps.each do |asset_check_map|%>
+      <div class="dtlist">
+        <a href="<%= wap_plant_asset_path(id: asset_check_map.plant_asset.no)%>" class="item">
+          <p class="itl"><%=asset_check_map.plant_asset.try(:no) %></p>
+          <p class="desc"><%=asset_check_map.plant_asset.try(:name) %></p>
+          <p class="belo"><%=asset_check_map.department.try(:name) %></p>
+        </a>
+      </div>
+    <%end%>
+    <!-- <a href="javascript:;" class="botmore" id="J_more">点击加载更多</a> -->
+  <% end %>
+</div>
+
+<div class="tippop_bg tippop_add dsn" id="J_searbox">
+  <div class="tippop_alert">
+    <p class="tippop_alert_t">请输入资产编号</p>
+    <p class="tippop_input"><input type="text" class="ctrol" id="J_key" placeholder="请输入资产编号"></p>
+    <p class="tippop_alert_b">
+      <a class="tippop_confirm_btn" id="J_close">返回</a>
+      <a class="tippop_confirm_btn" id="J_gosear">搜索</a>
+    </p>
+  </div>
+</div>
+
+<script type="text/javascript">
+  $(function(){
+    var sc = getRequest();
+
+    //加载更多
+    var J_more = $('#J_more'),
+      ajaxdata = {"page":0,"pagesize":7}, // 获取订单列表用的数据
+      isajax = false, //设置开关 防止重复提交
+      isdone = false; // 是否加载完成
+
+    // 获取列表
+    function getajax(){
+      isajax = true;
+      J_more.html('正在加载···');
+      $.ajax({
+        type: "GET",
+        url: "/asset/api/callback.json?v="+(new Date().getTime()),
+        data: {},
+        dataType: "json",
+        success: function(res){
+          // ruby 渲染列表！！！！！！！！！！！！！！
+
+          // 判断更新加载条件
+          setTimeout(function(){
+            isajax = false;
+            if(8<ajaxdata.pagesize){ // 此处的8表示返回数据的长度，ruby渲染
+              isdone = true;
+              J_more.html('');
+            }else{
+              J_more.html('点击加载更多')
+            };
+          },100)
+        }
+      });
+    };
+
+    // getajax(); // 获取首次订单数据
+
+    J_more.click(function(){
+      if(isajax || isdone){return false;}
+      ajaxdata.page++;
+      getajax();
+    });
+
+    // 搜索
+    var J_searbox = $('#J_searbox'),
+      J_key = $('#J_key')
+
+    $('#J_sear').click(function(){
+      J_searbox.show();
+    });
+    $('#J_close').click(function(){
+      J_searbox.hide();
+    });
+    $('#J_gosear').click(function(){
+      var val = J_key.val().trim();
+      // console.log(val);
+      if(val.length==0){
+        CUES.tip({"msg":"请输入资产编号","type":"danger"});
+        return false;
+      };
+
+      // 加参数并刷新本页面
+      window.location.href = "listing.html?key="+val;
+    });
+
+  });
+</script>

@@ -1,0 +1,88 @@
+<%provide(:title,"问题详情")%>
+
+<div class="html question question_borbtn">
+  <div class="topline">
+    <a href="javascript:;" class="back" id="J_back"></a>
+    <p class="text">问题详情</p>
+  </div>
+  <p class="ptil"><%= @issue.title %></p>
+  <div class="inlineform inlineform_nobd">
+    <a href="javascript:;" class="linebox">
+      <img src="/asset/images/item03k.png" class="iado">
+      <span class="ado">问题类型</span>
+      <p class="line_text"><%= @issue.issue_type.try(:name) %></p>
+    </a>
+    <div class="linebox">
+      <img src="/asset/images/item03l.png" class="iado">
+      <span class="ado">问题等级</span>
+      <p class="line_text <%= 'line_text_red' if @issue.serious? %>"><%= @issue.level_name %></p>
+    </div>
+
+    <div class="linebox">
+      <img src="/asset/images/item03c.png" class="iado">
+      <span class="ado">上报时间</span>
+      <p class="line_text"><%= @issue.created_at %></p>
+    </div>
+    <div class="linebox">
+      <img src="/asset/images/item03a.png" class="iado">
+      <span class="ado">上报人</span>
+      <p class="line_text"><%= @issue.user.try(:name) %></p>
+    </div>
+
+    <div class="linebox">
+      <img src="/asset/images/item03m.png" class="iado adomid">
+      <span class="ado adomid">问题来源</span>
+      <p class="line_text"><span><%= @issue.category %></span></p>
+    </div>
+
+    <div class="linebox">
+      <img src="/asset/images/item03b.png" class="iado adomid">
+      <span class="ado adomid">处理部门</span>
+      <p class="line_text"><%= @issue.issue_type.user.try(:department).try(:name) %></p>
+    </div>
+
+    <div class="linebox ">
+      <img src="/asset/images/item03n.png" class="iado adomid">
+      <span class="ado adomid">处理状态</span>
+      <p class="line_text"><%= @issue.status_name %></p>
+    </div>
+    <div class="linebox">
+      <img src="/asset/images/item03c.png" class="iado adomid">
+      <span class="ado adomid">处理时间</span>
+      <p class="line_text"><%= @issue.solve_date || '-' %></p>
+    </div>
+  </div>
+
+  <p class="subtil subtila">问题详细描述</p>
+  <p class="textbox"><%= @issue.description %></p>
+  <p class="subtil subtilb">地点位置描述</p>
+  <p class="textbox"><%= @issue.location %></p>
+  <p class="subtil subtilc">相关问题照片</p>
+  <div class="subpics">
+    <% @issue.issue_pictures.each do |issue_picture| %>
+      <p class="J_subpic subpic" data-img="<%= issue_picture.pic_key %>" style="background-image: url(<%= issue_picture.pic_key %>);"></p>
+    <% end %>
+  </div>
+  <br>
+</div>
+
+<!-- 图片放大 -->
+<div class="imgshow" id="J_picshow">
+  <a href="javascript:;" class="close">x</a>
+  <p class="img"></p>
+  <p class="img"></p>
+</div>
+
+<script type="text/javascript">
+  $(function(){
+    var imgshow = new picshow('J_picshow');
+
+    $('.J_subpic').click(function(){
+      imgshow.initimg($(this).attr('data-img'))
+    });
+  });
+</script>
+
+<script type="text/javascript">
+  window.main.hideBtmbar();
+</script>

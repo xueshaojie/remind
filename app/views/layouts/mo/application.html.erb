@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" class="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="format-detection" content="telphone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title><%= yield(:title) || 'MO' %></title>
+    <link rel="stylesheet" href="/mo/css/index.css">
+    <%= javascript_include_tag "jquery", "jquery_ujs", "/mo/js/main.js" %>
+    <%= csrf_meta_tags %>
+  </head>
+
+  <body>
+    <%= yield %>
+
+    <script type="text/javascript">
+      $(document).ready(function () {
+        <% if flash[:notice] %>
+          alert('<%= flash[:notice] %>');
+        <% end %>
+        <% if flash[:alert] %>
+          alert('<%= flash[:alert] %>');
+        <% end %>
+      });
+    </script>
+  </body>
+</html>

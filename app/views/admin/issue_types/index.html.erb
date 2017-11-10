@@ -1,0 +1,67 @@
+<% content_for :main_content do %>
+  <div class="main-content ">
+    <div class="breadcrumbs" id="breadcrumbs">
+      <ul class="breadcrumb">
+        <%= render 'partials/home' %>
+        <li><%= '问题类型' %></li>
+      </ul>
+    </div>
+
+    <div class="page-content">
+      <%= form_for @search, url: admin_issue_types_path, html: { method: :get } do |f| %>
+        <div class="no-padding col-md-12">
+          <div class="col-md-2">
+            <div class="input-group input-group-text">
+              <%= f.text_field :name_like, class: "col-xs-12 cc", placeholder: '类型名称' %>
+            </div>
+          </div>
+
+          <div class="col-md-2">
+            <%= f.select :status_eq, IssueType.status_options, {:include_blank => '状态'} ,maxlength: 50, class: "col-xs-12 cc" %>
+          </div>
+
+          <div class="col-md-2">
+            <%= f.submit '查询', class: 'btn btn-sm btn-filter btn-primary' %>
+        </div>
+
+        <div class="col-sm-6">
+          <a class="btn btn-primary btn-sm pull-right" data-target="addType" data-toggle="modals" data-title="新增" data-height="1000" data-iframe="/admin/issue_types/new ">新增</a>
+        </div>
+      </div>
+   <% end %>
+
+      <div class="col-md-12 margin-top-20">
+        <table id="vweddingTable" class="table table-bordered table-hover dataTable">
+          <thead>
+          <tr>
+            <th>名称</th>
+            <th>处理人</th>
+            <th>状态</th>
+            <th>排序</th>
+            <th>更新时间</th>
+            <th>操作</th>
+          </tr>
+          </thead>
+          <tbody>
+            <% @issue_types.each do |issue_type| %>
+              <tr>
+                <td><%= issue_type.name %></td>
+                <td><%= issue_type.user.try(:name) %></td>
+                <td><%= issue_type.status_name %></td>
+                <td><%= issue_type.position %></td>
+                <td><%= issue_type.updated_at %></td>
+                <td>
+                    <a href="javascript:;" class="fgreen" data-target="editType" data-toggle="modals" data-title="编辑类型" data-height="1000" data-iframe="/admin/issue_types/<%= issue_type.id%>/edit">编辑</a>
+                  <%= link_to '删除', admin_issue_type_path(issue_type), method: :delete, data: {confirm: '确定删除？'} %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+        <div class="pagination page width-auto"><%= page_entries_info @issue_types %></div>
+        <%= paginate @issue_types %>
+      </div>
+    </div>
+  </div>
+
+<% end %>

@@ -1,0 +1,56 @@
+<% content_for :main_content do %>
+  <div class="main-content ">
+    <div class="breadcrumbs" id="breadcrumbs">
+      <ul class="breadcrumb">
+        <%= render 'partials/home' %>
+        <li><%= link_to '资产采购管理', admin_assets_path %></li>
+        <li><%= link_to '资产项'%></li>
+      </ul>
+    </div>
+
+    <div class="page-content">
+      <% if current_user.can_asset? && @asset.wait? || @asset.deny? %>
+        <div class="col-sm-12">
+          <button class="btn btn-primary btn-sm pull-right" data-target="addBrand" data-toggle="modals" data-title="新增资产项" data-height="1000" data-iframe="/admin/assets/<%= @asset.id%>/items/new">新增</button>
+        </div>
+      <% end %>
+
+      <div class="col-md-12 margin-top-20">
+        <table id="vweddingTable" class="table table-bordered table-hover dataTable ">
+          <thead>
+            <tr>
+              <th>资产名称</th>
+              <th>规格型号</th>
+              <th>厂商</th>
+              <th>参考单价</th>
+              <th>数量</th>
+              <th>总价</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @asset_items.each do |asset_item| %>
+              <tr>
+                <td><%= asset_item.name %></td>
+                <td><%= asset_item.scale %></td>
+                <td><%= asset_item.merchant %></td>
+                <td><%= asset_item.price %></td>
+                <td><%= asset_item.qty %></td>
+                <td><%= asset_item.try(:total_price) %></td>
+                <td>
+                  <% if current_user.can_asset? %>
+                    <% if @asset.wait? || @asset.deny? %><a href="javascript:;" class="fgreen" data-target="editAsset" data-toggle="modals" data-title="编辑资产" data-height="1000" data-iframe="/admin/assets/<%= @asset.id %>/items/<%= asset_item.id%>/edit">编辑</a><% end %>
+                    <%= link_to '删除', admin_asset_item_path(@asset, asset_item), method: :delete, data: {confirm: '确定删除？'} if @asset.wait? %>
+                  <% end %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+        <div class="pagination page width-auto"><%= page_entries_info @asset_items %></div>
+        <%= paginate @asset_items %>
+      </div>
+    </div>
+
+  </div>
+<% end %>

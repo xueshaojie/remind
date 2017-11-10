@@ -1,0 +1,25 @@
+<% provide(:title,"流转详情") %>
+
+<div class="html launche_liu">
+  <div class="topline">
+    <a href="javascript:;" class="back" id="J_back" data-back='<%= wap_asset_path(@asset) %>'></a>
+    <p class="text">流转详情</p>
+  </div>
+
+  <% @asset_logs.each do |asset_log| %>
+    <div class="lses">
+      <% if asset_log.pass? %>
+        <div class="ls ls_on ls_pass">
+          <p class="status"><%= asset_log.status_name %></p>
+          <p class="ls_name"><%= asset_log.user.try(:department).try(:name) %>·<%= asset_log.user.try(:name) %></p>
+          <p class="ls_time"><%= asset_log.updated_at %></p>
+          <p class="ls_res"><%= asset_log.description %>&ensp;</p>
+        </div>
+      <% else %>
+        <div class="ls">
+          <p class="ls_name"><%= asset_log.user.try(:department).try(:name) %>·<%= asset_log.user.try(:name) %></p>
+        </div>
+      <% end %>
+    </div>
+  <%end%>
+</div>

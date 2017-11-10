@@ -1,0 +1,103 @@
+<% content_for :main_content do %>
+  <div class="main-content ">
+    <div class="breadcrumbs" id="breadcrumbs">
+      <ul class="breadcrumb">
+        <%= render 'partials/home' %>
+        <li><%= link_to '任务管理', admin_tasks_path %></li>
+        <li><%= link_to '任务查询', admin_tasks_path %></li>
+      </ul>
+      <%#= render '/layouts/qrcode' %>
+    </div>
+
+    <div class="page-content">
+      <%= form_for @search, url: admin_tasks_path, html: { method: :get } do |f| %>
+        <div class="no-padding col-md-12">
+          <div class="col-md-2">
+            <%= f.select :department_id_eq, Department.normal.map{|dep| [dep.to_s, dep.id] }, {:include_blank=>'执行部门'}, class: "col-xs-12 cc" %>
+          </div>
+
+          <div class="col-md-2">
+            <%= f.select :task_category_id_eq, TaskCategory.pluck(:name, :id), {:include_blank => '任务类型'}, class: "col-xs-12 cc" %>
+          </div>
+
+          <div class="col-md-2">
+            <%= f.select :task_level_id_eq, Task.task_level_id_options, {:include_blank => '任务级别'}, class: "col-xs-12 cc" %>
+          </div>
+
+          <div class="col-md-2">
+            <%= f.select :status_eq, Task.status_options[1..-1], {:include_blank => '任务状态'} ,maxlength: 50, class: "col-xs-12 cc" %>
+          </div>
+
+          <div class="col-md-2">
+            <%= f.select :task_type_eq, TaskTemplate.task_type_options, {:include_blank => '执行周期'} ,maxlength: 50, class: "col-xs-12 cc" %>
+          </div>
+          <div class="col-md-2">
+            <div class="input-group input-group-text">
+              <%= f.text_field :user_name_like, class: 'col-xs-12', placeholder: '执行人' %>
+            </div>
+          </div>
+        </div>
+
+        <div class="no-padding col-md-12 margin-top-20">
+          <div class="col-md-2">
+            <div class="input-group input-group-text">
+              <%= f.text_field :name_like, class: 'col-xs-12', placeholder: '任务名称' %>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="input-group input-group-text">
+              <span class="input-group-addon">执行时间：</span>
+              <%=f.text_field :start_at_end_at_between, value:"#{params[:search][:task_start_at_gte]} - #{params[:search][:task_end_at_lte]}",class: 'col-xs-12 datetimerange' %>
+            </div>
+          </div>
+
+          <div class="col-md-2">
+            <%= f.submit '查询', class: 'btn btn-sm btn-filter btn-primary' %>
+          </div>
+        </div>
+      <% end %>
+
+      <div class="col-md-12 margin-top-20">
+        <table id="vweddingTable" class="table table-bordered table-hover dataTable">
+          <thead>
+          <tr>
+            <th>任务时间</th>
+            <th>名称</th>
+            <th>类型</th>
+            <th>级别</th>
+            <th>任务部门</th>
+            <th>执行人</th>
+            <th>执行开始时间</th>
+            <th>执行结束时间</th>
+            <th>问题</th>
+            <th>状态</th>
+            <th>操作</th>
+          </tr>
+          </thead>
+          <tbody>
+            <% @tasks.each do |task| %>
+              <tr>
+                <td><%= task.time_info %></td>
+                <td><%= task.name %></td>
+                <td><%= task.task_category.try(:name) %></td>
+                <td><%= task.task_level_id_name %></td>
+                <td><%= task.department.try(:name) %></td>
+                <td><%= task.user.try(:name) %></td>
+                <td><%= task.start_at %></td>
+                <td><%= task.end_at %></td>
+                <td><%= task.task_items.problem.count == 0 ? '无' : '有' %></td>
+                <td><%= task.status_name %></td>
+                <td>
+                  <%= link_to '查看详情', admin_task_path(task) %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+        <div class="pagination page width-auto"><%= page_entries_info @tasks %></div>
+        <%= paginate @tasks %>
+      </div>
+    </div>
+
+  </div>
+<% end %>

@@ -1,0 +1,58 @@
+<% provide(:title,'来访详情') %>
+
+<div class="html launche_detial visit">
+  <div class="topline">
+    <a href="javascript:;" class="back" id="J_back"></a>
+    <p class="text">来访详情</p>
+  </div>
+
+  <p class="bhnum"><%= @visit.unit %><span class="bhtp">来访单位</span></p>
+
+  <div class="inlineform inlineform_notb inlineform_nobb inlineform_top">
+    <div class="linebox">
+      <img src="/asset/images/item03b.png" class="iado">
+      <span class="ado">来访类型</span>
+      <p class="line_text"><%= @visit.visit_type_id_name %></p>
+    </div>
+    <div class="linebox">
+      <img src="/asset/images/item03g.png" class="iado">
+      <span class="ado">接待等级</span>
+      <p class="line_text">&ensp;<span class="dengji <%= @visit.reception_grade_class %>"><%= @visit.reception_grade_name %></span></p>
+    </div>
+    <div class="linebox">
+      <img src="/asset/images/item03c.png" class="iado">
+      <span class="ado">访问时间</span>
+      <p class="line_text"><%= @visit.visit_date %></p>
+    </div>
+    <div class="linebox">
+      <img src="/asset/images/item03a.png" class="iado adomid">
+      <span class="ado adomid">联系人</span>
+      <p class="line_text"><%= @visit.username %><br><span class="ash"><%= @visit.tel %></span></p>
+    </div>
+    <div class="linebox">
+      <img src="/asset/images/item03i.png" class="iado">
+      <span class="ado">来访人数</span>
+      <p class="line_text"><%= @visit.visit_count %>人</p>
+    </div>
+    <div class="linebox">
+      <img src="/asset/images/item03j.png" class="iado">
+      <span class="ado">证件/车牌</span>
+      <p class="line_text">&ensp;<%= @visit.car_no %></p>
+    </div>
+    <div class="linebox">
+      <img src="/asset/images/item03h.png" class="iado">
+      <span class="ado">接待人</span>
+      <p class="line_text"><%= @visit.receiver.name %></p>
+    </div>
+  </div>
+  <p class="subtil subtila">接待区域</p>
+  <p class="linetext">&ensp;<%= @visit.reception_region %></p>
+  <p class="subtil subtilb">接待路线</p>
+  <p class="linetext">&ensp;<%= @visit.reception_line %></p>
+  <p class="subtil subtilc">重点准备</p>
+  <p class="linetext">&ensp;<%= @visit.items.pluck(:name).join(', ') %></p>
+  <p class="subtil subtild">后勤接待</p>
+  <p class="linetext">&ensp;<%= @visit.dinner_info %>就餐、<%= @visit.stay_info %>住宿</p>
+  <p class="subtil subtile">其他备注</p>
+  <p class="linetext">&ensp;<%= @visit.description %></p>
+</div>

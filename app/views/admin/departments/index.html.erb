@@ -1,0 +1,60 @@
+<% content_for :main_content do %>
+  <div class="main-content ">
+    <div class="breadcrumbs" id="breadcrumbs">
+      <ul class="breadcrumb">
+        <%= render 'partials/home' %>
+        <li><%= link_to '组织结构', admin_departments_path %></li>
+        <li><%= link_to '部门管理', admin_departments_path %></li>
+      </ul>
+      <%#= render '/layouts/qrcode' %>
+    </div>
+
+    <div class="page-content">
+      <div class="col-sm-12">
+        <button class="btn btn-primary btn-sm pull-right" data-target="addBrand" data-toggle="modals" data-title="新增部门" data-height="1000" data-iframe="/admin/departments/new">新增</button>
+      </div>
+
+      <div class="col-md-12 margin-top-20">
+        <table id="vweddingTable" class="table table-bordered table-hover dataTable ">
+          <thead>
+            <tr>
+              <th>部门名称</th>
+              <th>部门编号</th>
+              <th>部门主管</th>
+              <th>分管领导</th>
+              <th>资产管理员</th>
+              <th>创建时间</th>
+              <th>状态</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @departments.each do |department| %>
+              <tr>
+                <td><%= department.to_s %></td>
+                <td><%= department.no %></td>
+                <td><%= department.user.try(:name) %></td>
+                <td><%= department.sub_leader.try(:name) %></td>
+                <td><%= department.asset_user.try(:name) %></td>
+                <td><%= department.created_at %></td>
+                <td><%= department.status_name %></td>
+                <td>
+                  <a href="javascript:;" class="fgreen" data-target="editDepartment" data-toggle="modals" data-title="编辑部门" data-height="1000" data-iframe="/admin/departments/<%= department.id %>/edit">编辑</a>
+                  <%#= link_to '删除', admin_department_path(department), method: :delete, data: {confirm: '确定删除？'} %>
+
+                  <% unless department.is_default? %>
+                    <%= link_to '启用', normal_admin_department_path(department), method: :put, data: {confirm: '确定启用？'} if department.disabled? %>
+                    <%= link_to '禁用', disabled_admin_department_path(department), method: :put, data: {confirm: '确定禁用？'} if department.normal? %>
+                  <% end %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+        <div class="pagination page width-auto"><%= page_entries_info @departments %></div>
+        <%= paginate @departments %>
+      </div>
+    </div>
+
+  </div>
+<% end %>

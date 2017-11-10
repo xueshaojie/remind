@@ -1,0 +1,6 @@
+<% parent_class = 'tab_active' %>
+<div class="tabnav tabnav_three">
+	<a href="<%= tiny_business_display_checks_path(shop_id: @shop_id, category_id: @category_id) %>" class="tab <%= parent_class if controller_name == 'display_checks'%>">陈列</a>
+	<a href="<%= tiny_business_distributions_path(shop_id: @shop_id, category_id: @category_id) %>" class="tab <%= parent_class if controller_name == 'distributions'%>">分销</a>
+	<a href="<%= tiny_business_activity_checks_path(shop_id: @shop_id, category_id: @category_id) %>" class="tab <%= parent_class if controller_name == 'activity_checks'%>">促销</a>
+</div>

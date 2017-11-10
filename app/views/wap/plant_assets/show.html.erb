@@ -1,0 +1,51 @@
+<%provide(:title,"资产详情")%>
+
+<div class="html listing_detial">
+  <div class="topline">
+    <a href="javascript:;" class="back" id="J_back"></a>
+    <p class="text">资产详情</p>
+  </div>
+  <p class="bhnum"><%=@plant_asset.no%><span class="bhtp">资产编号</span></p>
+  <div class="inlineform inlineform_notb inlineform_nobb">
+    <div class="linebox">
+      <span class="ado">资产名称</span>
+      <p class="line_text">&ensp;<%=@plant_asset.name %></p>
+    </div>
+    <div class="linebox">
+      <span class="ado">规格型号</span>
+      <p class="line_text">&ensp;<%=@plant_asset.scale %></p>
+    </div>
+    <div class="linebox">
+      <span class="ado">启用日期</span>
+      <p class="line_text">&ensp;<%=@plant_asset.start_time %></p>
+    </div>
+    <div class="linebox">
+      <span class="ado">供应商</span>
+      <p class="line_text">&ensp;<%=@plant_asset.supplier.try(:name) %></p>
+    </div>
+    <div class="linebox">
+      <span class="ado">保养周期(月)</span>
+      <p class="line_text">&ensp;<%=@plant_asset.upkeep_cycle %></p>
+    </div>
+    <div class="linebox">
+      <span class="ado">鉴定周期(月)</span>
+      <p class="line_text">&ensp;<%=@plant_asset.authenticate_cycle %></p>
+    </div>
+    <div class="linebox">
+      <span class="ado">资产状态</span>
+      <p class="line_text">&ensp;<%=@plant_asset.status_name %></p>
+    </div>
+    <div class="linebox">
+      <span class="ado">领用部门</span>
+      <p class="line_text">&ensp;<%= @plant_asset.department.try(:name) %></p>
+    </div>
+    <div class="linebox">
+      <span class="ado">上次盘点</span>
+      <p class="line_text">&ensp;<%= @last_asset_check_map.created_at.strftime("%Y-%m-%d %H:%M") if @last_asset_check_map %></p>
+    </div>
+    <div class="linebox">
+      <span class="ado">盘点状态</span>
+      <p class="line_text">&ensp;<%= @last_asset_check_map.try(:status_name) if @last_asset_check_map %></p>
+    </div>
+  </div>
+</div>

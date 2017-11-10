@@ -1,0 +1,154 @@
+<style type="text/css">
+  /*#uploadImg{ font-size:12px; overflow:hidden; position:absolute}*/
+  #file{ position: absolute; z-index: 100; font-size: 30px; opacity: 0; filter: alpha(opacity=0); width: 100px; }
+  .select {
+    width: 145px;
+    height: 42px;
+    padding-left: 10px;
+  }
+</style>
+<style type="text/css">
+  .col-xs-12 {
+    padding-left: 0px;
+    padding-right: 0px; 
+  }
+  .select2-container .select2-choice {
+    border-radius: 5px;
+    border: 1px solid #d5d5d5;
+    height: 41px;
+    background: #FFF;
+  }
+  .select2-container .select2-choice > .select2-chosen {
+    padding: 7px 0px;
+    height: 41px;
+    color: #858585;
+  }
+  .select2-container .select2-choice .select2-arrow {
+    top: 4px;
+  }
+</style>
+
+<% content_for :main_content do %>
+  <div class="main-content">
+
+    <div class="breadcrumbs" id="breadcrumbs">
+      <ul class="breadcrumb">
+        <%=render 'partials/home' %>
+        <li><%= link_to '设备资产管理', admin_plant_assets_path %></li>
+        <li><%= link_to '资产管理', admin_plant_assets_path %></li>
+      </ul>
+    </div>
+
+     <div class="page-content">
+      <%=form_for @search, url: admin_plant_assets_path, html: {method: :get } do |f| %>
+        <div class="col-md-12 row">
+          <div class="col-md-2">
+            <div class="input-group input-group-text">
+              <%=f.text_field :no_or_name_like, placeholder: "资产编号/名称", class: 'col-xs-12' %>
+            </div>
+          </div>
+          <div class="col-md-2">
+            <%=f.select :asset_category_id_eq, AssetCategory.type1.pluck(:name, :id), {:include_blank=>'所属分类'}, class: 'col-xs-12 select2' %>
+          </div>
+          <div class="col-md-2">
+            <%=f.select :warehouse_id_eq, Warehouse.normal.pluck(:name, :id), {:include_blank=>'所属仓库'}, class: 'col-xs-12' %>
+          </div>
+
+          <div class="col-md-2">
+            <%=f.select :status_eq, PlantAsset.status_options, {:include_blank=>'资产状态'}, class: 'col-xs-12' %>
+          </div>
+
+          <div class="col-md-2">
+            <%= f.select :department_id_eq, Department.normal.map{|dep| [dep.to_s, dep.id] }, {include_blank: '领用部门'}, class: "col-xs-12" %>
+          </div>
+
+          <div class="col-md-2">
+            <%= f.submit '查询', class: 'btn btn-sm btn-filter btn-primary' %>
+          </div>
+        </div>
+      <% end %>
+
+      <div class="col-md-12 margin-top-20">
+        <div class="col-md-2 row">
+          <%= link_to '导出', admin_plant_assets_path(:format => :xls, search: params[:search]), class: 'btn btn-primary btn-sm btn-filter margin-left-15' %>
+        </div>
+        <div class="col-md-2">
+          <a href="javascript:;" class="btn btn-primary btn-sm" data-target="addPlantasset" data-toggle="modals" data-title="新增" data-height="1000" data-iframe="/admin/plant_assets/new">新增</a>
+        </div>
+        <div class="col-md-2 row">
+          <%= form_tag import_admin_plant_assets_path, multipart: true, class: 'plant-asset-import', style: "display:inline;" do%>
+            <span id="uploadImg">
+              <input type="file" id="file" name="file" size="1" >
+              <a href="javascript:;" class= "btn btn-primary" style="padding-top: 5px;">导入</a>
+            </span>
+          <% end %>
+        </div>
+
+        <div class="col-md-6">
+          <%= link_to '下载导入数据模板', '/template-file/plant_asset.xlsx', class: 'btn btn-primary btn-sm btn-filter' %>
+        </div>
+      </div>
+
+      <div class="col-md-12 margin-top-20 overflowxauto">
+        <table id="vweddingTable" class="table table-scriped table-bordered table-hover dataTable" style="max-width: 148%; width:138%;">
+          <thead>
+            <tr>
+               <th>资产编号</th>
+               <th>资产名称</th>
+               <th>财政资产编号</th>
+               <th>规格型号</th>
+               <th>所属分类</th>
+               <th>所属仓库</th>
+               <th>完好状态</th>
+               <th>资产状态</th>
+               <th>领用部门</th>
+               <th>存放地点</th>
+               <th>启用时间</th>
+               <th>操作</th>
+             </tr>
+           </thead>
+           <tbody>
+             <% @plant_assets.each do |plant_asset| %>
+               <tr>
+                 <td><%=plant_asset.no %></td>
+                 <td><%=plant_asset.name %></td>
+                 <td><%=plant_asset.financial_number %></td>
+                 <td><%=plant_asset.scale %></td>
+                 <td><%=plant_asset.asset_category.try(:name) %></td>
+                 <td><%=plant_asset.warehouse.try(:name) %></td>
+                 <td><%=plant_asset.state_name %></td>
+                 <td><%=plant_asset.status_name %></td>
+                 <td><%=plant_asset.department.try(:name) %></td>
+                 <td><%=plant_asset.storage_location %></td>
+                 <td><%=plant_asset.start_time %></td>
+                 <td>
+                   <%= link_to '二维码', 'javascript:;', class: 'fgreen', data:{target: 'PlantAssetQrcode', toggle: 'modals', title: '资产二维码', height: '1000', iframe: qrcode_admin_plant_asset_path(plant_asset) } %>
+                   <% if plant_asset.status1? %>
+                     <a href="javascript:;" class="fgreen" data-target="editPlantasset" data-toggle="modals" data-title="领用设备资产" data-height="1000" data-iframe="<%= receive_admin_plant_asset_path(plant_asset) %>">领用</a>
+                   <% end %>
+                   <% if plant_asset.status2? %>
+                      <a href="javascript:;" class="fgreen" data-target="editPlantasset" data-toggle="modals" data-title="归还设备资产" data-height="1000" data-iframe="/admin/plant_assets/<%= plant_asset.id%>/record?plant_usage_record_id=<%= plant_asset.plant_usage_records.last.try(:id) %>">归还</a>
+                   <% end %>
+                   <%= link_to '编辑', 'javascript:;', class: 'fgreen', data:{target: 'editPlantasset', toggle: 'modals', title: '资产基本信息', height: '1000', iframe: edit_admin_plant_asset_path(plant_asset) } %>
+                   <%= link_to '删除', admin_plant_asset_path(plant_asset), method: :delete, data: {confirm: '确定删除?' } unless plant_asset.status2? %>
+                 </td>
+              </tr>
+            <%end%>
+          </tbody>  
+        </table>
+        <div class="pagination page width-auto"><%= page_entries_info @plant_assets %></div>
+        <%= paginate @plant_assets %>
+      </div>
+
+    </div>
+  </div>
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('#file').change(function(){
+      $(".plant-asset-import").submit();
+    });
+
+    $(".select2").select2();
+  })
+</script>
+<%end%> 

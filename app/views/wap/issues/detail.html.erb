@@ -1,0 +1,328 @@
+<%provide(:title,"问题详情")%>
+
+<div class="html question question_borbtn">
+  <div class="topline">
+    <a href="javascript:;" class="back" id="J_back"></a>
+    <p class="text">问题详情</p>
+  </div>
+  <p class="ptil"><%= @issue.title %></p>
+  <div class="inlineform inlineform_nobd">
+    <% if @issue.pending? %>
+      <a href="javascript:;" class="linebox line_select" id="J_changetype">
+        <img src="/asset/images/item03k.png" class="iado adomid">
+        <span class="ado adomid">问题类型</span>
+        <p class="line_text"><span><%= @issue.issue_type.try(:name) %><br><span class="sm blue">转移问题</span></span></p>
+      </a>
+      <div class="linebox">
+        <img src="/asset/images/item03l.png" class="iado">
+        <span class="ado">问题等级</span>
+        <p class="line_text <%= 'line_text_red' if @issue.serious? %>"><%= @issue.level_name %></p>
+      </div>
+    <% elsif @issue.claim? %>
+      <a href="javascript:;" class="linebox">
+        <img src="/asset/images/item03k.png" class="iado">
+        <span class="ado">问题类型</span>
+        <p class="line_text"><%= @issue.issue_type.try(:name) %></p>
+      </a>
+      <a href="javascript:;" class="linebox line_select" id="J_changedj" data-v="0">
+        <img src="/asset/images/item03l.png" class="iado">
+        <span class="ado">问题等级</span>
+        <p class="line_text <%= 'line_text_red' if @issue.serious? %>" id="J_dj_text"><%= @issue.level_name %></p>
+      </a>
+    <% else %>
+      <a href="javascript:;" class="linebox">
+        <img src="/asset/images/item03k.png" class="iado">
+        <span class="ado">问题类型</span>
+        <p class="line_text"><%= @issue.issue_type.try(:name) %></p>
+      </a>
+      <div class="linebox">
+        <img src="/asset/images/item03l.png" class="iado">
+        <span class="ado">问题等级</span>
+        <p class="line_text <%= 'line_text_red' if @issue.serious? %>"><%= @issue.level_name %></p>
+      </div>
+    <% end %>
+
+    <div class="linebox">
+      <img src="/asset/images/item03c.png" class="iado">
+      <span class="ado">上报时间</span>
+      <p class="line_text"><%= @issue.created_at %></p>
+    </div>
+    <div class="linebox">
+      <img src="/asset/images/item03a.png" class="iado">
+      <span class="ado">上报人</span>
+      <p class="line_text"><%= @issue.user.try(:name) %></p>
+    </div>
+
+    <div class="linebox">
+      <img src="/asset/images/item03m.png" class="iado adomid">
+      <span class="ado adomid">问题来源</span>
+      <p class="line_text"><span><%= @issue.category %></span></p>
+    </div>
+
+    <div class="linebox">
+      <img src="/asset/images/item03b.png" class="iado adomid">
+      <span class="ado adomid">处理部门</span>
+      <p class="line_text"><%= @issue.issue_type.user.try(:department).try(:name) %></p>
+    </div>
+
+    <div class="linebox ">
+      <img src="/asset/images/item03n.png" class="iado adomid">
+      <span class="ado adomid">处理状态</span>
+      <p class="line_text"><%= @issue.status_name %></p>
+    </div>
+    <div class="linebox">
+      <img src="/asset/images/item03c.png" class="iado adomid">
+      <span class="ado adomid">处理时间</span>
+      <p class="line_text"><%= @issue.solve_date || '-' %></p>
+    </div>
+  </div>
+
+  <p class="subtil subtila">问题详细描述</p>
+  <p class="textbox"><%= @issue.description %></p>
+  <p class="subtil subtilb">地点位置描述</p>
+  <p class="textbox"><%= @issue.location %></p>
+  <p class="subtil subtilc">相关问题照片</p>
+  <div class="subpics">
+    <% @issue.issue_pictures.each do |issue_picture| %>
+      <p class="J_subpic subpic" data-img="<%= issue_picture.pic_key %>" style="background-image: url(<%= issue_picture.pic_key %>);"></p>
+    <% end %>
+  </div>
+  <br>
+</div>
+
+<!-- 图片放大 -->
+<div class="imgshow" id="J_picshow">
+  <a href="javascript:;" class="close">x</a>
+  <p class="img"></p>
+  <p class="img"></p>
+</div>
+
+<script type="text/javascript">
+  $(function(){
+    var imgshow = new picshow('J_picshow');
+
+    $('.J_subpic').click(function(){
+      imgshow.initimg($(this).attr('data-img'))
+    });
+  });
+</script>
+
+<% if @issue.pending? %>
+  <a href="javascript:;" id="J_add" class="botline_btn">认领</a>
+<% elsif @issue.claim? %>
+  <a href="javascript:;" id="J_changest" class="botline_btn" data-v="0">处理</a>
+<% end %>
+
+<!-- 弹框 -->
+<div class="tippop_bg tippop_pd dsn" id="J_submit">
+  <div class="tippop_alert">
+    <p class="tippop_alert_t">确认要认领问题？</p>
+    <p class="tippop_alert_b">
+      <a class="tippop_confirm_btn" id="J_cancle">取消</a>
+      <a class="tippop_confirm_btn" id="J_submit_issue">确定</a>
+    </p>
+  </div>
+</div>
+
+<div class="tippop_bg tippop_pd dsn" id="J_endpd">
+  <div class="tippop_alert">
+    <p class="tippop_alert_t">问题将转移至对应的处理<br>部门，是否继续？</p>
+    <p class="tippop_alert_b">
+      <a class="tippop_confirm_btn" id="J_close">取消</a>
+      <a class="tippop_confirm_btn" id="J_sure">确定</a>
+    </p>
+  </div>
+</div>
+<div class="pop dsn" id="J_pop_dj">
+  <div class="J_closepop inpop" tar="#J_pop_dj"></div>
+  <div class="popcont" id="J_pop_baifang">
+    <p class="btns">
+      <a href="javascript:;" data-state="2" class="J_btn_dj pbtn pbtn_red">严重</a>
+      <a href="javascript:;" data-state="1" class="J_btn_dj pbtn">一般</a>
+    </p>
+    <a href="javascript:;" class="J_closepop pbtn" tar="#J_pop_dj">取消</a>
+  </div>
+</div>
+<div class="pop dsn" id="J_pop_hd">
+  <div class="J_closepop inpop" tar="#J_pop_hd"></div>
+  <div class="popcont" id="J_pop_baifang">
+    <p class="btns">
+      <a href="javascript:;" data-state="2" class="J_btn pbtn">已处理</a>
+      <a href="javascript:;" data-state="3" class="J_btn pbtn">关闭不处理</a>
+    </p>
+    <a href="javascript:;" class="J_closepop pbtn" tar="#J_pop_hd">取消</a>
+  </div>
+</div>
+
+<script type="text/javascript">
+  $(function(){
+
+    var type = {}, // 预定义选取对象，用于ajax提交
+      J_endpd = $('#J_endpd');
+
+    <% if @issue.pending? %>
+      var bantype = [
+        <% IssueType.order(:position).each do |issue_type| %>
+          {"id": '<%= issue_type.id %>',"name": '<%= issue_type.name %>' },
+        <% end %>
+      ];
+
+      var type = new dataSelect({
+          "title":"安全类型",
+          "target":document.getElementById('J_changetype'), // 目标对象dom
+          "fieldshow":"name",// 必选 显示字段
+          "fieldvalue":"id",// 必选 值匹配字段
+          "data":bantype, // 选项数据
+          "selected":function(v){
+            // alert('选择对象为：'+JSON.stringify(v));
+            type = v;
+            J_endpd.show();
+          }
+      });
+    <% end %>
+
+    // var imgshow = new picshow('J_picshow');
+
+    // $('.J_subpic').click(function(){
+    //   imgshow.initimg($(this).attr('data-img'))
+    // });
+
+    $('#J_close').click(function(){
+      J_endpd.hide();
+    });
+
+    $('#J_sure').click(function(){
+      // alert('ajax提交数据：'+JSON.stringify(type));
+      $.ajax({
+        type: "PUT",
+        url: "<%= wap_issue_path(@issue) %>",
+        data: { 'issue': { 'issue_type_id': type['id'] } },
+        dataType: "json",
+        success: function(res){
+          if (res.code) {
+            CUES.tip({"msg":"问题转移成功,马上返回认领列表","type":"success","time":2000,"callback":function(){
+              window.location.href = '<%= pending_wap_issues_path %>'
+            }});
+            J_endpd.hide()
+          } else {
+            CUES.tip({"msg":"操作失败","type":"danger"});
+          }
+        }
+      });
+    });
+    // 更改问题类型相关js 根据页面渲染 --end---
+
+    $('#J_add').click(function(){
+      $('#J_submit').show();
+    });
+
+    $('#J_cancle').click(function(){
+      $('#J_submit').hide();
+    });
+
+    $('#J_submit_issue').click(function(){
+      $.ajax({
+        type: "POST",
+        url: "<%= claim_wap_issue_path(@issue) %>",
+        data: {},
+        dataType: "json",
+        success: function(res){
+          if (res.code) {
+            CUES.tip({"msg":"问题认领成功,马上返回认领列表","type":"success","time":2000,"callback":function(){
+              window.location.href = '<%= pending_wap_issues_path %>'
+            }});
+            $('#J_submit').hide()
+          } else {
+            CUES.tip({"msg":"操作失败","type":"danger"});
+          }
+        }
+      });
+    });
+
+    // 更改问题等级和状态相关js 根据页面渲染 --start---
+    var J_pop_dj = $('#J_pop_dj'),
+      J_dj_text = $('#J_dj_text'),
+      J_changedj = $('#J_changedj'),
+    J_pop_hd = $('#J_pop_hd'),
+    J_changest = $('#J_changest');
+
+    J_changedj.click(function(){
+      J_pop_dj.show();
+      setTimeout(function(){
+        J_pop_dj.addClass('pop_active')
+      },10);
+    });
+
+    // 关闭弹框
+    $('.J_closepop').click(function(){
+      $($(this).attr('tar')).removeClass('pop_active').hide();
+    });
+
+    $('.J_btn_dj').click(function(){
+      var self = $(this),state = self.attr('data-state'),v = J_changedj.attr('data-v');
+      // alert('选择的等级：'+state+'**'+v);
+      if(state!=v){
+        $.ajax({
+          type: "PUT",
+          url: "<%= wap_issue_path(@issue) %>",
+          data: { 'issue': { 'level': state } },
+          dataType: "json",
+          success: function(res){
+            if (res.code) {
+              // CUES.tip({"msg":"等级更新成功","type":"success","time":2000,"callback":function(){
+              //   window.location.href = '<%= wap_issues_path(@issue) %>'
+              // }});
+              // $('#J_submit').hide();
+              CUES.tip({"msg":"等级更新成功","type":"success"});
+              J_endpd.hide();
+              J_dj_text.attr('class',state==2?'line_text line_text_red':'line_text').html(state==2?'严重':'一般');
+              J_changedj.attr('data-v',state);
+            } else {
+              CUES.tip({"msg":"等级更新失败","type":"danger"});
+            }
+            J_pop_dj.removeClass('pop_active').hide();
+          }
+        });
+      }else{
+        J_pop_dj.removeClass('pop_active').hide();
+      };
+    });
+
+    J_changest.click(function(){
+      J_pop_hd.show();
+      setTimeout(function(){
+        J_pop_hd.addClass('pop_active')
+      },10);
+    });
+    $('.J_btn').click(function(){
+      var self = $(this),state = self.attr('data-state'),v = J_changest.attr('data-v');
+      // alert('选择的状态：'+state+'**'+v);
+      if(state!=v){
+        $.ajax({
+          type: "PUT",
+          url: "<%= wap_issue_path(@issue) %>",
+          data: { 'issue': { 'status': state } },
+          dataType: "json",
+          success: function(res){
+            if (res.code) {
+              CUES.tip({"msg":"问题处理提交成功,马上返回未处理问题列表","type":"success","time":2000,"callback":function(){
+                window.location.href = '<%= list_wap_issues_path(status: 1) %>'
+              }});
+              $('#J_submit').hide()
+            } else {
+              CUES.tip({"msg":"操作失败","type":"danger"});
+            }
+          }
+        });
+      }else{
+        J_pop_hd.removeClass('pop_active').hide();
+      };
+    });
+    // 更改问题等级和状态相关js 根据页面渲染 --end---
+
+  });
+</script>
+
+<script type="text/javascript">
+  window.main.hideBtmbar();
+</script>

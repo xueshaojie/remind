@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if IE 9]>         <html class="no-js lt-ie10"> <![endif]-->
+<!--[if IE 10]>         <html class="no-js ie10"> <![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <% if content_for?(:head) %>
+      <%= yield :head %>
+    <% else %>
+      <title>登录</title>
+    <% end %>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="stylesheets/main.css">
+    <%= javascript_include_tag "sessions" %>
+    <!-- <script src="/com/js/vendor/modernizr-2.6.2.min.js"></script> -->
+    <%= csrf_meta_tags %>
+
+
+  <style>
+        input::-webkit-input-placeholder {
+            color:#bebebe;
+        }
+        input::-moz-placeholder {
+            color:#bebebe;
+        }
+        .login-bgc {
+            height:50%;
+            background-color:#ff6d60;
+        }
+        .login-con {
+            width:852px;
+            height:838px;
+            position:absolute;
+            left:50%;
+            top:7%;
+            margin-left:-426px;
+        }
+        .login-logo {
+            margin:0 auto 75px;
+            width:358px;
+            height:114px;
+        }
+        .login-logo img {
+            width:358px;
+            height:144px;
+            vertical-align:middle;
+        }
+        .login-box {
+            widows:852px;
+            height:619px;
+            overflow:hidden;
+            background-color:#fff;
+        }
+        .login-box h1 {
+            height:48px;
+            line-height:48px;
+            margin:45px 0 35px 0;
+            font-size:36px;
+            text-align:center;
+        }
+        .login-box span {
+            font-family:Arial;
+        }
+        .login-box form {
+            width:359px;
+            margin:0 auto;
+            margin-top:-10px;
+        }
+        .login-box .txt,.login-box select,.check-code {
+            padding-left:17px;
+            margin-bottom:20px;
+            width:359px;
+            height:50px;
+            line-height:50px;
+            border:1px solid #dcdcdc;
+            font-size:14px;
+        }
+        .login-box select {
+            padding-left:14px;
+        }
+        .check-code input {
+            width:214px;
+            height:48px;
+            line-height:48px;
+            vertical-align:top;
+        }
+        .m-check-num a {
+            height:48px;
+            display:inline-block;
+        }
+        .m-check-num img {
+            width:106px;
+            margin:-4px 20px 0 0;
+            height:40px;
+            vertical-align:middle;
+        }
+        .login-box .btn {
+            width:359px;
+            height:50px;
+            line-height:50px;
+            background-color:#ff6d60;
+            font-size:14px;
+            color:#fff;
+        }
+
+  </style>
+
+
+</head>
+<style type="text/css">
+  .m-tips-error{
+    color: red;
+  }
+</style>
+
+
+
+<body class="bg-blue login-body">
+  <!--[if lt IE 7]>
+  <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+  <![endif]-->
+  <div id="login-bgc" class="login-bgc"></div>
+  <div class="login-con">
+    <div class="login-logo">
+      <!-- <img src="../images/logo.png" /> -->
+    </div>
+    <div class="login-box">
+      <h1>中华鲟保护区系统</h1>
+
+      <%= form_tag sessions_path, :class => "form-hor clearfix", id: "session_form", remote: true do %>
+<!-- 
+        <div class="form-li">
+          <div class="li-input" style="margin-top: 10px;"><%#= select_tag :login_type, options_for_select([['管理员',1], ['员工',2]]) %></div>
+        </div> -->
+        <div class="form-li">
+          <div class="li-input">
+            <%= text_field_tag :login, params[:login] , class: "txt", id: "account-place", placeholder: '请输入您的账号' %>
+          </div>
+        </div>
+        <div class="form-li">
+          <div class="li-input">
+            <%= password_field_tag :password, nil, class: "txt", id: "password-place", placeholder: '请输入密码' %>
+            <!-- <input class="input" id="password-place" name="password" placeholder="请输入密码" type="password"> -->
+          </div>
+        </div>
+
+        <div class="form-li">
+          <div class="li-input">
+            <div class="check-code f-cb">
+              <%= text_field_tag "verify_code", nil, style: "width: 200px;", id: "check-place", placeholder: '请输入验证码' %>
+              <img id="image_code" src="/verify_code?<%= rand %>" style=""><a id="change_verify_code" href="javascript:void(0)">换一张</a>
+              <%#= rucaptcha_input_tag(class: 'text', placeholder: '请输入验证码') %>
+              <!-- <a class="rucaptcha-image-box" href="javascript:;"><%= rucaptcha_image_tag %></a> -->
+            </div>
+          </div>
+        </div>
+
+        <div class="login-tips">
+        </div>
+
+        <div class="form-li">
+          <div class="li-lable w100">
+            <!-- <label class='checkbox'> -->
+              <!-- <input type="checkbox"/>自动登录 -->
+            <!-- </label> -->
+            <!-- <a href="<%= register_path %>">注册账号&gt;</a> -->
+          </div>
+          <div class="li-input li-login">
+            <%= submit_tag "立即登录", class: "btn btn-green btn-submit", disable_with: "提交中..."%>
+          </div>
+          <% if flash[:notice].present? %>
+            <div class="m-tips m-tips-error"><%= flash[:notice]%></div>
+          <% end %>
+        </div>
+
+      <% end %>
+    </div>
+  </div>
+  <div class="bg-form">
+    <!-- <span>微信营销解决方案领导品牌</span> -->
+    <!-- <small>Micro-channel marketing solutions for leading brands</small> -->
+  </div>
+
+  <script src="/com/js/vendor/jquery.anythingslider.min.js"></script>
+  <script src="/com/js/vendor/affix.js"></script>
+  <script src="/com/js/vendor/scrollspy.js"></script>
+  <script src="/com/js/plugins.js"></script>
+  <script src="/com/js/main.js"></script>
+  <script>
+    $("#change_verify_code").click(function() {
+      $image_code = $('#image_code');
+      $image_code.attr("src", $image_code.attr("src") + Math.random());
+      $('#check-place').val('').focus();
+      return false;
+    });
+
+    $(".rucaptcha-image-box").on('click', function(){
+      var img = $(this).find('img:first'),
+        currentSrc = img.attr('src');
+      img.attr('src', currentSrc.split('?')[0] + '?' + (new Date()).getTime());
+    });
+
+    $("#session_form").bind("ajax:success", function(event, xhr, settings) {
+      checkInputDel($(".li-input"));
+      if(xhr["code"]==0){
+        location.href=xhr["url"];
+      }else{
+        checkInput($(".li-input").eq(xhr["num"]), xhr["status"], xhr["message"]);
+      }
+    });
+
+    $(function(){
+      // $(".li-input input").Ztip({
+      //   exceptClass: ["validate"]
+      // });
+    });
+
+    var input = $(".validate");
+    input.on("input keyup input", function() {
+      var flag = true;
+      input.each(function(i) {
+        var $val = $(this).val();
+        if (!$val || $val =="请输入您的账号" || $val =="请输入验证码") {
+          flag = false;
+          $(".btn-submit").removeClass("m-input-btn-active").prop("disabled", true);
+          return false;
+        }
+      });
+      if(flag){
+        $(".btn-submit").addClass("m-input-btn-active").prop("disabled", false);
+          $("#password").prev().val($("#login").val());
+      }
+    });
+
+    function autoHeight(){
+      var winH = window.innerHeight;
+      console.log(winH);
+      document.getElementById("login-bgc").style.height = winH/2 + 'px';
+    }
+    autoHeight();
+    window.onresize = autoHeight;
+
+  </script>
+
+</body>
+</html>

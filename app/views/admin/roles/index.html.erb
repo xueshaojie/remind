@@ -1,0 +1,46 @@
+  <% content_for :main_content do %>
+  <div class="main-content ">
+    <div class="breadcrumbs" id="breadcrumbs">
+      <ul class="breadcrumb">
+        <%= render 'partials/home' %>
+        <li><%= link_to '组织结构'%></li>
+        <li><%= link_to '角色管理', admin_roles_path %></li>
+      </ul>
+      <%#= render '/layouts/qrcode' %>
+    </div>
+
+    <div class="page-content">
+      <div class="col-sm-12">
+        <button class="btn btn-primary btn-sm pull-right" data-target="addBrand" data-toggle="modals" data-title="新增角色" data-height="1000" data-iframe="/admin/roles/new">新增</button>
+      </div>
+
+      <div class="col-md-12 margin-top-20">
+        <table id="vweddingTable"
+          class="table table-bordered table-hover dataTable ">
+          <thead>
+            <tr>
+              <th>角色名称</th>
+              <th width="82%">角色权限</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @roles.each do |role| %>
+              <tr>
+                <td width="120px"><%= role.name %></td>
+                <td><%= role.permissions.map{|p| p.name}.join(', ') %></td>
+                <td width="50px">
+                  <a href="javascript:;" class="fgreen" data-target="editBrand" data-toggle="modals" data-title="编辑角色" data-height="1000" data-iframe="/admin/roles/<%= role.id %>/edit">编辑</a>
+                  <%#= link_to '删除', admin_role_path(role), method: :delete, data: { confirm: "确定删除?" } %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+        <div class="pagination page width-auto"><%= page_entries_info @roles %></div>
+        <%= paginate @roles %>
+      </div>
+    </div>
+
+  </div>
+<% end %>

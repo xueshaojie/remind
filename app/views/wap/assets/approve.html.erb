@@ -1,0 +1,107 @@
+<%provide(:title,"审核")%>
+
+<div class="html approve_jug">
+  <div class="topline">
+    <a href="javascript:;" class="back" id="J_back"></a>
+    <p class="text">审核</p>
+  </div>
+  <div class="inlineform inlineform_notb inlineform_nobb">
+    <div class="linebox">
+      <span class="ado">审核结果</span>
+      <p class="line_text line_select"><input type="text" class="control" name="" readonly="readonly" placeholder="" id="J_result"></p>
+    </div>
+    <div class="linebox">
+      <p class="line_textarea"><textarea class="control_textarea" placeholder="请填写备注说明" id="J_reason"></textarea></p>
+    </div>
+  </div>
+</div>
+
+<a href="javascript:;" class="botline_btn" id="J_sent">提交</a>
+<!-- 弹框 -->
+<div class="pop dsn" id="J_pop">
+  <div class="J_closepop inpop"></div>
+  <div class="popcont" id="J_pop_baifang">
+    <p class="btns">
+      <a href="javascript:;" data-state="1" class="J_btn pbtn">审核通过</a>
+      <a href="javascript:;" data-state="-1" class="J_btn pbtn pbtn_red">审核不通过</a>
+    </p>
+    <a href="javascript:;" class="J_closepop pbtn">取消</a>
+  </div>
+</div>
+
+<script type="text/javascript">
+  $(function(){
+    var J_result = $('#J_result'),
+      J_reason = $('#J_reason'),
+      J_pop = $('#J_pop');
+
+    var ajaxdata = {"state":null,"msg":""}; // 预定义提交数据
+
+    // 展开弹框
+    J_result.click(function(){
+      J_pop.show();
+      setTimeout(function(){
+        J_pop.addClass('pop_active')
+      },10);
+    });
+
+    J_result.on('focus',function(){
+      setTimeout(function(){
+        J_result.blur();
+      },50);
+    });
+
+    // 关闭弹框
+    $('.J_closepop').click(function(){
+      J_pop.removeClass('pop_active').hide();
+    });
+
+    $('.J_btn').click(function(){
+      var self = $(this),state = self.attr('data-state');
+      J_pop.removeClass('pop_active').hide();
+      ajaxdata.state = state;
+      if(state=="-1"){
+        J_reason.attr('placeholder',"请填写备注说明，必填");
+        J_result.addClass('control_red');
+      }else{
+        J_reason.attr('placeholder',"请填写备注说明，可不填");
+        J_result.removeClass('control_red');
+      }
+      J_result.val(state=="-1"?"审核不通过":"审核通过");
+    });
+
+    // 提交审核结果
+    $('#J_sent').click(function(){
+      if(ajaxdata.state==null){
+        CUES.tip({"msg":"未选择审核结果","type":"danger"});
+        return false;
+      };
+      var msg = J_reason.val().trim();
+      if(ajaxdata.state=='-1' && msg.length==0){
+        CUES.tip({"msg":"请填写备注说明","type":"danger"});
+        return false;
+      };
+      ajaxdata.msg = msg;
+      // 提交审核结果ajax
+      // alert('提交的数据：'+JSON.stringify(ajaxdata));
+      $.ajax({
+        type: "POST",
+        url: "<%= approve_result_wap_asset_path(@asset) %>",
+        data: {'ajaxdata': ajaxdata},
+        dataType: "json",
+        success: function(res){
+          // 成功调用：
+          CUES.tip({"msg":"审核结果提交成功","type":"success","callback":function(){
+            window.location.href = "<%= approves_wap_assets_path %>";
+          }});
+
+          // 失败调用：
+          // CUES.tip({"msg":"提交失败","type":"danger"});
+        }
+      });
+    });
+  });
+</script>
+<script type="text/javascript">
+  window.main.hideBtmbar();
+</script>

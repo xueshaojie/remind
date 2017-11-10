@@ -1,0 +1,127 @@
+<% content_for :main_content do %>
+  <div class="main-content ">
+    <div class="breadcrumbs" id="breadcrumbs">
+      <ul class="breadcrumb">
+        <%= render 'partials/home' %>
+        <li><%= link_to '任务模板', admin_task_templates_path %></li>
+      </ul>
+      <%#= render '/layouts/qrcode' %>
+    </div>
+
+    <div class="page-content">
+      <%= form_for @search, url: admin_task_templates_path, html: { method: :get } do |f| %>
+        <div class="no-padding col-md-12">
+          <div class="col-md-3">
+            <div class="input-group input-group-text">
+              <span class="input-group-addon">执行部门：</span>
+              <%= f.select :department_id_eq, Department.normal.map{|dep| [dep.to_s, dep.id] }, {:include_blank=>'全部'}, class: "col-xs-12 cc" %>
+            </div>
+          </div>
+
+          <div class="col-md-3">
+            <div class="input-group input-group-text">
+              <span class="input-group-addon">任务类型：</span>
+              <%= f.select :task_category_id_eq, TaskCategory.pluck(:name, :id), {:include_blank => '全部'} ,maxlength: 50, class: "col-xs-12 cc" %>
+            </div>
+          </div>
+
+          <div class="col-md-3">
+            <div class="input-group input-group-text">
+              <span class="input-group-addon">任务级别：</span>
+              <%= f.select :task_level_id_eq, TaskTemplate.task_level_id_options, {:include_blank => '全部'}, class: "col-xs-12 cc" %>
+            </div>
+          </div>
+
+          <div class="col-md-3">
+            <div class="input-group input-group-text">
+              <span class="input-group-addon">任务状态：</span>
+              <%= f.select :status_eq, TaskTemplate.status_options, {:include_blank => '全部'} ,maxlength: 50, class: "col-xs-12 cc" %>
+            </div>
+          </div>
+        </div>
+
+        <div class="no-padding col-md-12 margin-top-20">
+          <div class="col-md-3">
+            <div class="input-group input-group-text">
+              <span class="input-group-addon">执行周期：</span>
+              <%= f.select :task_type_eq, TaskTemplate.task_type_options, {:include_blank => '全部'} ,maxlength: 50, class: "col-xs-12 cc" %>
+            </div>
+          </div>
+
+          <div class="col-md-3">
+            <div class="input-group input-group-text">
+              <span class="input-group-addon">任务名称：</span>
+              <%= f.text_field :name_like, class: 'col-xs-12' %>
+            </div>
+          </div>
+
+          <div class="col-md-3">
+            <%= f.submit '查询', class: 'btn btn-sm btn-filter btn-primary' %>
+          </div>
+          <div class="col-sm-3">
+            <a href="javascript:;" class="btn btn-primary btn-sm pull-right" data-target="addGift" data-toggle="modals" data-title="新增任务模板" data-height="1000" data-iframe="/admin/task_templates/new">新增</a>
+          </div>
+        </div>
+      <% end %>
+
+      <div class="col-md-12 margin-top-20 overflowxauto">
+        <table id="vweddingTable" class="table table-bordered table-hover dataTable" style="max-width: 148%; width:138%;">
+          <thead>
+            <tr>
+              <th>操作</th>
+              <th>任务名称</th>
+              <th>任务类型</th>
+              <th>级别</th>
+              <th>执行部门</th>
+              <th>前置任务</th>
+              <th width="220">执行周期</th>
+              <th>任务数</th>
+              <th>前置间隔</th>
+              <th>检查项</th>
+              <th>顺序</th>
+              <th>状态</th>
+              <th>创建人</th>
+              <th>创建时间</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @task_templates.each do |task_template| %>
+              <tr>
+                <td>
+                  <%= link_to '检查项', admin_task_template_items_path(task_template_id: task_template.id) %>
+                  <%= link_to '复制', copy_admin_task_template_path(task_template), data: { confirm: "确定复制这个任务模板?" } %>
+
+                  <%= link_to '启用', on_admin_task_template_path(task_template), method: :put, data: { confirm: "确定启用?"} if task_template.off? %>
+                  <%= link_to '禁用', off_admin_task_template_path(task_template), method: :put, data: { confirm: "确定禁用?"} if task_template.on? %>
+                  <a href="javascript:;" class="fgreen" data-target="editGift" data-toggle="modals" data-title="编辑任务模板" data-height="1000" data-iframe="/admin/task_templates/<%= task_template.id %>/edit">编辑</a>
+                  <%= link_to '删除', admin_task_template_path(task_template), method: :delete, data: { confirm: "确定删除?" } %>
+
+                  <br/>
+                  <%=link_to '二维码', 'javascript:;', class: 'fgreen', data:{target: 'Qrcode', toggle: 'modals', title: '任务二维码', height: '1000', iframe: qrcode_admin_task_template_path(task_template) } %>
+                  <%= link_to '清除当前周期任务', delete_current_admin_task_template_path(task_template), method: :put, data: { confirm: "确定要清除当前周期内未执行的任务？<br/>清除后第二天凌晨会根据当前任务模板规则生成新的任务实例" } %>
+                  <%#= link_to '清除下周期任务', delete_next_admin_task_template_path(task_template), method: :put, data: { confirm: "确定要清除下周期即将要执行任务？<br/>清除后第二天凌晨会根据当前任务模板规则生成新的任务实例" } %>
+                </td>
+                <td><%= task_template.name %></td>
+                <td><%= TaskCategory.find(task_template.task_category_id).try(:name) %></td>
+                <td><%= task_template.task_level_id_name %></td>
+                <td><%= task_template.department.try(:name) %></td>
+                <td><%= task_template.parent.try(:name) || '无' %></td>
+                <td><%= raw task_template.time_info %></td>
+                <td><%= link_to task_template.tasks.not_deleted.count, admin_tasks_path(search: { name_like: task_template.name }) %></td>
+                <td><%= task_template.prev_interval_name %></td>
+                <td><%= link_to task_template.task_template_items.count, admin_task_template_items_path(task_template_id: task_template.id) %></td>
+                <td><%= task_template.is_force_order_name %></td>
+                <td><%= task_template.status_name %></td>
+                <td><%= task_template.user.try(:name) %></td>
+                <td><%= task_template.created_at %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+        <div class="pagination page width-auto"><%= page_entries_info @task_templates %></div>
+        <%= paginate @task_templates %>
+      </div>
+    </div>
+
+  </div>
+<% end %>

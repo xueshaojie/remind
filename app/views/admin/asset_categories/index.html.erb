@@ -1,0 +1,63 @@
+<% content_for :main_content  do %>
+  <div class="main-content">
+    <div class="breadcrumbs" id="breadcrumbs">
+      <ul class="breadcrumb">
+        <%=render 'partials/home' %>
+        <li><%=link_to '资产基础管理',admin_suppliers_path%></li>
+        <li><%=link_to '资产分类管理', admin_asset_categories_path%></li>
+      </ul>
+    </div>
+
+    <div class="page-content">
+      <%= form_for @search, url: admin_asset_categories_path, html: {method: :get } do |f| %>
+        <div class="col-md-12  no-padding">
+          <div class="col-md-2">
+            <div class="input-group input-group-text ">
+                <%=f.text_field :name_like,class: 'col-xs-12 cc', placeholder: '分类名称' %>
+            </div>
+          </div>
+
+          <div class="col-md-2">
+            <%=f.select :asset_type_eq,AssetCategory.asset_type_options,{:include_blank=>'分类类型'},class: 'col-xs-12 cc'%>
+          </div>
+
+          <div class="col-md-2">
+            <%= f.submit '查询', class: 'btn btn-sm btn-filter btn-primary' %>
+          </div>
+
+          <div class="col-md-6">
+            <a href="javascript:;" class="btn btn-primary btn-sm pull-right " data-target="addAssetCategories" data-toggle="modals" data-title="新增资产分类" data-height="1000" data-iframe="<%=new_admin_asset_category_path %>">新增</a>     
+          </div>
+        </div>
+      <%end%> 
+
+      <div class="col-md-12 margin-top-20">
+        <table id="vweddingTable" class="table table-bordered table-hover dataTable">
+          <thead>
+            <tr>
+              <th>分类名称</th>
+              <th>资产类型</th>
+              <th>更新时间</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @asset_categories.each do |asset_category|%>
+              <tr>
+                <td><%=asset_category.name %></td>
+                <td><%=asset_category.asset_type_name %></td>
+                <td><%=asset_category.updated_at %></td>
+                <td>
+                  <%=link_to '编辑','javascript:;', class: 'fgreen', data:{target: 'editAssetCategorie', toggle: 'modals' , title: '编辑资产分类', height: '1000', iframe: admin_asset_category_path(asset_category) } %>
+                  <%=link_to '删除',admin_asset_category_path(asset_category) , method: :delete, data: {confirm: '确定删除?'} %>
+                </td>
+              </tr>
+            <%end%>
+          </tbody>    
+        </table>
+        <div class="pagination page width-auto"><%= page_entries_info @asset_categories %></div>
+        <%= paginate @asset_categories%>
+      </div>
+    </div>  
+  </div>
+ <%end%>

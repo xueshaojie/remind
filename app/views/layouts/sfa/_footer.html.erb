@@ -1,0 +1,8 @@
+<% parent_class = 'active'%>
+<div class="botnav">
+	<a href="<%= tiny_business_home_path%>" class="tn_ls <%= parent_class if controller_name == 'home'%>"><p class="tn_icon icon_a"><i class="iconfont icon-home"></i></p><p class="tn_name">首页</p></a>
+	<a href="<%= tiny_business_plans_path %>" class="tn_ls"><p class="tn_icon icon_b"><i class="iconfont icon-shijian"></i></p><p class="tn_name">计划</p></a>
+	<a href="#" class="tn_ls"><p class="tn_icon icon_c"><i class="iconfont icon-zhengquetishi"></i></p><p class="tn_name">审批</p></a>
+	<a href="#" class="tn_ls"><p class="tn_icon icon_d"><i class="iconfont icon-lights"></i></p><p class="tn_name">提醒</p></a>
+	<a href="<%= tiny_business_notices_path %>" class="tn_ls <%= parent_class if controller_name == 'notice'%>"><p class="tn_icon icon_e"><i class="iconfont icon-remind"></i></p><p class="tn_name">公告</p></a>
+</div>

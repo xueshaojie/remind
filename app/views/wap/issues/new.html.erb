@@ -1,0 +1,257 @@
+<%provide(:title,"发现问题")%>
+
+<%= form_for  @issue, url: wap_issues_path, validate: true, html:{class: 'form'} do |f|%>
+  <div class="html question question_borbtn">
+    <div class="topline">
+      <a href="javascript:;" class="back" id="J_back" data-back="<%= wap_issues_url %>"></a>
+      <p class="text">发现问题</p>
+    </div>
+    <div class="inlineform inlineform_find inlineform_nobd">
+      <div class="linebox">
+        <p class="line_input"><%= f.text_field :title, placeholder: "请输入问题标题", class: "control", id: 'J_title' %></p>
+      </div>
+      <div class="linebox">
+        <span class="ado">问题类型</span>
+        <p class="line_select">
+          <%=f.select :issue_type_id, IssueType.pluck(:name, :id), {}, class: "control control_select", id: 'J_type' %>
+        </p>
+      </div>
+      <div class="linebox">
+        <p class="line_textarea_np"><%= f.text_area :description, placeholder: "请输入问题的详细描述", class: 'control_textarea', id: 'J_desc' %></p>
+      </div>
+      <div class="linebox">
+        <p class="line_textarea_np"><%= f.text_area :location, placeholder: "请输入问题所在地理位置的描述信息", class: 'control_textarea', id: 'J_area' %></p>
+      </div>
+      <!-- minlength: 如果不限制上传图片最少个数可省略 -->
+      <div class="line_pics" minlength="1">
+<!--         <p class="line_pic" data-img="img/img01.jpg" style="background-image: url(img/img01.jpg);">
+          <a href="javascript:;" class="line_pic_del"></a>
+        </p> -->
+        <a href="javascript:;" class="line_pic_add" onclick="window.main.startCamera()"></a>
+      </div>
+    </div>
+
+    <p class="linetil">问题状态</p>
+    <div class="inlineform inlineform_find inlineform_nobd">
+      <div class="linebox">
+        <span class="ado">问题等级</span>
+        <p class="line_input_ado line_input_ado_arr"><input type="text" class="J_control control" name="" readonly="readonly" placeholder="" id="J_dengji"></p>
+        <%= f.hidden_field :level %>
+      </div>
+      <div class="linebox">
+        <span class="ado">当场解决</span>
+        <p class="line_input_ado line_input_ado_arr"><input type="text" class="J_control control" name="" readonly="readonly" placeholder="" id="J_handle"></p>
+        <%= f.hidden_field :status %>
+      </div>
+    </div>
+  </div>
+
+  <a href="javascript:;" id="J_add" class="botline_btn">记录问题</a>
+  <!-- <%#= f.submit '记录问题', id:'J_add', class: 'botline_btn'%> -->
+
+  <div class="tippop_bg tippop_pd dsn" id="J_endpd">
+    <div class="tippop_alert">
+      <p class="tippop_alert_t">确定要提交问题吗？</p>
+      <p class="tippop_alert_b">
+        <a class="tippop_confirm_btn" id="J_sure">确定</a>
+        <a class="tippop_confirm_btn" id="J_close">取消</a>
+      </p>
+    </div>
+  </div>
+  <!-- 弹框 -->
+  <div class="pop dsn" id="J_pop_dj">
+    <div class="J_closepop inpop" tar="#J_pop_dj"></div>
+    <div class="popcont" id="J_pop_baifang">
+      <p class="btns">
+        <a href="javascript:;" data-state="2" class="J_btn_dj pbtn pbtn_red">严重</a>
+        <a href="javascript:;" data-state="1" class="J_btn_dj pbtn">一般</a>
+      </p>
+      <a href="javascript:;" class="J_closepop pbtn" tar="#J_pop_dj">取消</a>
+    </div>
+  </div>
+  <div class="pop dsn" id="J_pop_hd">
+    <div class="J_closepop inpop" tar="#J_pop_hd"></div>
+    <div class="popcont" id="J_pop_baifang">
+      <p class="btns">
+        <a href="javascript:;" data-state="2" class="J_btn pbtn">是</a>
+        <a href="javascript:;" data-state="0" class="J_btn pbtn pbtn_red">否</a>
+      </p>
+      <a href="javascript:;" class="J_closepop pbtn" tar="#J_pop_hd">取消</a>
+    </div>
+  </div>
+<% end%>
+
+<script type="text/javascript">
+  $(function(){
+    var line_pic_add = $('.line_pic_add'),
+      J_dengji = $('#J_dengji'),
+      J_pop_dj = $('#J_pop_dj'),
+      J_handle = $('#J_handle'),
+      J_pop_hd = $('#J_pop_hd'),
+      J_add = $('#J_add'),
+      J_endpd = $('#J_endpd');
+
+    var ajaxdata = {}; // 预定义提交数据，赋值键值名称可以根据需求更改
+
+    // line_pic_add.click(function(){
+    //   var self = $(this);
+    //   // alert('调用微信上传图片，上传成功：')
+    //   self.before('<p class="line_pic" data-img="img/img01.jpg" style="background-image: url(img/img01.jpg);"><a href="javascript:;" class="line_pic_del"></a></p>');
+    // });
+
+    $('.J_control').focus(function(){
+      var self = $(this);
+      setTimeout(function(){
+        self.blur();
+      },30)
+    });
+
+    $('.line_pics').on('click','.line_pic_del',function(){
+      var par = $(this).parent();
+      par.slideUp();
+      setTimeout(function(){
+        par.remove();
+      },500);
+
+      $('#'+$(this).atrr('data-id')).remove();
+    });
+
+    J_dengji.click(function(){
+      J_pop_dj.show();
+      setTimeout(function(){
+        J_pop_dj.addClass('pop_active')
+      },10);
+    });
+
+    J_handle.click(function(){
+      J_pop_hd.show();
+      setTimeout(function(){
+        J_pop_hd.addClass('pop_active')
+      },10);
+    });
+
+    // 关闭弹框
+    $('.J_closepop').click(function(){
+      $($(this).attr('tar')).removeClass('pop_active').hide();
+    });
+
+    $('.J_btn_dj').click(function(){
+      var self = $(this),state = self.attr('data-state');
+      // console.log(self,state,state=='0')
+      J_pop_dj.removeClass('pop_active').hide();
+      ajaxdata.dengji = state;
+      if(state=="1"){
+        J_dengji.removeClass('control_red');
+      }else{
+        J_dengji.addClass('control_red');
+      };
+      J_dengji.val(state=="1"?"一般":"严重");
+      $('#issue_level').val(state);
+    });
+    $('.J_btn').click(function(){
+      var self = $(this),state = self.attr('data-state');
+      // console.log(self,state,state=='0')
+      J_pop_hd.removeClass('pop_active').hide();
+      ajaxdata.handle = state;
+      J_handle.val(state=="0"?"否":"是");
+      $('#issue_status').val(state);
+    });
+
+    function backurl(arr){
+      var len = arr.length,urlarr = [];
+      for(var i=0;i<len;i++){
+        urlarr.push(arr.eq(i).attr('data-img'))
+      };
+      return urlarr;
+    }
+
+    J_add.click(function(){
+      var title = $('#J_title').val().trim();
+      if(title.length==0){
+        CUES.tip({"msg":"请输入问题标题","type":"danger"});
+        return false;
+      };
+      ajaxdata.title = title;
+      if($('#J_type').val()==0){
+        CUES.tip({"msg":"请选择问题类型","type":"danger"});
+        return false;
+      };
+      ajaxdata.type = $('#J_type').val();
+
+      var desc = $('#J_desc').val().trim();
+      if(desc.length==0){
+        CUES.tip({"msg":"请输入问题的详细描述","type":"danger"});
+        return false;
+      };
+      ajaxdata.desc = desc;
+
+      var area = $('#J_area').val().trim();
+      if(area.length==0){
+        CUES.tip({"msg":"请输入问题的所在位置信息","type":"danger"});
+        return false;
+      };
+      ajaxdata.area = area;
+
+      var picl = $('.line_pics'),
+      len = parseInt(picl.attr('minlength'));
+      if(len){
+        if(picl.find('.line_pic').length<len){
+          CUES.tip({"msg":"至少上传1张图片","type":"danger"});
+          return false;
+        };
+        ajaxdata.pics = backurl(picl.find('.line_pic'));
+      }else{
+        ajaxdata.pics = null;
+      };
+      if(J_dengji.val()==''){
+        CUES.tip({"msg":"请选择问题等级","type":"danger"});
+        return false;
+      };
+      if(J_handle.val()==''){
+        CUES.tip({"msg":"请选择问题解决途径","type":"danger"});
+        return false;
+      };
+
+      J_endpd.show();
+    });
+
+    $('#J_close').click(function(){
+      J_endpd.hide();
+    });
+
+    $('#J_sure').click(function(){
+      $('form').submit();
+      return false;
+      // 提交审核结果ajax
+      // alert('提交的数据：'+JSON.stringify(ajaxdata));
+      // $.ajax({
+      //   type: "GET",
+      //   url: "/api/callback.json?v="+(new Date().getTime()),
+      //   data: {},
+      //   dataType: "json",
+      //   success: function(res){
+      //     // 成功调用：
+      //     CUES.tip({"msg":"问题记录成功","type":"success","callback":function(){
+      //       alert('回调')
+      //     }});
+      //     J_endpd.hide()
+
+      //     // 失败调用：
+      //     // CUES.tip({"msg":"问题记录失败","type":"danger"});
+      //   }
+      // });
+    });
+  });
+</script>
+
+<script type="text/javascript">
+  window.main.hideBtmbar();
+
+  function getPhotoUrl(message){
+    var url = decodeURIComponent(message);
+    var uuid = Date.now();
+    // 获取图片网络Url后在这里进行操作
+    $('.line_pic_add').before('<p class="line_pic" data-img="'+url+'" data-id="'+uuid+'" style="background-image: url('+url+');"><a href="javascript:;" class="line_pic_del"></a></p>');
+    $('.line_pic_add').before('<input type="hidden" name="issue[issue_pictures_attributes]['+uuid+'][pic_key]" value="'+url+'" class="pic_key" data-img="'+url+'" id="'+uuid+'">')
+  }
+</script>

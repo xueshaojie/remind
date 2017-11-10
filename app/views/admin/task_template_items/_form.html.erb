@@ -1,0 +1,33 @@
+<%= form_for [:admin, @task_template_item], validate: true, html: {class: 'form'} do |f| %>
+  <%= hidden_field_tag 'task_template_id', @task_template.id%>
+  <div class="modal-body">
+    <div class="col-xs-12">
+      <div class="form-group">
+        <label class="control-label">检查项<span class="required-star">*</span></label>
+        <div class="clearfix">
+          <%= f.text_field :name, maxlength: 50, class: "col-xs-12" %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="control-label">排序<span class="required-star">*</span><small>（值越小越显示在前面）</small></label>
+        <div class="clearfix">
+          <%= f.text_field :position, maxlength: 20, class: "col-xs-12" %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="control-label">关键描述</label>
+        <div class="clearfix">
+          <%= f.text_area :description, rows: 4, cols: 20, class: "col-xs-12" %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="clearfix"></div>
+  <div class="modal-footer">
+    <button type="submit" class="btn btn-sm btn-primary form-submit" data-fn="submit">确定</button>
+    <button type="button" class="btn btn-sm btn-default" data-dismiss="modals">取消</button>
+  </div>
+<% end %>

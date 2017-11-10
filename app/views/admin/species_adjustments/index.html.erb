@@ -1,0 +1,76 @@
+<% content_for :main_content do %>
+  <div class="main-content ">
+    <div class="breadcrumbs" id="breadcrumbs">
+      <ul class="breadcrumb">
+        <%= render 'partials/home' %>
+        <li><%= link_to '物种资产管理', admin_species_index_path %></li>
+        <li><%= link_to '物种调整记录'%></li>
+      </ul>
+    </div>
+
+    <div class="page-content">
+      <%= form_for @search, url: admin_species_adjustments_path, html: { method: :get } do |f| %>
+        <div class="no-padding col-md-12">
+          <div class="col-md-2">
+            <div class="input-group input-group-text">
+              <%= f.text_field :species_no_or_species_name_like, placeholder: '请输入资产编号/名称', class: "col-xs-12" %>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="input-group input-group-text">
+              <span class="input-group-addon ">操作时间：</span>
+              <%= f.text_field :created_at_created_at_between, class: "col-xs-12 datetimerange", value: "#{params[:search][:created_at_gte]} - #{params[:search][:created_at_lte]}" %>
+            </div>
+          </div>
+
+          <div class="col-md-2">
+            <%= f.select :species_asset_category_id_eq, AssetCategory.type3.pluck(:name, :id), {:include_blank => '请选择分类'}, class: "col-xs-12" %>
+          </div>
+
+          <div class="col-md-2">
+            <%= f.select :operate_type_id_eq, SpeciesAdjustment.operate_type_id_options, {:include_blank => '请选择操作类型'} , class: "col-xs-12" %>
+          </div>
+
+          <div class="col-md-2">
+            <%= f.submit '查询', class: 'btn btn-sm btn-filter btn-primary' %>
+          </div>
+        </div>
+      <% end %>
+
+      <div class="col-md-12 margin-top-20">
+        <table id="vweddingTable" class="table table-bordered table-hover dataTable ">
+          <thead>
+            <tr>
+              <th>资产编号</th>
+              <th>资产名称</th>
+              <th>规格型号</th>
+              <th>所属分类</th>
+              <th>操作状态</th>
+              <th>相关数量</th>
+              <th>调后数量</th>
+              <th>操作时间</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @species_adjustments.each do |species_adjustment| %>
+              <tr>
+                <td><%= species_adjustment.species.try(:no) %></td>
+                <td><%= species_adjustment.species.try(:name) %></td>
+                <td><%= species_adjustment.species.try(:scale) %></td>
+                <td><%= species_adjustment.species.try(:asset_category).try(:name) %></td>
+                <td><%= species_adjustment.operate_type_id_name %></td>
+                <td><%= species_adjustment.qty %></td>
+                <td><%= species_adjustment.after_qty %></td>
+                <td><%= species_adjustment.created_at %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+        <div class="pagination page width-auto"><%= page_entries_info @species_adjustments %></div>
+        <%= paginate @species_adjustments %>
+      </div>
+    </div>
+
+  </div>
+<% end %>

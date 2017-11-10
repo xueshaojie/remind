@@ -1,0 +1,6 @@
+<% parent_class = 'tab_active'%>
+<div class="tabnav tabnav_three">
+	<a href="<%= tiny_guide_activity_checks_path(shop_id: @shop_id) %>" class="tab <%= parent_class if controller_name == 'activity_checks'%> ">促销</a>
+	<a href="<%= tiny_guide_gift_checks_path(shop_id: @shop_id) %>" class="tab <%= parent_class if controller_name == 'gift_checks'%>">赠品</a>
+<!-- 	<a href="<%#= tiny_guide_sale_targets_path %>" class="tab <%#= parent_class if controller_name == 'sale_targets'%>">销量</a> -->
+</div>

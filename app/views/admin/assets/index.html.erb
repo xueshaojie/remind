@@ -1,0 +1,105 @@
+<style type="text/css">
+  .cc {
+    /*width: 225px;*/
+  }
+</style>
+<% content_for :main_content do %>
+  <div class="main-content ">
+    <div class="breadcrumbs" id="breadcrumbs">
+      <ul class="breadcrumb">
+        <%= render 'partials/home' %>
+        <li><%=link_to '资产采购管理',admin_assets_path%></li>
+      </ul>
+    </div>
+
+    <div class="page-content">
+       <%= form_for @search, url: admin_assets_path, html: { method: :get } do |f| %>
+        <div class="no-padding col-md-12">
+          <div class="col-md-2">
+            <div class="input-group input-group-text">
+              <%= f.text_field :no_like, placeholder: '请输入流水号', class: "col-xs-12" %>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="input-group input-group-text">
+              <span class="input-group-addon">申请时间：</span>
+              <%= f.text_field :created_at_created_at_between, class: "col-xs-12 cc datetimerange", value: "#{params[:search][:created_at_gte]} - #{params[:search][:created_at_lte]}" %>
+            </div>
+          </div>
+
+          <div class="col-md-2">
+            <%= f.select :department_id_eq, Department.normal.map{|dep| [dep.to_s, dep.id] }, {include_blank: '申请部门'}, class: "col-xs-12" %>
+          </div>
+
+          <div class="col-md-1">
+            <%= f.select :status_eq, Asset.status_options, {:include_blank => '状态'}, class: "col-xs-12" %>
+          </div>
+
+          <div class="col-md-3">
+            <%= f.submit '查询', class: 'btn btn-sm btn-filter btn-primary' %>
+
+            <% if current_user.can_asset? %>
+              <a class="btn btn-primary btn-sm pull-right" data-target="addBrand" data-toggle="modals" data-title="新增资产采购" data-height="1000" data-iframe="/admin/assets/new">新增</a>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+
+      <div class="col-md-12 margin-top-20 overflowxauto">
+        <table id="vweddingTable" class="table table-bordered table-hover dataTable" style="max-width: 138%; width:128%;">
+          <thead>
+            <tr>
+              <th>申请流水号</th>
+              <th>申请部门</th>
+              <th>申请人</th>
+              <th>资产项</th>
+              <th>金额</th>
+              <th>采购用途</th>
+              <th>申请时间</th>
+              <th>状态</th>
+              <th>流转至</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @assets.each do |asset| %>
+              <tr>
+                <td><%= asset.no %></td>
+                <td><%= asset.department.try(:name) %></td>
+                <td><%= asset.user.try(:name) %></td>
+                <td><%= asset.asset_items.count %></td>
+                <td><%= asset.asset_items.sum(:total_price) %></td>
+                <td><%= asset.description %></td>
+                <td><%= asset.created_at %></td>
+                <td><%= asset.status_name %></td>
+                <% if asset.asset_logs.present? %>
+                  <td><%= link_to asset.current_asset_log.user.try(:name), detail_admin_asset_path(asset) %></td>
+                <% else %>
+                  <td>无</td>
+                <% end %>
+                <td>
+                  <%= link_to '资产项', admin_asset_items_path(asset) %>
+
+                  <%= link_to '详情', detail_admin_asset_path(asset) if asset.process? || asset.pass? %>
+
+                  <%= link_to '审核', detail_admin_asset_path(asset) if asset.process? && asset.current_asset_log.try(:wait?) && asset.current_asset_log.try(:user) == current_user %>
+
+                  <% if current_user.can_asset? %>
+                    <%= link_to '提交', check_admin_asset_path(asset), method: :post, data: {confirm: '确定提交？'} if asset.asset_items.count > 0 && asset.wait? %>
+
+                    <% if asset.wait? || asset.deny? %><a href="javascript:;" class="fgreen" data-target="editAsset" data-toggle="modals" data-title="编辑资产采购" data-height="1000" data-iframe="/admin/assets/<%= asset.id %>/edit">编辑</a><% end %>
+                    <%= link_to '删除', admin_asset_path(asset), method: :delete, data: {confirm: '确定删除？'} if asset.wait? %>
+                  <% end %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+        <div class="pagination page width-auto"><%= page_entries_info @assets %></div>
+        <%= paginate @assets %>
+      </div>
+    </div>
+
+  </div>
+<% end %>

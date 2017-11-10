@@ -1,0 +1,132 @@
+common: &common
+  hostname:       "biaotutech.com"
+  mhostname:      "m.biaotutech.com"
+  www_host:       "http://www.biaotutech.com"
+  m_host:         "http://m.biaotutech.com"
+  ec_host:        "http://ec.biaotutech.com"
+  mall_host:      "http://wmall.biaotutech.com"
+  life_host:      "http://life.biaotutech.com"
+  shequ_host:     "http://shequ.biaotutech.com"
+  hotel_host:     "http://hotel.biaotutech.com"
+  recommend_host: "http://recommend.biaotutech.com"
+  oa_host:        "http://oa.biaotutech.com"
+  faye_host:      "http://0.0.0.0:9393"
+  app_host:       "http://api.biaotutech.com"
+  pay_host:       "http://pay.biaotutech.com"
+  wxapi_host:     "http://api.biaotutech.com"
+  cas_url:        "http://127.0.0.1:8001"
+  sms_service:    'zhilian'
+  zhilian_url:    'http://61.145.229.29:9003/MWGate/wmgw.asmx'
+  zhilian_user_id:  'xxx'
+  zhilian_password: 'xxx'
+  uploads_dir: <%= "#{Rails.root}/public/uploads" %>
+  yeepay:
+    yeepay_host:  "http://ok.yeepay.com/"
+    callbackurl:  "http://stagingm.biaotutech.com/yeepay/callback"
+    fcallbackurl: 'http://stagingm.biaotutech.com/yeepay/callback'
+  wx_plugin:
+    token: 44cb682582f069877356daee2de39a0a
+    base64_aes_key: winc44b9f22bcef72d2ea76b621b6f2c095160e81e6
+    encoding_aes_key: winc44b9f22bcef72d2ea76b621b6f2c095160e81e6
+    component_app_id: wx76b32f516a607539
+    component_app_secret: 6595b1727a7e4c1921a5f7c68919083b
+
+production:
+  <<: *common
+  hostname:       "admin.o2o.masterkong.com.cn"
+  mhostname:      "wx.o2o.masterkong.com.cn"
+  www_host:       "http://admin.o2o.masterkong.com.cn"
+  domain:         "masterkong.com.cn"
+  m_host:         "http://wx.o2o.masterkong.com.cn"
+  ec_host:        "http://ec.biaotutech.com"
+  mall_host:      "http://mall.biaotutech.com"
+  life_host:      "http://life.biaotutech.com"
+  shequ_host:     "http://shequ.biaotutech.com"
+  hotel_host:     "http://hotel.biaotutech.com"
+  oa_host:        "http://oa.biaotutech.com"
+  game_admin:     "http://act.o2o.masterkong.com.cn"
+  game:           "http://act.wx.o2o.masterkong.com.cn"
+  mk_secret:      "mk.secret.SxmpSFTs751XMn3UDjCTqLX6PQmTD6w79ZdesYRtKErzM62GLn"
+  user_point: "http://user.o2o.masterkong.com.cn/api_point"
+  user_reward: "http://user.o2o.masterkong.com.cn/api_reward"
+  ec_point: "http://api.point.user.o2o.masterkong.com.cn/webui_point"
+  ec_point_cms: "http://api.point.user.o2o.masterkong.com.cn/webui_cms_point"
+  wap_host:       "#"
+  region_host:    "#"
+  recommend_host: "http://lifeboat.biaotutech.com"
+  faye_host:      "http://admin.o2o.masterkong.com.cn:9393"
+  app_host:       "http://api.biaotutech.com"
+  pay_host:       "http://pay.biaotutech.com"
+  wxapi_host:     "http://api.biaotutech.com"
+  cas_url:        "http://cas.biaotutech.com"
+  uploads_dir:    "/opt/apps/shared/biaotu/uploads"
+  yeepay:
+    yeepay_host:  "https://ok.yeepay.com/"
+    callbackurl:  "http://pay.biaotutech.com/yeepay/callback"
+    fcallbackurl: 'http://pay.biaotutech.com/yeepay/callback'
+  wx_plugin:
+    token: 44cb682582f069877356daee2de39a0a
+    base64_aes_key: winc44b9f22bcef72d2ea76b621b6f2c095160e81e6
+    encoding_aes_key: winc44b9f22bcef72d2ea76b621b6f2c095160e81e6
+    component_app_id: wx76b32f516a607539
+    component_app_secret: 6595b1727a7e4c1921a5f7c68919083b
+
+staging:
+  <<: *common
+  hostname:       "kong.dajiaxiao.cn"
+  mhostname:      "mkong.dajiaxiao.cn"
+  www_host:       "http://kong.dajiaxiao.cn"
+  domain:         "dajiaxiao.cn"
+  m_host:         "http://mkong.dajiaxiao.cn"
+  ec_host:        "http://ec.biaotutech.com"
+  mall_host:      "http://mall.biaotutech.com"
+  life_host:      "http://life.biaotutech.com"
+  shequ_host:     "http://shequ.biaotutech.com"
+  hotel_host:     "http://hotel.biaotutech.com"
+  oa_host:        "http://oa.biaotutech.com"
+  recommend_host: "http://lifeboat.biaotutech.com"
+  user_point: "http://testing.api.point.user.vcooline.com"
+  user_reward: "http://testing.c.vcooline.com"
+  ec_point: "http://testing.c.vcooline.com/_ec_point"
+  ec_point_cms: "http://testing.ec-point.vcooline.com"
+  mk_secret:      "i3X98jkNmaTzYyZZtupfeAFayXoo27jR7rn2wRH9zod1VzoNpLmWNxbtWVQWgGRsX8W1rp5DGa7R4FSQ5ZkAgxVSD3MSrZDJXZk"
+  game_admin:     "http://act.kong.dajiaxiao.cn"
+  game:           "http://m.act.kong.dajiaxiao.cn"
+  faye_host:      "http://kong.dajiaxiao.cn:9393"
+  app_host:       "http://api.biaotutech.com"
+  pay_host:       "http://pay.biaotutech.com"
+  wxapi_host:     "http://api.biaotutech.com"
+  cas_url:        "http://cas.biaotutech.com"
+  uploads_dir:    "/opt/apps/shared/biaotu/uploads"
+  yeepay:
+    yeepay_host:  "https://ok.yeepay.com/"
+    callbackurl:  "http://pay.biaotutech.com/yeepay/callback"
+    fcallbackurl: 'http://pay.biaotutech.com/yeepay/callback'
+  wx_plugin:
+    token: 44cb682582f069877356daee2de39a0a
+    base64_aes_key: winc44b9f22bcef72d2ea76b621b6f2c095160e81e6
+    encoding_aes_key: winc44b9f22bcef72d2ea76b621b6f2c095160e81e6
+    component_app_id: wx76b32f516a607539
+    component_app_secret: 6595b1727a7e4c1921a5f7c68919083b
+
+development:
+  <<: *common
+  hostname: "biaotu.dev:3000"
+  mhostname: "m.biaotu.dev:3000"
+  wwww_host:      "http://127.0.0.1:3000"
+  m_host:         "http://127.0.0.1:3000"
+  life_host:      "http://127.0.0.1:3001"
+  mall_host:      "http://127.0.0.1:3002"
+  ec_host:        "http://127.0.0.1:3003"
+  shequ_host:     "http://127.0.0.1:3004"
+  recommend_host: "http://127.0.0.1:3005"
+  app_host:       "http://127.0.0.1:3006"
+  user_point: "http://testing.api.point.user.vcooline.com"
+  user_reward: "http://testing.c.vcooline.com"
+  ec_point: "http://testing.c.vcooline.com"
+  ec_point_cms: "http://testing.ec-point.vcooline.com"
+  mk_secret: "filllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllller"
+  game_admin: filler
+
+test:
+  <<: *common

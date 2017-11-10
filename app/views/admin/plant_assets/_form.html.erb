@@ -1,0 +1,214 @@
+<style type="text/css">
+  .itema{
+    color: red;
+    font-size: 14px;
+  }
+  .itemb{
+    color: red;
+    font-size: 14px;
+  }
+  .select2-sm {
+    padding: 3px 4px;
+    height: 41px;
+    color: #858585;
+  }
+  .col-xs-12 {
+    padding-left: 0px;
+    padding-right: 0px; 
+  }
+  .select2-choice {
+    border-radius: 10px;
+  }
+  .select2-container .select2-choice {
+    background: #FFF;
+  }
+  .select2-container .select2-choice > .select2-chosen {
+    color: #858585;
+  }
+</style>
+<style type="text/css">
+  .col-xs-12 {
+    padding-left: 0px;
+    padding-right: 0px; 
+  }
+  .select2-container .select2-choice {
+    border-radius: 5px;
+    border: 1px solid #d5d5d5;
+    height: 41px;
+    background: #FFF;
+  }
+  .select2-container .select2-choice > .select2-chosen {
+    padding: 7px 0px;
+    height: 41px;
+    color: #858585;
+  }
+  .select2-container .select2-choice .select2-arrow {
+    top: 4px;
+  }
+</style>
+
+<%=form_for [:admin, @plant_asset ], validate: true, html:{class: 'form'} do |f| %>
+
+  <div class="modal-body">
+    <div class="col-xs-12">
+      <%# unless @plant_asset.new_record? %>
+      <div class="form-group">
+        <label class="control-label">领用部门<span class="required-star">*</span></label>
+        <div class="clearfix">
+          <%=f.select :department_id, Department.pluck(:name, :id), {:include_blank => '请选择领用部门'}, maxlength:50, class: 'col-xs-12'%>
+        </div>
+      </div>
+
+      <div class="form-group">
+       <label class="conyrol-label">资产分类<span class="required-star">*</span></label>
+       <div class="clearfix">
+         <%=f.select :asset_category_id, AssetCategory.type1.pluck(:name, :id),{:include_blank=>'请选择资产分类'},maxlength:50, class: 'col-xs-12 select2'%>
+       </div>
+     </div>
+
+      <div class="form-group">
+        <label class="control-label">资产编号<span class="required-star">*</span></label>
+        <div class="clearfix">
+          <%=f.text_field :no, maxlength:50, class: 'col-xs-12'%>
+        </div>
+      </div>
+      <%# end %>
+
+      <div class="form-group">
+       <label class="conyrol-label">资产名称<span class="required-star">*</span></label>
+       <div class="clearfix">
+         <%=f.text_field :name, maxlength:50, class: 'col-xs-12'%>
+       </div>
+     </div>
+
+     <div class="form-group">
+       <label class="conyrol-label">财政资产编号</label>
+       <div class="clearfix">
+         <%=f.text_field :financial_number, maxlength:50, class: 'col-xs-12'%>
+       </div>
+     </div>
+
+     <div class="form-group">
+       <label class="conyrol-label">规格型号</label>
+       <div class="clearfix">
+         <%=f.text_field :scale, maxlength:50, class: 'col-xs-12'%>
+       </div>
+     </div>
+
+     <div class="form-group">
+       <label class="conyrol-label">计量单位</label>
+       <div class="clearfix">
+         <%=f.text_field :unit, maxlength:50, class: 'col-xs-12'%>
+       </div>
+     </div>
+
+     <div class="form-group">
+       <label class="conyrol-label">厂商</label>
+       <div class="clearfix">
+         <%=f.text_field :merchant, maxlength:50, class: 'col-xs-12'%>
+       </div>
+     </div>
+
+     <div class="form-group">
+       <label class="conyrol-label">原厂串号</label>
+       <div class="clearfix">
+         <%=f.text_field :origin_no, maxlength:50, class: 'col-xs-12'%>
+       </div>
+     </div>
+
+     <div class="itema">
+       <p>资产保养信息</p>
+     </div>
+
+    <div class="form-group">
+       <label class="conyrol-label">供应商</label>
+       <div class="clearfix">
+         <%=f.select :supplier_id, Supplier.normal.pluck(:name, :id), {:include_blank=>'请选择供应商'}, class: 'col-xs-12 select2'%>
+       </div>
+     </div>
+
+     <div class="form-group">
+       <label class="conyrol-label">资产原值(元)</label>
+       <div class="clearfix">
+         <%=f.text_field :origin_value, maxlength:50, class: 'col-xs-12'%>
+       </div>
+     </div>
+
+     <div class="form-group">
+       <label class="conyrol-label">启用日期</label>
+       <div class="clearfix">
+         <%=f.text_field :start_time, maxlength:50, class:  ' datepicker col-xs-12'%>
+       </div>
+     </div>
+
+     <div class="form-group">
+       <label class="conyrol-label">折旧年限(年)</label>
+       <div class="clearfix">
+         <%=f.text_field :discount_year, maxlength:50, class: 'col-xs-12'%>
+       </div>
+     </div>
+
+     <div class="form-group">
+       <label class="conyrol-label">保养周期(月)</label>
+       <div class="clearfix">
+         <%=f.text_field :upkeep_cycle, maxlength:50, class: 'col-xs-12'%>
+       </div>
+     </div>
+
+     <div class="form-group">
+       <label class="conyrol-label">鉴定周期(月)</label>
+       <div class="clearfix">
+         <%=f.text_field :authenticate_cycle, maxlength:50, class: 'col-xs-12'%>
+       </div>
+     </div>
+
+     <div class="itemb">
+       <p>资产仓储和使用信息</p>
+     </div>
+
+     <div class="form-group">
+       <label class="conyrol-label">所属仓库<span class="required-star">*</span></label>
+       <div class="clearfix">
+         <%=f.select :warehouse_id, Warehouse.normal.pluck(:name, :id), {:include_blank=>'请选择仓库'}, class: 'col-xs-12'%>
+       </div>
+     </div>
+
+     <div class="form-group">
+       <label class="conyrol-label">存放地点</label>
+       <div class="clearfix">
+         <%=f.text_field :storage_location, maxlength:50, class: 'col-xs-12'%>
+       </div>
+     </div>
+
+    <div class="form-group">
+      <label class="conyrol-label">资产状态</label>
+      <div class="clearfix">
+        <% if @plant_asset.status2? %>
+          <%= @plant_asset.status_name %>
+        <% else %>
+          <%= f.select :status, PlantAsset.status_options[0...4], {:include_blank=>'请选择资产状态'}, class: 'col-xs-12' %>
+        <% end %>
+       </div>
+     </div>
+
+     <div class="form-group">
+       <label class="conyrol-label">完好情况</label>
+       <div class="clearfix">
+         <%=f.select :state,PlantAsset.state_options, {:include_blank=>'请选择'}, maxlength:50, class: 'col-xs-12'%>
+       </div>
+     </div>
+
+    </div>
+  </div>
+  <div class="clearfix"></div>
+     <div class="modal-footer">
+     <button type="submit" class="btn btn-sm btn-primary form-submit" data-fn="submit">确定</button>
+    <button type="button" class="btn btn-sm btn-default" data-dismiss="modals">取消</button>
+  </div>
+<%end%>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $(".select2").select2();
+  })
+</script>

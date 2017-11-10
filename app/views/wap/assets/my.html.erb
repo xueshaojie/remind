@@ -1,0 +1,68 @@
+<%provide(:title,"我发起的资产采购")%>
+
+<div class="html launche">
+  <div class="topline">
+    <a href="javascript:;" class="back" id="J_back" data-back='<%= wap_assets_path %>'></a>
+    <p class="text">我发起的资产采购</p>
+  </div>
+
+  <div class="dtlist"></div>
+  <a href="javascript:;" class="botmore" id="J_more">点击加载更多</a>
+</div>
+
+<script type="text/javascript">
+  $(function(){
+    //加载更多
+    var J_more = $('#J_more'),
+      ajaxdata = {"page":1,"pagesize":7}, // 获取订单列表用的数据
+      isajax = false, //设置开关 防止重复提交
+      isdone = false; // 是否加载完成
+
+    // 获取列表
+    function getajax(){
+      isajax = true;
+      J_more.html('正在加载···');
+      $.ajax({
+        type: "GET",
+        url: "/wap/assets/my",
+        data: {'ajaxdata': ajaxdata},
+        dataType: "json",
+        success: function(res){
+          // console.log(res.data)
+          var dt = res.data, len = dt.length, str = '';
+          for(var i=0; i<len; i++){
+            var v = dt[i];
+            var status_class = '';
+            if ( v.status == '审核中' ) {
+              status_class = 'status_green';
+            } else if ( v.status == '被驳回' ) {
+              status_class = 'status_red';
+            }
+            str += '<a href="/wap/assets/'+v.id+'" class="item"><p class="itl">'+v.description+'</p><div class="slines"><p class="sline">发起人&ensp;&ensp;&ensp;'+v.fd+'·'+v.fname+'</p><p class="sline">审核至&ensp;&ensp;&ensp;'+v.ld+'·'+v.lname+'</p> </div><p class="time">'+v.time+'</p> <span class="status '+status_class+'">'+v.status+'</span></a>'
+          }
+          $('.dtlist').append(str)
+
+          // 判断更新加载条件
+          setTimeout(function(){
+            isajax = false;
+            if(len<ajaxdata.pagesize){
+              isdone = true;
+              J_more.html('');
+            }else{
+              J_more.html('点击加载更多')
+            };
+          },100)
+        }
+      });
+    };
+
+    getajax(); // 获取首次订单数据
+
+    J_more.click(function(){
+      if(isajax || isdone){return false;}
+      ajaxdata.page++;
+      getajax();
+    });
+  });
+
+</script>

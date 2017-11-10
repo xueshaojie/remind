@@ -1,0 +1,41 @@
+<% content_for :main_content do %>
+  <div class="main-content">
+    <div class="breadcrumbs" id="breadcrumbs">
+      <ul class="breadcrumb">
+        <%= render 'partials/home' %>
+        <li><%= link_to '系统设置', new_admin_password_url %></li>
+        <li><%= link_to '修改密码', new_admin_password_url %></li>
+      </ul>
+      <%#= render '/layouts/qrcode' %>
+    </div>
+
+    <div class="page-content">
+      <div class="col-sm-12">
+        <%= form_for current_user, url: admin_passwords_path, method: :post, html: { class: 'form width-800' } do |f| -%>
+          <div class="form-group">
+            <label class="control-label">当前密码：</label>
+            <div class="clearfix">
+              <%= f.password_field :current_password, value: '', class: 'col-sm-4' %>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label">新密码：</label>
+            <div class="clearfix">
+              <%= f.password_field :password, autocomplete: :off, class: 'col-sm-4' %>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label">确认密码：</label>
+            <div class="clearfix">
+              <%= f.password_field :password_confirmation, class: 'col-sm-4' %>
+            </div>
+          </div>
+          <div class="form-group">
+            <input type="submit" class="btn btn-primary btn-sm" id="save_password" value="保存">
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+  </div>
+<% end %>

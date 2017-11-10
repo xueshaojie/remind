@@ -1,0 +1,77 @@
+<% title '采购申请单' %>
+
+<div class="page-content">
+  <div class="col-md-12" style="width: 100%;margin-top: -30px;">
+    <h3>采购申请单</h3>
+    <%#= link_to '打印', print_admin_asset_path(@asset), class: "btn btn-primary btn-sm pull-right", style: 'margin-top: -35px;' %>
+  </div>
+  <div class="col-md-12 margin-top-20" style="width: 100%;">
+    <h5>资产基本信息</h5>
+    <table id="vweddingTable" class="table table-bordered table-hover dataTable ">
+      <tbody>
+        <tr><td>申请流水号</td><td><%= @asset.no %></td></tr>
+        <tr><td>申请部门</td><td><%= @asset.department.try(:name) %></td></tr>
+        <tr><td>申请人</td><td><%= @asset.user.try(:name) %></td></tr>
+        <tr><td>申请时间</td><td><%= @asset.created_at %></td></tr>
+        <tr><td>状态</td><td><%= @asset.status_name %></td></tr>
+        <tr><td>合计金额</td><td><%= @asset.asset_items.sum(:total_price) %></td></tr>
+        <tr><td>申请内容</td><td><%= @asset.description %></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="col-md-12 margin-top-20" style="width: 100%;">
+    <h5>资产项信息</h5>
+    <table id="vweddingTable" class="table table-bordered table-hover dataTable ">
+      <thead>
+        <tr>
+          <th>资产名称</th>
+          <th>规格型号</th>
+          <th>厂商</th>
+          <th>参考单价</th>
+          <th>数量</th>
+          <th>总价</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @asset.asset_items.each do |asset_item| %>
+          <tr>
+            <td><%= asset_item.name %></td>
+            <td><%= asset_item.scale %></td>
+            <td><%= asset_item.merchant %></td>
+            <td><%= asset_item.price %></td>
+            <td><%= asset_item.qty %></td>
+            <td><%= asset_item.try(:total_price) %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="col-md-12 margin-top-20" style="width: 100%;">
+    <h5>审核流转信息</h5>
+    <table id="vweddingTable" class="table table-bordered table-hover dataTable ">
+      <thead>
+        <tr>
+          <th>环节</th>
+          <th>人员</th>
+          <th>状态</th>
+          <th>时间</th>
+          <th>备注</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @asset_logs.each do |asset_log| %>
+          <tr>
+            <td><%= asset_log.user.department.try(:name) %></td>
+            <td><%= asset_log.user.try(:name) %></td>
+            <td><%= asset_log.status_name %></td>
+            <td><%= asset_log.updated_at == asset_log.created_at ? '' : asset_log.updated_at %></td>
+            <td><%= asset_log.description %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+</div>

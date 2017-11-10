@@ -1,0 +1,61 @@
+<style>
+  table th { width: 15%; text-align: right; }
+</style>
+<% content_for :main_content do %>
+  <div class="main-content ">
+    <div class="breadcrumbs" id="breadcrumbs">
+      <ul class="breadcrumb">
+        <%= render 'partials/home' %>
+        <li><%= link_to '问题管理', admin_issues_path %></li>
+        <li><%=  '问题详情' %></li>
+      </ul>
+    </div>
+
+    <div class="page-content">
+      <div class="col-md-12 ">
+        <h4>问题详情</h4>
+        <table id="vweddingTable" class="table table-bordered table-hover dataTable">
+          <tbody>
+            <tr>
+              <th>问题标题</th>
+              <td><%= @issue.title %></td>
+              <th>提交人</th>
+              <td><%= @issue.user.try(:name) %></td>
+            </tr>
+            <tr>
+              <th>问题类型</th>
+              <td><%= @issue.issue_type.name %></td>
+              <th>提交时间</th>
+              <td><%= @issue.created_at %></td>
+            </tr>
+            <tr>
+              <th>问题级别</th>
+              <td><%= @issue.level_name %></td>
+              <th>执行状态</th>
+              <td><%= @issue.status_name %></td>
+            </tr>
+            <tr>
+              <th>问题位置</th>
+              <td><%= @issue.location %></td>
+              <th>执行人</th>
+              <td><%= @issue.solve_user.try(:name) %></td>
+            </tr>
+            <tr>
+              <th>问题描述</th>
+              <td><%= @issue.description %></td>
+              <th>执行时间</th>
+              <td><%= @issue.solve_date %></td>
+            </tr>
+            <td colspan="4">
+              <% @issue.issue_pictures.each do |issue_picture| %>
+                <%= link_to issue_picture.pic_key, target: '_blank' do %><img src="<%= issue_picture.pic_key %>" style="width:200px; height:200px; margin-left: 45px;"/><% end %>
+              <% end %>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+
+     </div>
+  </div>
+<% end %>

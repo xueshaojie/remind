@@ -1,0 +1,72 @@
+<style>
+/*超链接式按钮样式修改*/
+a.btn.btn-primary:hover {
+    color: #fff !important;
+}
+</style>
+
+<div class="navbar navbar-default navbar-fixed-top" id="navbar">
+  <div class="navbar-container" id="navbar-container">
+  	<div class="navbar-header pull-left">
+		<a href="javascript:;" class="navbar-brand">
+			<!-- <img src="/wap/image/ksf_logo.jpg" alt="洁云LOGO"> -->
+		</a>
+	</div>
+    <div class="navbar-header pull-left">
+      <a href="<%= console_url %>" class="navbar-brand">
+        <middle>
+          中华鲟保护区系统
+        </middle>
+      </a>
+    </div>
+
+    <!--<div class="navbar-header pull-left " role="navigation">-->
+      <!--<ul class="nav ace-nav pull-left font-size16">-->
+        <!--<li>-->
+          <!--<a href="<%#= console_url %>" class="<%#= (@partialLeftNav.blank? || @partialLeftNav == "/layouts/partialLeftNav") && controller_name != 'platforms' ? 'active' : '' %>">-->
+            <!--<span>管理中心</span>-->
+          <!--</a>-->
+        <!--</li>-->
+
+        <!--<li>-->
+          <!--<a href="<%#= profile_path %>" class="<%#= @partialLeftNav == "/layouts/partialLeftSys" ? 'active' : '' %>">-->
+            <!--<span class="margin-top-20">系统设置</span>-->
+          <!--</a>-->
+        <!--</li>-->
+
+        <!--<li>-->
+          <!--<a href="<%#= platforms_url %>" class="<%#= @partialLeftNav == "/layouts/partialLeftWeixin" ? 'active' : '' %>">-->
+            <!--<span class="margin-top-20">微信设置</span>-->
+          <!--</a>-->
+        <!--</li>-->
+      <!--</ul>-->
+    <!--</div>-->
+
+    <div class="navbar-header pull-right" role="navigation">
+      <ul class="nav ace-nav font-size16 system_message_ul">
+        <li class="split-right">
+          <a data-toggle="dropdown" href="javascript:;" class="dropdown-toggle">
+            <span> <%= current_user_name %></span><i class="icon-caret-down"></i>
+          </a>
+          <ul class="user-menu pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
+            <li class="divider"></li>
+<!--             <li>
+              <a href="<%#= update_diff_password %>">
+                <i class="icon-cog"></i>
+                修改密码
+              </a>
+            </li> -->
+            <li>
+              <a href="<%= sign_out_url %>">
+                <i class="icon-off"></i>
+                退出
+              </a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,55 @@
+<% title '任务详情' %>
+
+<div class="html question task_detial" style="padding-top: 0">
+<!--
+  <div class="topline">
+    <p class="text">任务详情</p>
+  </div>
+ -->
+  <p class="ptil"><%= @task_template.name %></p>
+  <div class="inlineform inlineform_nobd">
+    <div class="linebox">
+      <img src="/asset/images/item03k.png" class="iado">
+      <span class="ado">任务类型</span>
+      <p class="line_text"><%= @task_template.try(:name) %></p>
+    </div>
+    <div class="linebox">
+      <img src="/asset/images/item03b.png" class="iado">
+      <span class="ado">执行部门</span>
+      <p class="line_text"><%= @task_template.department.try(:name) %></p>
+    </div>
+    <div class="linebox">
+      <img src="/asset/images/item03c.png" class="iado adomid">
+      <span class="ado adomid">任务时间</span>
+      <p class="line_text"><span><%= raw @task_template.try(:mobile_time_info) %></span></p>
+    </div>
+    <div class="linebox">
+      <img src="/asset/images/item03f.png" class="iado adomid">
+      <span class="ado adomid">前置任务</span>
+      <p class="line_text">&emsp;<%= @task_template.parent.try(:name) %></p>
+    </div>
+  </div>
+
+  <% if @task %>
+    <p class="subtil subtila">执行记录</p>
+    <div class="hists">
+      <p class="hist">上次执行时间<span class="hado"><%= @task.end_at %></span></p>
+      <p class="hist">执行人员<span class="hado"><%= @task.user.try(:name) %></span></p>
+      <p class="hist_line"></p>
+      <% @task.task_items.each do |task_item| %>
+        <p class="hist"><%= task_item.name %><span class="hado <%= 'hado_red' if task_item.problem? %>"><%= task_item.status_name %></span></p>
+      <% end %>
+    </div>
+    <div class="queslist mt10">
+      <% @task.issues.each do |issue| %>
+        <a href="javascript:;" class="quesitem">
+          <p class="qi_til"><%= issue.description %><span class="qi_sta qi_sta_red"><%= issue.level_name %></span></p>
+          <p class="qi_ty"><%= issue.category %></p>
+          <p class="qi_tps"><span class="qi_tp qi_tp_name"><%= issue.user.try(:name) %>&ensp;&ensp;上报</span><span class="qi_tp qi_tp_time"><%= issue.created_at %></span></p>
+          <p class="qi_do <%= 'qi_do_red' if issue.pending? %>"><%= issue.status_name %></p>
+        </a>
+      <% end %>
+    </div>
+  <% end %>
+  <br>
+</div>

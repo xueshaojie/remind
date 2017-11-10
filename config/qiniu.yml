@@ -1,0 +1,20 @@
+defaults: &defaults
+  access_key: '8Fhb8yjQqDLmIbe5G1aEpt3SGV5oYR1DDRDy4PY8'
+  secret_key: 'oIISDj8c7C7Gsbwz0-I-XN1Ua2pA3TL5qUyk52fm'
+  bucket_pictures: 'image'
+  bucket_media: 'image'
+  bucket_views720: 'image'
+  bucket_wmall: 'image'
+  domain: 'dajiaxiao.cn'
+
+development:
+  <<: *defaults
+
+test:
+  <<: *defaults
+
+staging:
+  <<: *defaults
+
+production:
+  <<: *defaults

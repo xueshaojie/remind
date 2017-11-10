@@ -1,0 +1,35 @@
+<%= form_for [:admin, @asset], validate: true, html: {class: 'form'} do |f| %>
+  <div class="modal-body">
+    <div class="col-xs-12">
+
+      <% unless @asset.new_record? %>
+        <div class="form-group">
+          <label class="control-label">流水号<span class="required-star">*</span></label>
+          <div class="clearfix">
+            <%= @asset.no %>
+          </div>
+        </div>
+      <% end %>
+
+      <div class="form-group">
+        <label class="control-label">申请部门: <span id="user_id"><%= @current_user.department.try(:name) %></span></label>
+      </div>
+
+      <div class="form-group">
+        <label class="control-label">申请人: <span id="user_id"><%= @asset.user.try(:name) %></span></label>
+      </div>
+
+      <div class="form-group">
+        <label class="control-label">申请缘由<span class="required-star">*</span></label>
+        <div class="clearfix">
+          <%= f.text_area :description, rows: 4, cols: 20,  class: "col-xs-12" %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="clearfix"></div>
+  <div class="modal-footer">
+    <button type="submit" class="btn btn-sm btn-primary form-submit" data-fn="submit">确定</button>
+    <button type="button" class="btn btn-sm btn-default" data-dismiss="modals">取消</button>
+  </div>
+<% end %>

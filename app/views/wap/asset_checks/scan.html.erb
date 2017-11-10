@@ -1,0 +1,124 @@
+<%provide(:title,"资产详情")%>
+
+<div class="html listing_detial">
+  <div class="topline">
+    <a href="javascript:;" class="back" id="J_back" data-back='<%= wap_asset_check_path(@asset_check) %>'></a>
+    <p class="text">资产详情</p>
+  </div>
+
+  <p class="bhnum"><%= @plant_asset.no %><span class="bhtp">资产编号</span></p>
+  <div class="inlineform inlineform_notb inlineform_nobb">
+    <div class="linebox">
+      <span class="ado">资产名称</span>
+      <p class="line_text">&ensp;<%= @plant_asset.name %></p>
+    </div>
+    <div class="linebox">
+      <span class="ado">规格型号</span>
+      <p class="line_text">&ensp;<%= @plant_asset.scale %></p>
+    </div>
+    <div class="linebox">
+      <span class="ado">启用日期</span>
+      <p class="line_text">&ensp;<%= @plant_asset.start_time %></p>
+    </div>
+    <div class="linebox">
+      <span class="ado">供应商</span>
+      <p class="line_text">&ensp;<%=@plant_asset.supplier.try(:name) %></p>
+    </div>
+    <div class="linebox">
+      <span class="ado">保养周期(月)</span>
+      <p class="line_text">&ensp;<%= @plant_asset.upkeep_cycle %></p>
+    </div>
+    <div class="linebox">
+      <span class="ado">鉴定周期(月)</span>
+      <p class="line_text">&ensp;<%= @plant_asset.authenticate_cycle %></p>
+    </div>
+    <div class="linebox">
+      <span class="ado">资产状态</span>
+      <p class="line_text">&ensp;<%= @plant_asset.status_name %></p>
+    </div>
+    <div class="linebox">
+      <span class="ado">管理部门</span>
+      <p class="line_text">&ensp;<%= @plant_asset.department.try(:name) %></p>
+    </div>
+    <div class="linebox">
+      <span class="ado">上次盘点</span>
+      <p class="line_text">&ensp;<%= @last_asset_check_map.created_at.strftime("%Y-%m-%d %H:%M") if @last_asset_check_map %></p>
+    </div>
+    <div class="linebox">
+      <span class="ado">盘点状态</span>
+      <p class="line_text">&ensp;<%= @last_asset_check_map.try(:status_name) if @last_asset_check_map %></p>
+    </div>
+  </div>
+</div>
+<a href="javascript:;" id="J_end" class="botline_btn">提交盘点结果</a>
+
+<!-- 弹框 -->
+<div class="pop dsn" id="J_pop">
+  <div class="J_closepop inpop"></div>
+  <div class="popcont" id="J_pop_baifang">
+    <p class="btns">
+      <a href="javascript:;" data-state="1" class="J_btn pbtn">正常</a>
+      <a href="javascript:;" data-state="-1" class="J_btn pbtn pbtn_red">损坏</a>
+    </p>
+    <a href="javascript:;" class="J_closepop pbtn">取消</a>
+  </div>
+</div>
+
+<div class="tippop_bg tippop_pd dsn" id="J_endpd">
+  <div class="tippop_alert">
+    <p class="tippop_alert_t">资产盘点成功！</p>
+    <p class="tippop_alert_b">
+      <a class="tippop_confirm_btn" href="<%= wap_asset_check_path(@asset_check)%>">返回</a>
+      <a class="tippop_confirm_btn" id="J_next">扫描下一个</a>
+    </p>
+  </div>
+</div>
+
+<script type="text/javascript">
+  $(function(){
+    var J_pop = $('#J_pop'),
+      J_end = $('#J_end'),
+      J_endpd = $('#J_endpd');
+    // 展开弹框
+    J_end.click(function(){
+      J_pop.show();
+      setTimeout(function(){
+        J_pop.addClass('pop_active')
+      },10);
+    });
+
+    // 关闭弹框
+    $('.J_closepop').click(function(){
+      J_pop.removeClass('pop_active').hide();
+    });
+
+    $('.J_btn').click(function(){
+      var self = $(this),state = self.attr('data-state');
+      J_pop.removeClass('pop_active').hide();
+      $.ajax({
+        type: "POST",
+        url: "/wap/asset_checks/<%= @asset_check.id %>/check",
+        data: { 'asset_check_map': { 'plant_asset_id': <%= @plant_asset.id %>, 'department_id': <%= @plant_asset.department_id %>, 'status': state } },
+        dataType: "json",
+        success: function(res){
+          if (res.code) {
+            J_endpd.show();
+          } else {
+            CUES.tip({"msg":"提交失败","type":"danger"});
+          }
+        }
+      });
+    });
+
+    //扫码下一个
+    $('#J_next').click(function(){
+      // 调用扫一扫接口,扫描成功后返回编号 执行：
+      window.main.startQrScan("<%= scan_wap_asset_check_url(@asset_check) %>?aid=", '资产二维码扫描');
+    });
+
+  });
+</script>
+
+<script type="text/javascript">
+  window.main.hideBtmbar();
+</script>

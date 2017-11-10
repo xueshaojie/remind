@@ -1,0 +1,79 @@
+<% provide(:titile,"申请详情") %>
+
+<div class="html launche_detial">
+  <div class="topline">
+    <a href="javascript:;" class="back" id="J_back" data-back='<%= session[:asset_url_type] == 'my' ? my_wap_assets_path : approves_wap_assets_path %>'></a>
+    <p class="text">申请详情</p>
+  </div>
+  <p class="ptil">&ensp;<%= @asset.no %></p>
+  <div class="inlineform inlineform_notb inlineform_nobb inlineform_top">
+    <div class="linebox">
+      <img src="/asset/images/item03a.png" class="iado">
+      <span class="ado">申请人</span>
+      <p class="line_text"><%= @asset.user.try(:name) %></p>
+    </div>
+    <div class="linebox">
+      <img src="/asset/images/item03b.png" class="iado">
+      <span class="ado">申请部门</span>
+      <p class="line_text"><%= @asset.department.try(:name) %></p>
+    </div>
+    <div class="linebox">
+      <img src="/asset/images/item03c.png" class="iado">
+      <span class="ado">申请时间</span>
+      <p class="line_text"><%= @asset.created_at %></p>
+    </div>
+    <div class="linebox">
+      <img src="/asset/images/item03d.png" class="iado">
+      <span class="ado">总金额(元)</span>
+      <p class="line_text"><%= f @asset.asset_items.sum(:total_price) %></p>
+    </div>
+
+    <a href="<%= logs_wap_asset_path(@asset)%>" class="linebox line_select">
+      <img src="/asset/images/item03e.png" class="iado adomid">
+      <span class="ado adomid">流转详情</span>
+      <p class="line_text"><span>至<%= @asset.wait_asset_log.user.department.try(:name) %>·<%= @asset.wait_asset_log.user.try(:name) %><br><span class="sm greed"><%= @asset.status_name %></span></span></p>
+    </a>
+    <div class="linebox">
+      <img src="/asset/images/item03f.png" class="iado">
+      <p class="line_textarea"><textarea class="control_textarea control_textarea_disabled" placeholder="备注信息"><%= @asset.description %></textarea></p>
+    </div>
+  </div>
+
+  <% @asset.asset_items.each_with_index do |asset_item, index| %>
+    <p class="subtil">项目<%= index + 1 %></p>
+    <div class="inlineform inlineform_notb inlineform_nobb inlineform_pro">
+      <div class="linebox">
+        <span class="ado">资产名称</span>
+        <p class="line_text"><%= asset_item.name %></p>
+      </div>
+      <div class="linebox">
+        <span class="ado">规格型号</span>
+        <p class="line_text">&ensp;<%= asset_item.scale %></p>
+      </div>
+      <div class="linebox">
+        <span class="ado">厂商</span>
+        <p class="line_text">&ensp;<%= asset_item.merchant %></p>
+      </div>
+      <div class="linebox">
+        <span class="ado">参考单价(元)</span>
+        <p class="line_text"><%= f asset_item.price %></p>
+      </div>
+      <div class="linebox">
+        <span class="ado">采购数量</span>
+        <p class="line_text"><%= asset_item.qty %></p>
+      </div>
+      <div class="linebox">
+        <span class="ado">单项总金额(元)</span>
+        <p class="line_text"><%= f asset_item.total_price %></p>
+      </div>
+    </div>
+  <%end%>
+</div>
+
+<% if @asset.process? && @asset.current_asset_log.wait? && @asset.current_asset_log.try(:user) == @user %>
+  <a href="<%= approve_wap_asset_path(@asset) %>" class="botline_btn">审核</a>
+
+  <script type="text/javascript">
+    window.main.hideBtmbar();
+  </script>
+<% end %>

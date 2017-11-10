@@ -1,0 +1,151 @@
+  <% provide(:title, "首页") %>
+
+<div class="html shouye" style="padding-top: 0">
+<!--
+  <div class="topline">
+    <p class="text">首页</p>
+  </div>
+ -->
+  <p class="linetil">今日工作事项<%#= "#{Date.today.year}年#{Date.today.month}月#{Date.today.day}日" %></p>
+  <div class="toptab">
+    <a href="javascript:;" class="tab" onclick="window.main.checkTab(1)">
+      <p class="syt_ic"><img src="/asset/images/item07a.png" class="syt_on"></p>
+      <p class="syt_ti">今日任务</p>
+      <span class="syt_n red_o"><%= @today_tasks.pending.count if @today_tasks.pending.count > 0 %></span>
+    </a>
+    <a href="javascript:;" class="tab" onclick="window.main.checkTab(2)">
+      <p class="syt_ic"><img src="/asset/images/item07b.png" class="syt_on"></p>
+      <p class="syt_ti">待我认领</p>
+      <span class="syt_n red_o"><%= @issues.count if @issues.count > 0 %></span>
+    </a>
+    <%# if @user.asset_manager? %>
+    <a href="javascript:;" class="tab" onclick="window.main.checkTab(3)">
+      <p class="syt_ic"><img src="/asset/images/item07c.png" class="syt_on"></p>
+      <p class="syt_ti">待我审批</p>
+      <span class="syt_n red_o"><%= @user.current_check_assets.count if @user.current_check_assets.count > 0 %></span>
+    </a>
+    <%# end %>
+    <a href="javascript:;" class="tab" onclick="window.main.checkTab(4)">
+      <p class="syt_ic"><img src="/asset/images/item07d.png" class="syt_on"></p>
+      <p class="syt_ti">今日来访</p>
+      <span class="syt_n red_o"><%= @today_visits.created.count if @today_visits.created.count > 0 %></span>
+    </a>
+  </div>
+
+  <p class="linetil">周期任务</p>
+  <div class="toptab">
+    <a href="" class="tab" onclick="window.main.checkTab(1,2)">
+      <p class="syt_ic"><img src="/asset/images/item09a.png" class="syt_on"></p>
+      <p class="syt_ti">月度任务</p>
+      <span class="syt_n red_o"><%= @tasks2_count if @tasks2_count > 0 %></span>
+    </a>
+    <a href="" class="tab" onclick="window.main.checkTab(1,3)">
+      <p class="syt_ic"><img src="/asset/images/item09b.png" class="syt_on"></p>
+      <p class="syt_ti">季度任务</p>
+      <span class="syt_n red_o"><%= @tasks3_count if @tasks3_count > 0 %></span>
+    </a>
+    <a href="" class="tab" onclick="window.main.checkTab(1,4)">
+      <p class="syt_ic"><img src="/asset/images/item09c.png" class="syt_on"></p>
+      <p class="syt_ti">半年任务</p>
+      <span class="syt_n red_o"><%= @tasks4_count if @tasks4_count > 0 %></span>
+    </a>
+    <a href="" class="tab" onclick="window.main.checkTab(1,5)">
+      <p class="syt_ic"><img src="/asset/images/item09d.png" class="syt_on"></p>
+      <p class="syt_ti">年度任务</p>
+      <span class="syt_n red_o"><%= @tasks5_count if @tasks5_count > 0 %></span>
+    </a>
+  </div>
+
+  <p class="linetil">工作情况汇总</p>
+  <div class="inlineform inlineform_nobd">
+    <div class="linebox">
+      <p class="hb_til">今天</p>
+      <div class="hb_its">
+        <a href="javascript:;" class="hb_it">
+          <p class="hb_it_i">任务完成</p>
+          <p class="hb_it_n blue"><%= @sum_today_tasks.count == 0 ? "0.0" : "#{((@sum_today_tasks.finished.count/@sum_today_tasks.count.to_f) * 100.0).round(1)}" %>%</p>
+        </a>
+        <a href="javascript:;" class="hb_it">
+          <p class="hb_it_i">发现问题</p>
+          <p class="hb_it_n"><%= @sum_today_issues.count %></p>
+        </a>
+        <a href="javascript:;" class="hb_it">
+          <p class="hb_it_i">已解决</p>
+          <p class="hb_it_n"><%= @sum_today_issues.where(status: [2, 3]).count %></p>
+        </a>
+        <a href="javascript:;" class="hb_it">
+          <p class="hb_it_i">未解决</p>
+          <p class="hb_it_n red"><%= @sum_today_issues.where(status: [0, 1]).count %></p>
+        </a>
+      </div>
+    </div>
+
+    <div class="linebox">
+      <p class="hb_til">昨天</p>
+      <div class="hb_its">
+        <a href="javascript:;" class="hb_it">
+          <p class="hb_it_i">任务完成</p>
+          <p class="hb_it_n blue"><%= @sum_yesterday_tasks.count == 0 ? "0.0" : "#{((@sum_yesterday_tasks.finished.count/@sum_yesterday_tasks.count.to_f) * 100.0).round(1)}" %>%</p>
+        </a>
+        <a href="javascript:;" class="hb_it">
+          <p class="hb_it_i">发现问题</p>
+          <p class="hb_it_n"><%= @sum_yesterday_issues.count %></p>
+        </a>
+        <a href="javascript:;" class="hb_it">
+          <p class="hb_it_i">已解决</p>
+          <p class="hb_it_n"><%= @sum_yesterday_issues.where(status: [2, 3]).count %></p>
+        </a>
+        <a href="javascript:;" class="hb_it">
+          <p class="hb_it_i">未解决</p>
+          <p class="hb_it_n red"><%= @sum_yesterday_issues.where(status: [0, 1]).count %></p>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <p class="linetil">30天内个人工作回顾</p>
+  <div class="hbbox">
+    <div class="hg">
+      <div class="hg_its">
+        <div class="hg_it">
+          <p class="hg_text">总任务数  <%= @last_month_tasks.count %></p>
+          <p class="hg_text">完成任务  <%= @last_month_tasks.finished.count %></p>
+          <p class="hg_num blue"><%= @last_month_tasks.finished.count == 0 ? 0.0 : ((@last_month_tasks.finished.count/@last_month_tasks.count.to_f) * 100.0).round(1) %>%</p>
+        </div>
+        <div class="hg_it">
+          <p class="hg_text">发现问题  <%= @my_last_month_new_issues.count %></p>
+          <p class="hg_text">解决问题  <%= @my_last_month_new_issues.where(status: [2, 3]).count %></p>
+          <p class="hg_num blue"><%= @my_last_month_new_issues.count == 0 ? "0.0" : "#{((@my_last_month_new_issues.where(status: [2, 3]).count/@my_last_month_new_issues.count.to_f) * 100.0).round(1)}" %>%</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <% if @user.leader? || @user.admin? %>
+    <p class="linetil">30天内部门工作回顾</p>
+    <div class="hbbox">
+      <% @user.department.self_and_descendants.each do |department| %>
+        <% department_last_month_tasks = department.tasks.where("task_start_at >= ? and task_end_at <= ?",30.days.ago.strftime("%Y-%m-%d 00:00:00"), Time.now.strftime("%Y-%m-%d 23:59:59")) %>
+        <% next if department_last_month_tasks.count == 0 %>
+
+        <% department_last_month_new_issues = Issue.where(user_id: department.users.pluck(:id)).where("created_at >= ?",30.days.ago.strftime("%Y-%m-%d 00:00:00")) %>
+        <div class="hg">
+          <p class="hg_til"><%= department.name %></p>
+          <div class="hg_its">
+            <div class="hg_it">
+              <p class="hg_text">总任务数  <%= department_last_month_tasks.count %></p>
+              <p class="hg_text">完成任务  <%= department_last_month_tasks.finished.count %></p>
+              <p class="hg_num blue"><%= department_last_month_tasks.count == 0 ? 0.0 : ((department_last_month_tasks.finished.count/department_last_month_tasks.count.to_f) * 100.0).round(1) %>%</p>
+            </div>
+            <div class="hg_it">
+              <p class="hg_text">发现问题  <%= department_last_month_new_issues.count %></p>
+              <p class="hg_text">解决问题  <%= department_last_month_new_issues.where(status: [1, 2]).count %></p>
+              <p class="hg_num blue"><%= department_last_month_new_issues.count == 0 ? 0.0 : ((department_last_month_new_issues.where(status: [1, 2]).count/department_last_month_new_issues.count.to_f) * 100.0).round(1) %>%</p>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+  <br>
+</div>
