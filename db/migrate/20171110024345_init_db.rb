@@ -1,4 +1,5 @@
 class InitDb < ActiveRecord::Migration
+
   def change
     create_table "logged_exceptions", :force => true do |t|
       t.string   "exception_class"
@@ -79,107 +80,6 @@ class InitDb < ActiveRecord::Migration
       t.text     "description"
       t.integer  "user_id"
       t.integer  "status",      :limit => 1, :default => 1, :null => false
-      t.datetime "created_at"
-      t.datetime "updated_at"
-    end
-
-    create_table "asset_categories", :force => true do |t|
-      t.string   "name",                      :null => false
-      t.integer  "position",   :default => 1, :null => false
-      t.integer  "asset_type", :default => 1, :null => false
-      t.integer  "status",     :default => 1, :null => false
-      t.datetime "created_at",                :null => false
-      t.datetime "updated_at"
-    end
-
-    create_table "asset_check_maps", :force => true do |t|
-      t.integer  "asset_check_id",                :null => false
-      t.integer  "plant_asset_id",                :null => false
-      t.integer  "check_type_id",  :default => 3, :null => false
-      t.integer  "status",         :default => 1, :null => false
-      t.datetime "created_at",                    :null => false
-      t.datetime "updated_at"
-      t.integer  "department_id",                 :null => false
-      t.integer  "user_id",                       :null => false
-    end
-
-    create_table "asset_checks", :force => true do |t|
-      t.string   "name",                          :null => false
-      t.integer  "department_id",                 :null => false
-      t.integer  "user_id",                       :null => false
-      t.date     "start_time"
-      t.date     "end_time"
-      t.integer  "original_asset", :default => 0, :null => false
-      t.integer  "real_asset",     :default => 0, :null => false
-      t.integer  "profit_asset",   :default => 0, :null => false
-      t.integer  "loss_asset",     :default => 0, :null => false
-      t.integer  "status",         :default => 0, :null => false
-      t.datetime "created_at",                    :null => false
-      t.datetime "updated_at"
-    end
-
-    create_table "asset_items", :force => true do |t|
-      t.integer  "asset_id",                                   :null => false
-      t.string   "name",                                       :null => false
-      t.string   "scale",                                      :null => false
-      t.string   "merchant",                                   :null => false
-      t.decimal  "price",       :precision => 10, :scale => 0, :null => false
-      t.integer  "qty",                                        :null => false
-      t.decimal  "total_price", :precision => 10, :scale => 0
-      t.datetime "created_at"
-      t.datetime "updated_at"
-    end
-
-    create_table "asset_logs", :force => true do |t|
-      t.integer  "asset_id",                                :null => false
-      t.integer  "user_id",                                 :null => false
-      t.text     "description"
-      t.integer  "status",      :limit => 1, :default => 0, :null => false
-      t.datetime "created_at"
-      t.datetime "updated_at"
-      t.integer  "position",                 :default => 1, :null => false
-    end
-
-    create_table "assets", :force => true do |t|
-      t.string   "no",                                        :null => false
-      t.integer  "department_id",                             :null => false
-      t.text     "description"
-      t.integer  "user_id",                                   :null => false
-      t.integer  "status",        :limit => 1, :default => 0, :null => false
-      t.datetime "created_at"
-      t.datetime "updated_at"
-    end
-
-    create_table "plant_assets", :force => true do |t|
-      t.string   "no",                                             :null => false
-      t.integer  "asset_category_id",                              :null => false
-      t.string   "name",                                           :null => false
-      t.string   "scale"
-      t.string   "unit"
-      t.string   "merchant"
-      t.string   "origin_no"
-      t.integer  "supplier_id"
-      t.integer  "origin_value"
-      t.date     "start_time"
-      t.integer  "discount_year"
-      t.integer  "upkeep_cycle"
-      t.integer  "authenticate_cycle"
-      t.integer  "warehouse_id",                                   :null => false
-      t.integer  "state",              :limit => 1, :default => 1, :null => false
-      t.integer  "status",             :limit => 1, :default => 1, :null => false
-      t.datetime "created_at"
-      t.datetime "updated_at"
-      t.integer  "condition",                       :default => 1, :null => false
-      t.integer  "department_id"
-      t.string   "financial_number"
-      t.string   "storage_location"
-    end
-
-    create_table "plant_usage_records", :force => true do |t|
-      t.integer  "plant_asset_id",                             :null => false
-      t.integer  "department_id",                              :null => false
-      t.text     "description"
-      t.integer  "status",         :limit => 1, :default => 1, :null => false
       t.datetime "created_at"
       t.datetime "updated_at"
     end
