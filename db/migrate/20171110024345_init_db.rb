@@ -57,22 +57,24 @@ class InitDb < ActiveRecord::Migration
 
 
     create_table "suppliers", :force => true do |t|
+      t.string "shop_id", null: false
       t.string   "name"
       t.string   "username",                   :null => false
-      t.string   "tel",                        :null => false
-      t.string   "email"
+      t.string   "mobile",                        :null => false
+      t.string   "pay_info",                      
       t.integer  "status",      :default => 1, :null => false
+      t.integer  "position",      :default => 1, :null => false
       t.text     "description"
       t.datetime "created_at",                 :null => false
       t.datetime "updated_at"
     end
 
     create_table "warehouses", :force => true do |t|
+      t.string "shop_id", null: false
       t.string   "name",                                    :null => false
-      t.string   "location"
       t.text     "description"
-      t.integer  "user_id"
       t.integer  "status",      :limit => 1, :default => 1, :null => false
+      t.integer  "position",      :default => 1, :null => false
       t.datetime "created_at"
       t.datetime "updated_at"
     end
