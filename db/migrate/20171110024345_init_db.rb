@@ -12,6 +12,35 @@ class InitDb < ActiveRecord::Migration
       t.datetime "created_at"
     end
 
+    create_table "provinces" do |t|
+      t.string   "name",                      :null => false
+      t.string   "pinyin"
+      t.integer  "sort",       :default => 0, :null => false
+      t.datetime "created_at",                :null => false
+      t.datetime "updated_at",                :null => false
+    end
+    create_table "cities" do |t|
+      t.string   "name",                       :null => false
+      t.string   "pinyin"
+      t.integer  "province_id", :default => 9, :null => false
+      t.integer  "sort",        :default => 0, :null => false
+      t.datetime "created_at",                 :null => false
+    end
+
+    add_index "cities", ["province_id"], :name => "index_cities_on_province_id"
+
+    create_table "districts" do |t|
+      t.string   "name",                       :null => false
+      t.string   "pinyin"
+      t.integer  "city_id",    :default => 73, :null => false
+      t.integer  "sort",       :default => 0,  :null => false
+      t.datetime "created_at",                 :null => false
+      t.datetime "updated_at",                 :null => false
+    end
+
+    add_index "districts", ["city_id"], :name => "index_districts_on_city_id"
+
+
     create_table "roles", :force => true do |t|
       t.string   "name",                                    :null => false
       t.integer  "position",    :limit => 1, :default => 1, :null => false
@@ -54,6 +83,7 @@ class InitDb < ActiveRecord::Migration
     add_index "role_permission_maps", ["permission_id"], :name => "index_role_permission_maps_on_permission_id"
     add_index "role_permission_maps", ["role_id"], :name => "index_role_permission_maps_on_role_id"
 
+
     create_table "product_categorie", force => true, options: 'AUTO_INCREMENT = 10001' do |t|
       t.string   "name", null: false
       t.integer  "position",      :default => 1, :null => false
@@ -80,20 +110,22 @@ class InitDb < ActiveRecord::Migration
       t.integer  "position",      :default => 1, :null => false
     end
 
+
     create_table "shops", force => true, options: 'AUTO_INCREMENT = 10001' do |t|
       t.string   "name"
-      t.integer  "scale",      :default => 1, :null => false
+      t.integer  "scale",       :default => 1, :null => false
       t.integer  "credit",      :default => 0, :null => false
-      t.integer  "province_id"
-      t.integer  "city_id"
-      t.integer  "district_id"
+      t.integer  "province_id", :default => 9, :null => false
+      t.integer  "city_id",     :default => 73, :null => false
+      t.integer  "district_id", :default => 702, :null => false
       t.string   "address"
       t.integer  "status",      :default => 1, :null => false
       t.integer  "position",      :default => 1, :null => false
     end
 
     create_table "shop_users", :force => true, options: 'AUTO_INCREMENT = 10001' do |t|
-      t.integer  "shop_id",  :null => false
+      t.integer  "shop_id",   :null => false
+      t.integer  "user_type", :null => false, default: 1, comment: '1: 管理员 2：普通员工'
       t.string   "login_name",                                  :null => false
       t.string   "name"
       t.string   "password_digest"
