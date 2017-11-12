@@ -49,7 +49,7 @@ class InitDb < ActiveRecord::Migration
       t.datetime "updated_at", :null => false
     end
 
-    create_table "users", :force => true, options: 'AUTO_INCREMENT = 10001' do |t|
+    create_table "users", options: 'AUTO_INCREMENT = 10001' do |t|
       t.string   "login_name",                                  :null => false
       t.string   "name"
       t.string   "password_digest"
@@ -84,19 +84,19 @@ class InitDb < ActiveRecord::Migration
     add_index "role_permission_maps", ["role_id"], :name => "index_role_permission_maps_on_role_id"
 
 
-    create_table "product_categorie", force => true, options: 'AUTO_INCREMENT = 10001' do |t|
+    create_table "product_categorie", options: 'AUTO_INCREMENT = 10001' do |t|
       t.string   "name", null: false
       t.integer  "position",      :default => 1, :null => false
       t.integer  "status",      :default => 1, :null => false
     end
 
-    create_table "brand_categories", force => true, options: 'AUTO_INCREMENT = 10001' do |t|
+    create_table "brand_categories", options: 'AUTO_INCREMENT = 10001' do |t|
       t.string   "name", null: false
       t.integer  "position",      :default => 1, :null => false
       t.integer  "status",      :default => 1, :null => false
     end
 
-    create_table "brands", force => true, options: 'AUTO_INCREMENT = 10001' do |t|
+    create_table "brands", options: 'AUTO_INCREMENT = 10001' do |t|
       t.integer  "brand_category_id",  :null => false
       t.string   "name"
       t.string   "name_en"
@@ -105,13 +105,13 @@ class InitDb < ActiveRecord::Migration
       t.text     "description"
     end
 
-    create_table "tags", force => true do |t|
+    create_table "tags", :force => true do |t|
       t.string   "name", null: false
       t.integer  "position",      :default => 1, :null => false
     end
 
 
-    create_table "shops", force => true, options: 'AUTO_INCREMENT = 10001' do |t|
+    create_table "shops", options: 'AUTO_INCREMENT = 10001' do |t|
       t.string   "name"
       t.integer  "scale",       :default => 1, :null => false
       t.integer  "credit",      :default => 0, :null => false
@@ -123,7 +123,7 @@ class InitDb < ActiveRecord::Migration
       t.integer  "position",      :default => 1, :null => false
     end
 
-    create_table "shop_users", :force => true, options: 'AUTO_INCREMENT = 10001' do |t|
+    create_table "shop_users", options: 'AUTO_INCREMENT = 10001' do |t|
       t.integer  "shop_id",   :null => false
       t.integer  "user_type", :null => false, default: 1, comment: '1: 管理员 2：普通员工'
       t.string   "login_name",                                  :null => false
@@ -168,7 +168,7 @@ class InitDb < ActiveRecord::Migration
       t.datetime "updated_at",                                  :null => false
     end
 
-    create_table "warehouses", :force => true, options: 'AUTO_INCREMENT = 10001' do |t|
+    create_table "warehouses", options: 'AUTO_INCREMENT = 10001' do |t|
       t.string   "shop_id", null: false
       t.string   "name",                                    :null => false
       t.integer  "status",      :limit => 1, :default => 1, :null => false
@@ -190,7 +190,7 @@ class InitDb < ActiveRecord::Migration
       t.datetime "updated_at",      :null => false
     end
 
-    create_table "products", :force => true, options: 'AUTO_INCREMENT = 10001' do |t|
+    create_table "products", options: 'AUTO_INCREMENT = 10001' do |t|
       t.integer  "shop_id", null: false
       t.integer  "product_category_id", null: false
       t.integer  "brand_id", null: false
@@ -220,7 +220,7 @@ class InitDb < ActiveRecord::Migration
       t.datetime "created_at", :null => false
     end
 
-    create_table "shop_customers", :force => true, options: 'AUTO_INCREMENT = 10001' do |t|
+    create_table "shop_customers", options: 'AUTO_INCREMENT = 10001' do |t|
       t.integer  "shop_id", null: false
       t.string   "name"
       t.string   "mobile", null: false
