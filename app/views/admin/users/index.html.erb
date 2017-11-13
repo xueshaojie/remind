@@ -14,12 +14,14 @@
         <div class="col-md-12 no-padding">
           <div class="col-md-2">
             <div class="input-group input-group-text">
-              <%= f.text_field :name_or_no_like, placeholder:"员工编号/姓名",class: "col-xs-12" %>
+              <%= f.text_field :name_like, placeholder:"员工姓名",class: "col-xs-12" %>
             </div>
           </div>
 
           <div class="col-md-2">
-            <%= f.select :department_id_eq, Department.normal.map{|dep| [dep.to_s, dep.id] }, {:include_blank=>'选择部门'}, class: "col-xs-12 cc" %>
+            <div class="input-group input-group-text">
+              <%= f.text_field :login_name_like, placeholder:"员工登录账号",class: "col-xs-12" %>
+            </div>
           </div>
 
           <div class="col-md-2 margin-top">
@@ -37,14 +39,8 @@
           class="table table-bordered table-hover dataTable ">
           <thead>
             <tr>
-              <!-- <th><input type='checkbox' class='checkbox toggle' style="display:inline;"/></th> -->
-              <th>员工编号</th>
               <th>员工姓名</th>
-              <th>登录账号</th>
-              <th>所属部门</th>
-              <!-- <th>员工类型</th> -->
-              <th>性别</th>
-              <th>手机号码</th>
+              <th>角色</th>
               <th>状态</th>
               <th>创建时间</th>
               <th>操作</th>
@@ -55,14 +51,8 @@
               <%= hidden_field_tag 'type'%>
               <% @users.each do |user| %>
                 <tr>
-                  <!-- <td><%#= check_box_tag 'user[user_ids][]', user.id%></td> -->
-                  <td><%= user.no %></td>
                   <td><%= user.name %></td>
-                  <td><%= user.login_name %></td>
-                  <td><%= user.department.to_s %></td>
-                  <!-- <td><%#= user.user_type_name %></td> -->
-                  <td><%= user.gender_name %></td>
-                  <td><%= user.mobile %></td>
+                  <td><%= user.role_name %></td>
                   <td><%= user.status_name %></td>
                   <td><%= user.created_at %></td>
                   <td>

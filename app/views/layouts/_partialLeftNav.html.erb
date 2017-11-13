@@ -8,15 +8,13 @@
       </ul>
     </li>
 
-    <% if can?(2) || can?(3) || can?(4) %>
-      <li class="<%= parent_class if controller_name =~ /users|roles|departments/ %>">
+    
+    <% if can?(2) || can?(4) %>
+      <li class="<%= parent_class if controller_name =~ /users|roles/ %>">
         <%= left_nav_dropdown 'iconfont icon-jiaoseguanlihuise', '组织结构' %>
-        <ul class="submenu" style="<%= 'display: block' if controller_name =~ /users|roles|departments/ %>">
+        <ul class="submenu" style="<%= 'display: block' if controller_name =~ /users|roles/ %>">
           <% if can?(2) %>
             <%= link_to_left_nav('员工管理', admin_users_path, controller_name == 'users') %>
-          <% end %>
-          <% if can?(3) %>
-            <%= link_to_left_nav('部门管理', admin_departments_path, controller_name == 'departments') %>
           <% end %>
           <% if can?(4) %>
             <%= link_to_left_nav('角色管理', admin_roles_path, controller_name == 'roles') %>
@@ -25,23 +23,23 @@
       </li>
     <% end %>
 
-    <% if can?(5) || can?(6) || can?(7) %>
-      <li class="<%= parent_class if controller_name =~ /task/ %>">
-        <%= left_nav_dropdown 'icon-file', '任务管理' %>
-        <ul class="submenu" style="<%= 'display: block' if controller_name =~ /task/ %>">
-          <%= link_to_left_nav('任务类型', admin_task_categories_path, controller_name == 'task_categories') if can?(5) %>
-          <% if can?(5) %>
-            <%= link_to_left_nav('任务模板', admin_task_templates_path, controller_name == 'task_templates') %>
-          <% end %>
-          <% if can?(6) %>
-            <%= link_to_left_nav('任务查询', admin_tasks_path, controller_name == 'tasks') %>
-          <% end %>
-          <% if can?(7) %>
-            <%= link_to_left_nav('任务记录', admin_task_records_path, controller_name == 'task_records') %>
-          <% end %>
-        </ul>
-      </li>
-    <% end %>
+    <%# if can?(5) || can?(6) || can?(7) %>
+      <!-- <li class="<%#= parent_class if controller_name =~ /task/ %>"> -->
+        <%#= left_nav_dropdown 'icon-file', '任务类型管理' %>
+        <!-- <ul class="submenu" style="<%#= 'display: block' if controller_name =~ /task/ %>"> -->
+          <%#= link_to_left_nav('任务类型', admin_task_categories_path, controller_name == 'task_categories') if can?(5) %>
+          <%# if can?(5) %>
+            <%#= link_to_left_nav('任务模板', admin_task_templates_path, controller_name == 'task_templates') %>
+          <%# end %>
+          <%# if can?(6) %>
+            <%#= link_to_left_nav('任务查询', admin_tasks_path, controller_name == 'tasks') %>
+          <%# end %>
+          <%# if can?(7) %>
+            <%#= link_to_left_nav('任务记录', admin_task_records_path, controller_name == 'task_records') %>
+          <%# end %>
+        <!-- </ul> -->
+      <!-- </li> -->
+    <%# end %>
 
     <% if can?(8)%>
       <li class="<%= 'active' if controller_name =~ /visit/ %>">

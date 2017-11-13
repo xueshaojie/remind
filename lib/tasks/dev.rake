@@ -14,13 +14,11 @@ namespace :dev do
     puts 'Starting init role and user ******'
 
     role = Role.where(name: '系统管理员').first_or_create!
-    dept = Department.where(name: '后勤部', no: '123456').first_or_create!(parent_id: 0)
-    user = User.where(mobile: '18612345678').first_or_create!(
-      department_id: dept.id,
+    # dept = Department.where(name: '后勤部', no: '123456').first_or_create!(parent_id: 0)
+    user = User.where(login_name: 'biaotu ').first_or_create!(
       name: '管理员',
-      login_name: 'admin',
+      login_name: 'biaotu',
       password: 111111, password_confirmation: 111111,
-      no: '123456'
     )
 
     UserRoleMap.where(user_id: user.id, role_id: role.id).first_or_create!
@@ -30,7 +28,7 @@ namespace :dev do
     permission_list = {
       1 => '系统设置',
       2 => '员工管理',
-      3 => '部门管理',
+      # 3 => '部门管理',
       4 => '角色管理',
       5 => '任务模板',
       6 => '任务查询',

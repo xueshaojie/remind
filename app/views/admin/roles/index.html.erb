@@ -21,6 +21,7 @@
             <tr>
               <th>角色名称</th>
               <th width="82%">角色权限</th>
+              <th>创建时间</th>
               <th>操作</th>
             </tr>
           </thead>
@@ -29,9 +30,10 @@
               <tr>
                 <td width="120px"><%= role.name %></td>
                 <td><%= role.permissions.map{|p| p.name}.join(', ') %></td>
-                <td width="50px">
+                <td><%= role.created_at %></td>
+                <td width="80px">
                   <a href="javascript:;" class="fgreen" data-target="editBrand" data-toggle="modals" data-title="编辑角色" data-height="1000" data-iframe="/admin/roles/<%= role.id %>/edit">编辑</a>
-                  <%#= link_to '删除', admin_role_path(role), method: :delete, data: { confirm: "确定删除?" } %>
+                  <%= link_to '删除', admin_role_path(role), method: :delete, data: { confirm: "确定删除?" } %>
                 </td>
               </tr>
             <% end %>

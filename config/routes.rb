@@ -44,17 +44,17 @@ Wp::Application.routes.draw do
   end
 
   namespace :admin do
-    get 'task_templates/change', to: 'task_templates#change'
+    # get 'task_templates/change', to: 'task_templates#change'
 
-    resources :archive_categories
+    # resources :archive_categories
 
-    resources :task_templates do
-      get :qrcode, :download, :copy, on: :member
-      put :on, :off, :delete_next, :delete_current, on: :member
-    end
-    resources :task_template_items do
-      put :up, :down, on: :member
-    end
+    # resources :task_templates do
+    #   get :qrcode, :download, :copy, on: :member
+    #   put :on, :off, :delete_next, :delete_current, on: :member
+    # end
+    # resources :task_template_items do
+    #   put :up, :down, on: :member
+    # end
     resources :tasks, :task_records
     resources :task_categories
 
@@ -63,6 +63,9 @@ Wp::Application.routes.draw do
       put :sync, :normal, :disabled, on: :member
       post :sync_fetch, on: :collection
     end
+
+    resources :product_categories
+
     resources :passwords, only: [:new, :create]
     resources :users do
       put :sync, :normal, :frost, :reset, on: :member

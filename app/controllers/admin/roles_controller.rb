@@ -4,7 +4,7 @@ class Admin::RolesController < Admin::BaseController
 
     def index
         @search = Role.search(params[:search])
-        @roles = @search.order("id asc").page(params[:page])
+        @roles = @search.order("created_at desc").page(params[:page])
     end
 
     def new
