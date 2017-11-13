@@ -84,7 +84,7 @@ class InitDb < ActiveRecord::Migration
     add_index "role_permission_maps", ["role_id"], :name => "index_role_permission_maps_on_role_id"
 
 
-    create_table "product_categorie", options: 'AUTO_INCREMENT = 10001' do |t|
+    create_table "product_categories", options: 'AUTO_INCREMENT = 10001' do |t|
       t.string   "name", null: false
       t.integer  "position",      :default => 1, :null => false
       t.integer  "status",      :default => 1, :null => false
