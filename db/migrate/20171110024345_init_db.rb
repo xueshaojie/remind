@@ -88,12 +88,16 @@ class InitDb < ActiveRecord::Migration
       t.string   "name", null: false
       t.integer  "position",      :default => 1, :null => false
       t.integer  "status",      :default => 1, :null => false
+      t.datetime "created_at", :null => false
+      t.datetime "updated_at", :null => false
     end
 
     create_table "brand_categories", options: 'AUTO_INCREMENT = 10001' do |t|
       t.string   "name", null: false
       t.integer  "position",      :default => 1, :null => false
       t.integer  "status",      :default => 1, :null => false
+      t.datetime "created_at", :null => false
+      t.datetime "updated_at", :null => false
     end
 
     create_table "brands", options: 'AUTO_INCREMENT = 10001' do |t|
@@ -103,11 +107,15 @@ class InitDb < ActiveRecord::Migration
       t.integer  "position",      :default => 1, :null => false
       t.integer  "status",      :default => 1, :null => false
       t.text     "description"
+      t.datetime "created_at", :null => false
+      t.datetime "updated_at", :null => false
     end
 
     create_table "tags", :force => true do |t|
       t.string   "name", null: false
       t.integer  "position",      :default => 1, :null => false
+      t.datetime "created_at", :null => false
+      t.datetime "updated_at", :null => false
     end
 
 
@@ -115,12 +123,17 @@ class InitDb < ActiveRecord::Migration
       t.string   "name"
       t.integer  "scale",       :default => 1, :null => false
       t.integer  "credit",      :default => 0, :null => false
+      t.decimal  "total_amount",  :precision => 12, :scale => 2, :default => 0.0,            :null => false
+      t.decimal  "usable_amount", :precision => 12, :scale => 2, :default => 0.0,            :null => false
+      t.decimal  "froze_bond",    :precision => 12, :scale => 2, :default => 0.0,            :null => false
       t.integer  "province_id", :default => 9, :null => false
       t.integer  "city_id",     :default => 73, :null => false
       t.integer  "district_id", :default => 702, :null => false
       t.string   "address"
       t.integer  "status",      :default => 1, :null => false
       t.integer  "position",      :default => 1, :null => false
+      t.datetime "created_at", :null => false
+      t.datetime "updated_at", :null => false
     end
 
     create_table "shop_users", options: 'AUTO_INCREMENT = 10001' do |t|
@@ -146,15 +159,6 @@ class InitDb < ActiveRecord::Migration
       t.integer  "shop_user_id",    :null => false
       t.integer  "shop_role_id",    :null => false
       t.datetime "created_at", :null => false
-    end
-
-    create_table "shop_deposits", :force => true do |t|
-      t.integer  "shop_id",       :null => false
-      t.decimal  "total_amount",  :precision => 12, :scale => 2, :default => 0.0,            :null => false
-      t.decimal  "usable_amount", :precision => 12, :scale => 2, :default => 0.0,            :null => false
-      t.decimal  "froze_bond",    :precision => 12, :scale => 2, :default => 0.0,            :null => false
-      t.datetime "created_at",                                  :null => false
-      t.datetime "updated_at",                                  :null => false
     end
 
     create_table "shop_deposit_logs", :force => true do |t|

@@ -1,24 +1,29 @@
-class Admin::ProductCategoriesController < Admin::BaseController
-  before_filter :find_product_category, only: [:frost]
+class Admin::ShopDepositLogsController < Admin::BaseController
+  before_filter :find_shop_deposit_log, only: [:frost]
   def index
-    @search =  ProductCategory.normal.search(params[:search])
-    @product_categories = @search.order(:position).page(params[:page])
+    @search =  ShopDepositLog.search(params[:search])
+    @shop_deposit_logs = @search.order(:created_at).page(params[:page])
   end
 
   def show
-    @product_category = ProductCategory.find(params[:id])
+    @shop_deposit_log = ShopDepositLog.find(params[:id])
     render layout: 'application_pop'
   end
 
   def new
-    @product_category = ProductCategory.new(params[:product_category])
+    @shop = Shop.find(params["shop_id"].to_i)
+    @shop_deposit_log = @shop.shop_deposit_logs.new(direction: params["direction"].to_i)
     render layout: 'application_pop'
   end
 
   def create
-    @product_category = ProductCategory.new(params[:product_category])
-    if @product_category.save
-      flash[:notice] = '保存成功'
+    @shop_deposit_log = ShopDepositLog.new(params[:shop_deposit_log])
+    if @shop_deposit_log.save
+      if @shop_deposit_log.plus?
+        flash[:notice] = '充值成功'
+      else
+        flash[:notice] = "提取成功"
+      end
       render inline: '<script>parent.location.reload();</script>'
     else
       return redirect_to :back, alert:'保存失败，请确认数据正确和必填项'
@@ -26,8 +31,8 @@ class Admin::ProductCategoriesController < Admin::BaseController
   end
 
   def update
-    @product_category = ProductCategory.find(params[:id])
-    if @product_category.update_attributes(params[:product_category])
+    @shop_deposit_log = ShopDepositLog.find(params[:id])
+    if @shop_deposit_log.update_attributes(params[:shop_deposit_log])
       flash[:notice] = '更新成功'
       render inline: '<script>parent.location.reload();</script>'
     else
@@ -47,7 +52,7 @@ class Admin::ProductCategoriesController < Admin::BaseController
   # end
 
   def frost
-    if @product_category.frost!
+    if @shop_deposit_log.frost!
       redirect_to :back, notice: '删除成功'
     else
       redirect_to :back, notice: '删除失败'
@@ -56,8 +61,8 @@ class Admin::ProductCategoriesController < Admin::BaseController
 
     private
 
-    def find_product_category
-      @product_category = ProductCategory.find(params[:id])
+    def find_shop_deposit_log
+      @shop_deposit_log = ShopDepositLog.find(params[:id])
     end
 
 end

@@ -1,23 +1,23 @@
-class Admin::ProductCategoriesController < Admin::BaseController
-  before_filter :find_product_category, only: [:frost]
+class Admin::BrandsController < Admin::BaseController
+  before_filter :find_brand, only: [:frost]
   def index
-    @search =  ProductCategory.normal.search(params[:search])
-    @product_categories = @search.order(:position).page(params[:page])
+    @search =  Brand.normal.search(params[:search])
+    @brands = @search.order(:position).page(params[:page])
   end
 
   def show
-    @product_category = ProductCategory.find(params[:id])
+    @brand = Brand.find(params[:id])
     render layout: 'application_pop'
   end
 
   def new
-    @product_category = ProductCategory.new(params[:product_category])
+    @brand = Brand.new(params[:brand])
     render layout: 'application_pop'
   end
 
   def create
-    @product_category = ProductCategory.new(params[:product_category])
-    if @product_category.save
+    @brand = Brand.new(params[:brand])
+    if @brand.save
       flash[:notice] = '保存成功'
       render inline: '<script>parent.location.reload();</script>'
     else
@@ -26,8 +26,8 @@ class Admin::ProductCategoriesController < Admin::BaseController
   end
 
   def update
-    @product_category = ProductCategory.find(params[:id])
-    if @product_category.update_attributes(params[:product_category])
+    @brand = Brand.find(params[:id])
+    if @brand.update_attributes(params[:brand])
       flash[:notice] = '更新成功'
       render inline: '<script>parent.location.reload();</script>'
     else
@@ -47,7 +47,7 @@ class Admin::ProductCategoriesController < Admin::BaseController
   # end
 
   def frost
-    if @product_category.frost!
+    if @brand.frost!
       redirect_to :back, notice: '删除成功'
     else
       redirect_to :back, notice: '删除失败'
@@ -56,8 +56,8 @@ class Admin::ProductCategoriesController < Admin::BaseController
 
     private
 
-    def find_product_category
-      @product_category = ProductCategory.find(params[:id])
+    def find_brand
+      @brand = Brand.find(params[:id])
     end
 
 end

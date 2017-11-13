@@ -3,6 +3,10 @@ Wp::Application.routes.draw do
 
   root to: 'home#index'
 
+  resources :addresses, only: []  do
+    get :cities, :districts, on: :collection
+  end
+
 
   # resources :logged_exceptions
   get 'users/find' => 'users#find'
@@ -64,7 +68,27 @@ Wp::Application.routes.draw do
       post :sync_fetch, on: :collection
     end
 
-    resources :product_categories
+    resources :product_categories do
+      put :frost, :normal, on: :member
+    end
+
+    resources :brand_categories do
+      put :frost, :normal, on: :member
+    end
+
+    resources :brands do
+      put :frost, :normal, on: :member
+    end
+    resources :shops do
+      put :frost, :normal, :plus, :reduce, on: :member
+      get :plus, :reduce, on: :member
+      post :change_amount, on: :collection
+    end
+
+    resources :shop_deposits
+    resources :shop_deposit_logs
+
+    resources :tags
 
     resources :passwords, only: [:new, :create]
     resources :users do
