@@ -3,6 +3,7 @@ class CreateGuideInfos < ActiveRecord::Migration
     create_table :guide_infos do |t|
       t.string  "title"
       t.text  "content"
+      t.integer  "type",      :default => 1, :null => false
       t.integer  "status",      :default => 1, :null => false
       t.integer  "position",      :default => 1, :null => false
       t.timestamps

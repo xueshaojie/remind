@@ -1,8 +1,10 @@
 class Admin::ShopDepositLogsController < Admin::BaseController
   before_filter :find_shop_deposit_log, only: [:frost]
   def index
+    params[:search] ||= {}
+    params[:search][:created_at_gte], params[:search][:created_at_lte] = params[:search].delete(:created_at_between).split(' - ') if params[:search][:created_at_between]
     @search =  ShopDepositLog.search(params[:search])
-    @shop_deposit_logs = @search.order(:created_at).page(params[:page])
+    @shop_deposit_logs = @search.order("created_at desc").page(params[:page])
   end
 
   def show
@@ -12,21 +14,26 @@ class Admin::ShopDepositLogsController < Admin::BaseController
 
   def new
     @shop = Shop.find(params["shop_id"].to_i)
-    @shop_deposit_log = @shop.shop_deposit_logs.new(direction: params["direction"].to_i)
+    @shop_deposit_log = @shop.shop_deposit_logs.new(direction: params["direction"].to_i, user_id: current_user.id, balance_amount: @shop.total_amount)
     render layout: 'application_pop'
   end
 
   def create
     @shop_deposit_log = ShopDepositLog.new(params[:shop_deposit_log])
-    if @shop_deposit_log.save
-      if @shop_deposit_log.plus?
-        flash[:notice] = '充值成功'
-      else
-        flash[:notice] = "提取成功"
-      end
-      render inline: '<script>parent.location.reload();</script>'
+    @shop = @shop_deposit_log.shop
+    if @shop_deposit_log.can_t_reduce?
+      return redirect_to :back, alert:'可用余额不足'
     else
-      return redirect_to :back, alert:'保存失败，请确认数据正确和必填项'
+      if @shop_deposit_log.save
+        if @shop_deposit_log.plus?
+          flash[:notice] = '充值成功'
+        else
+          flash[:notice] = "提取成功"
+        end
+        render inline: '<script>parent.location.reload();</script>'
+      else
+        return redirect_to :back, alert:'保存失败，请确认数据正确和必填项'
+      end
     end
   end
 

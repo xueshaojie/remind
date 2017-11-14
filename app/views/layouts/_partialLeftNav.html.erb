@@ -54,14 +54,14 @@
     <%# end %>
 
     <% if can?(9) || can?(10) || can?(11) %>
-      <li class="<%=parent_class if %W(shops shop_deposit_log).include?(controller_name) %>">
+      <li class="<%=parent_class if %W(shops shop_deposit_logs).include?(controller_name) %>">
        <%= left_nav_dropdown 'iconfont icon-shujuhongse','商铺管理' %>
-         <ul class="submenu" style="<%='display: block' if %W(shops shop_deposit_log).include?(controller_name) %>">
+         <ul class="submenu" style="<%='display: block' if %W(shops shop_deposit_logs).include?(controller_name) %>">
           <% if can?(9) %>
            <%=link_to_left_nav('商铺管理', admin_shops_path, controller_name == 'shops' )%>
           <% end %>
           <% if can?(10) %>
-           <%=link_to_left_nav('保证金流水',admin_shop_deposit_logs_path,controller_name == 'shop_deposit_logs')%>
+           <%=link_to_left_nav('保证金流水',admin_shop_deposit_logs_path, controller_name == 'shop_deposit_logs' )%>
           <% end %>
           <%# if can?(11)%>
             <%#=link_to_left_nav('资产分类管理', admin_asset_categories_path,controller_name == 'asset_categories' )%>

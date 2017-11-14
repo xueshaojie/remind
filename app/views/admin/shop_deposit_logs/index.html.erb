@@ -11,8 +11,16 @@
         <%= form_for @search, url: admin_shop_deposit_logs_path, html: {method: :get } do |f| %>
           <div class="col-md-12  no-padding">
             <div class="col-md-3">
-              <div class="input-group input-group-text ">
-                  <%#=f.text_field :name_or_name_en_like, placeholder:"品牌类型名称", class: 'col-xs-12 cc'%>
+              <div class="input-group input-group-text">
+                <span class="input-group-addon">选择商铺：</span>
+                <%= f.select :shop_id_eq, Shop.pluck(:name, :id), {include_blank: '请选择商铺'}, class: 'col-md-12' %>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="input-group input-group-text">
+              <span class="input-group-addon">操作时间：</span>
+              <%= f.text_field :created_at_between, class: 'col-xs-12 datetimerange', value: "#{params[:search][:created_at_gte]} - #{params[:search][:created_at_lte]}" %>
               </div>
             </div>
 
@@ -39,8 +47,8 @@
               <% @shop_deposit_logs.each do |shop_deposit_log|%>
                 <tr>
                   <td><%=shop_deposit_log.shop.name %></td>
-                  <td><%=shop_deposit_log.shop_user_id %></td>
-                  <td><%=shop_deposit_log.direction_name %><%=shop_deposit_log.amount %></td>
+                  <td><%=shop_deposit_log.user.name %></td>
+                  <td><%=shop_deposit_log.direction_name %> <%=shop_deposit_log.amount %></td>
                   <td><%=shop_deposit_log.balance_amount %></td>
                   <td><%=shop_deposit_log.created_at %></td>
                   <td>
