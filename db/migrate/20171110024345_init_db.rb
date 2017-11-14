@@ -163,7 +163,7 @@ class InitDb < ActiveRecord::Migration
 
     create_table "shop_deposit_logs", :force => true do |t|
       t.integer  "shop_id",  :null => false
-      t.integer  "shop_user_id",  :null => false
+      t.integer  "user_id",  :null => false
       t.decimal  "amount",  :precision => 12, :scale => 2, :default => 0.0,            :null => false
       t.integer  "direction",  :null => false, :default => 1
       t.decimal  "balance_amount",  :precision => 12, :scale => 2,       :null => false
