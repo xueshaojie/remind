@@ -107,7 +107,7 @@ class ApplicationController < ActionController::Base
   end
 
   def required_account_sign_in
-    if session[:user_id] || session[:account_id]
+    if session[:user_id] || session[:account_id] 
       return true
     else
       flash[:alert] = "你还没有登录，请先登录..."
@@ -116,8 +116,21 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def required_merchant_sign_in
+    if session[:shop_user_id]
+      return true
+    else
+      flash[:alert] = "你还没有登录，请先登录..."
+      redirect_to merchant_sign_in_path
+    end
+  end
+
   def clear_user_sign_in_session
     session[:user_id] = nil
+  end
+
+  def clear_shop_user_sign_in_session
+    session[:shop_user_id] = nil
   end
 
   def required_city_sign_in

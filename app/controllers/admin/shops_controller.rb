@@ -12,7 +12,7 @@ class Admin::ShopsController < Admin::BaseController
 
   def new
     @shop = Shop.new(params[:shop])
-    @shop_user = @shop.new
+    @shop.admin_shop_user = ShopUser.new(shop_id: @shop.id)
     render layout: 'application_pop'
   end
 

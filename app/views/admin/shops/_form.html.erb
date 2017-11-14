@@ -1,5 +1,30 @@
-<%=form_for [:admin, @shop], validate: true, html:{class: 'form' } do | f| %>
+<%= form_for [:admin, @shop], validate: true, html:{class: 'form' } do | f| %>
   <div class="modal-body">
+    <%= f.fields_for :admin_shop_user, validate: true do |shop_user| %>
+    <div class="col-xs-12">
+      <div class="form-group">
+        <label class="control-label">管理员姓名<span class="required-star">*</span></label>
+        <div class="clearfix">
+          <%= shop_user.text_field :name, maxlength: 50, autocomplete: 'off', class: "col-xs-12" %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="control-label">登录账号<span class="required-star">*</span></label>
+        <div class="clearfix">
+          <%= shop_user.text_field :login_name, maxlength: 50, autocomplete: 'off', class: "col-xs-12" %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="control-label">登录密码<span class="required-star">*</span></label>
+        <div class="clearfix">
+          <%= shop_user.text_field :password, maxlength: 30, autocomplete: 'off', onfocus: "this.type='password'", class: "col-xs-12" %>
+        </div>
+      </div>
+    </div>
+<% end %>
+  
     <div class="col-xs-12">
 
       <div class="form-group">

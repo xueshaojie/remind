@@ -136,6 +136,15 @@ Wp::Application.routes.draw do
     end
   end
 
+  namespace :merchant do
+    resources :sessions, only: :create
+    match 'sign_in'  => 'sessions#new',     as: :sign_in
+    match 'sign_out' => 'sessions#destroy', as: :sign_out
+    resources :shop_users
+
+  end
+
+
   namespace :api do
     resources :tasks
   end
