@@ -5,7 +5,6 @@ namespace :dev do
   desc 'build test data ...'
   task init: [
     :init_user_and_role,
-    :init_categories,
     # :init_about_channels
   ]
 
@@ -15,7 +14,7 @@ namespace :dev do
 
     role = Role.where(name: '系统管理员').first_or_create!
     # dept = Department.where(name: '后勤部', no: '123456').first_or_create!(parent_id: 0)
-    user = User.where(login_name: 'biaotu ').first_or_create!(
+    user = User.where(login_name: 'biaotu').first_or_create!(
       name: '管理员',
       login_name: 'biaotu',
       password: 111111, password_confirmation: 111111,
@@ -58,19 +57,7 @@ namespace :dev do
     puts "finish"
   end
 
-  desc 'init categories'
-  task :init_categories => :environment do
-    puts 'Starting intit categories ******'
-
-    ['基地基础巡检','基地专业巡检','水面违法巡检','保护区环境巡检','物种保护任务'].each do |name|
-      TaskCategory.where(name: name).first_or_create
-    end
-
-    puts "finish"
-  end
-
   task :init_shop_user_role => :environment do
-    
     shop_role = ShopRole.where(name: '商户管理员').first_or_create!
     shop_user = ShopUser.find(2)
     ShopUserRoleMap.where(shop_user_id: shop_user.id, shop_role_id: shop_role.id).first_or_create!
