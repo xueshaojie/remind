@@ -1,0 +1,6 @@
+<%= form_for @product, url: wap_product_path(@product) do |f| %>
+  商品名称: <%= f.text_field :name %><br>
+  商品分类: <%= f.select :product_category_id, ProductCategory.pluck(:name, :id), {include_blank: '请选择'} %><br>
+
+  <%= f.submit '提交' %>
+<% end %>

@@ -1,11 +1,16 @@
-class Wap::ProductsController < ApplicationController
-  before_filter :find_product, only: [:show]
+class Wap::ProductsController < Wap::BaseController
+  before_filter :find_product, only: [:show, :edit, :update]
 
   def index
     @products = @user.shop.products
   end
 
-  def show
+  def update
+    if @product.update_attributes(params[:product])
+      redirect_to wap_product_path(@product)
+    else
+      render 'edit'
+    end
   end
 
   private

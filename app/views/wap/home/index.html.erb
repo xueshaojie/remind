@@ -1,1 +1,18 @@
 <% provide(:title, "首页") %>
+
+<%= @products_count %>
+<%= link_to '商品管理', wap_products_path %>
+
+&nbsp;&nbsp;
+
+<%= @orders_count %>
+<%= link_to '销售管理', wap_orders_path %>
+
+&nbsp;&nbsp;
+
+<%= @shop_customers_count %>
+<%= link_to '客户管理', wap_shop_customers_path %>
+
+&nbsp;&nbsp;
+0
+<%= link_to '服务提醒', 'javascript:;' %>

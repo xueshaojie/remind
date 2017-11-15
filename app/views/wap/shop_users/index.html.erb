@@ -1,0 +1,24 @@
+<% provide(:title, "人员管理") %>
+<table>
+  <thead>
+    <th>名称</th>
+    <th>总开单</th>
+    <th>本月开单</th>
+    <th>30天销售</th>
+  </thead>
+  <tbody>
+    <% @shop_users.each do |shop_user| %>
+      <tr>
+        <td><%= shop_user.name %></td>
+        <td><%#= shop_user.orders.count %></td>
+        <td><%#= shop_user.orders.sum(:amount) %></td>
+        <td><%#= shop_user.created_at %></td>
+        <td><%= link_to '详情', wap_shop_user_path(shop_user) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br><br><br>
+
+<%= link_to '创建新员工', new_wap_shop_user_path %>

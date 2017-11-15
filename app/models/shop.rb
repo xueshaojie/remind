@@ -24,6 +24,9 @@ class Shop < ActiveRecord::Base
   has_many :warehouses
   has_many :shop_users
   has_many :products
+  has_many :orders
+  has_many :shop_customers
+  has_many :suppliers
 
   accepts_nested_attributes_for :admin_shop_user
 

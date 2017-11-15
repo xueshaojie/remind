@@ -1,2 +1,20 @@
-<h1>Wap::Products#index</h1>
-<p>Find me in app/views/wap/products/index.html.erb</p>
+<% provide(:title, "商品管理") %>
+<table>
+  <thead>
+    <th>商品</th>
+    <th>销售价</th>
+    <th>库存</th>
+    <th>入库日期</th>
+  </thead>
+  <tbody>
+    <% @products.each do |product| %>
+      <tr>
+        <td><%= product.name %></td>
+        <td><%= product.sell_price %></td>
+        <td><%= product.quantity %></td>
+        <td><%= product.created_at %></td>
+        <td><%= link_to '详情', wap_product_path(product) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

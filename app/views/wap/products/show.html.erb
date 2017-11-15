@@ -1,2 +1,6 @@
-<h1>Wap::Products#show</h1>
-<p>Find me in app/views/wap/products/show.html.erb</p>
+<%= @product.name %><br>
+<%= @product.quantity %>件在库
+
+<br><br><br>
+
+<%= link_to '修改', edit_wap_product_path(@product) %>

@@ -1,0 +1,13 @@
+<% provide(:title, "创建员工") %>
+
+<%= form_for @shop_user, url: wap_shop_users_path do |f| %>
+  姓名: <%= f.text_field :name %><br>
+  登录帐号: <%= f.text_field :login_name %><br>
+  登录密码: <%= f.password_field :password %><br>
+  <!-- 性别: <%#= f.select :gender, ShopUser.gender_options, {include_blank: '请选择'} %><br> -->
+  <!-- 联系电话: <%#= f.text_field :mobile %><br> -->
+  状态: <%= f.select :status, ShopUser.status_options, {include_blank: '请选择'} %><br>
+
+
+  <%= f.submit '提交' %>
+<% end %>

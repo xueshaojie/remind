@@ -1,10 +1,5 @@
 # -*- coding: utf-8 -*-
 Wp::Application.routes.draw do
-
-  get "products/index"
-
-  get "products/show"
-
   root to: 'home#index'
 
   resources :addresses, only: []  do
@@ -12,7 +7,7 @@ Wp::Application.routes.draw do
   end
 
 
-  # resources :logged_exceptions
+  resources :logged_exceptions
   get 'users/find' => 'users#find'
   mount RuCaptcha::Engine => "/rucaptcha"
 
@@ -52,11 +47,7 @@ Wp::Application.routes.draw do
   end
 
   namespace :admin do
-    # resources :tasks, :task_records
-    # resources :task_categories
-
     resources :roles
-
     resources :product_categories do
       put :frost, :normal, on: :member
     end
@@ -66,7 +57,6 @@ Wp::Application.routes.draw do
     end
 
     resources :guide_infos
-
     resources :brands do
       put :frost, :normal, on: :member
     end
@@ -78,7 +68,6 @@ Wp::Application.routes.draw do
     end
 
     resources :shop_deposit_logs
-
     resources :tags
 
     resources :passwords, only: [:new, :create]
@@ -87,44 +76,7 @@ Wp::Application.routes.draw do
       post :sync_fetch, :transfer, :deal_transfer, on: :collection
     end
 
-    # resources :visits do
-    #   put :pending, :done, on: :member
-    # end
-
     resources :suppliers, :asset_checks, :warehouses, :asset_categories
-
-    # resources :plant_assets  do
-    #   get :receive, :record, :qrcode, :download, on: :member
-    #   post :deal, :handle, on: :member
-    #   post :import, on: :collection
-    # end
-    # resources :plant_usage_records
-
-    # resources :assets do
-    #   get :detail, :approve, :print, on: :member
-    #   post :check, on: :member
-    #   put :deal, on: :member
-    #   resources :items, :logs
-    # end
-
-    # resources :materials, :material_usage_records
-    # resources :material_batches do
-    #   get :receive, on: :member
-    #   put :deal, on: :member
-    # end
-
-    # resources :species do
-    #   get :adjust, on: :member
-    #   post :deal, on: :member
-    # end
-    # resources :species_adjustments, :asset_checks, :asset_check_maps
-
-    # resources :issues, :issue_types, :issue_pictures
-
-    # resources :archive_categories
-    # resources :archives do
-    #   get :categories, on: :collection
-    # end
   end
 
   namespace :api do
@@ -137,6 +89,11 @@ Wp::Application.routes.draw do
     post 'sign_in', to: 'sessions#create'
 
     resources :products
+    resources :orders
+    resources :shop_customers
+    resources :warehouses
+    resources :suppliers
+    resources :shop_users
   end
 
 end
