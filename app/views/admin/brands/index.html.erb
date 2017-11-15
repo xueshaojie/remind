@@ -3,7 +3,7 @@
     <div class="breadcrumbs" id="breadcrumbs">
       <ul class="breadcrumb">
         <%=render 'partials/home' %>
-          <li><%= '品牌类型' %></li>
+          <li><%= '品牌管理' %></li>
       </ul>
     </div>
 
@@ -12,7 +12,7 @@
           <div class="col-md-12  no-padding">
             <div class="col-md-3">
               <div class="input-group input-group-text ">
-                  <%=f.text_field :name_or_name_en_like, placeholder:"品牌类型名称", class: 'col-xs-12 cc'%>
+                  <%=f.text_field :name_or_name_en_like, placeholder:"品牌名称", class: 'col-xs-12 cc'%>
               </div>
             </div>
 
@@ -21,7 +21,7 @@
             </div>
 
             <div class="col-md-6">
-              <a href="javascript:;" class="btn btn-primary btn-sm pull-right " data-target="add" data-toggle="modals" data-title="新增品牌类型" data-height="10000" data-iframe="<%= new_admin_brand_path %>">新增</a>
+              <a href="javascript:;" class="btn btn-primary btn-sm pull-right " data-target="add" data-toggle="modals" data-title="新增品牌" data-height="10000" data-iframe="<%= new_admin_brand_path %>">新增</a>
             </div>
 
           </div>

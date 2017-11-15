@@ -9,37 +9,37 @@
     </li>
 
     
-    <% if can?(2) || can?(4) %>
+    <% if can?(2) || can?(3) %>
       <li class="<%= parent_class if controller_name =~ /users|roles/ %>">
         <%= left_nav_dropdown 'iconfont icon-jiaoseguanlihuise', '组织结构' %>
         <ul class="submenu" style="<%= 'display: block' if controller_name =~ /users|roles/ %>">
           <% if can?(2) %>
             <%= link_to_left_nav('员工管理', admin_users_path, controller_name == 'users') %>
           <% end %>
-          <% if can?(4) %>
+          <% if can?(3) %>
             <%= link_to_left_nav('角色管理', admin_roles_path, controller_name == 'roles') %>
           <% end %>
         </ul>
       </li>
     <% end %>
 
-          <% if can?(5) || can?(6) || can?(7) || can?(8) || can?(9)%>
+          <% if can?(4) || can?(5) || can?(6) || can?(7) || can?(8)%>
       <li class="<%=parent_class if %W(product_categories brand_categories brands tags guide_infos).include?(controller_name) %>">
        <%= left_nav_dropdown 'icon-file','基础数据' %>
          <ul class="submenu" style="<%='display: block' if %W(product_categories brand_categories brands tags guide_infos).include?(controller_name) %>">
-          <% if can?(5) %>
+          <% if can?(4) %>
            <%=link_to_left_nav('商品类型', admin_product_categories_path,controller_name == 'product_categories' )%>
           <% end %>
-          <% if can?(6) %>
+          <% if can?(5) %>
            <%=link_to_left_nav('品牌类型',admin_brand_categories_path,controller_name == 'brand_categories')%>
           <% end %>
-          <% if can?(7)%>
+          <% if can?(6)%>
             <%=link_to_left_nav('品牌管理', admin_brands_path,controller_name == 'brands' )%>
           <% end %>
-          <% if can?(8)%>
+          <% if can?(7)%>
             <%=link_to_left_nav('标签管理', admin_tags_path,controller_name == 'tags' )%>
           <% end %>
-          <% if can?(9)%>
+          <% if can?(8)%>
             <%=link_to_left_nav('帮助信息管理', admin_guide_infos_path,controller_name == 'guide_infos' )%>
           <% end %>
 
@@ -47,106 +47,19 @@
       </li>
     <%end%>
 
-    <%# if can?(8)%>
-      <!-- <li class="<%#= 'active' if controller_name =~ /visit/ %>"> -->
-        <!-- <a href="<%#= admin_visits_path %>"> -->
-          <!-- <i class="icon-user"></i> -->
-          <!-- <span class="menu-text">来访管理</span> -->
-        <!-- </a > -->
-      <!-- </li> -->
-    <%# end %>
-
-    <% if can?(10) || can?(11) || can?(12) %>
+    <% if can?(9) || can?(10) %>
       <li class="<%=parent_class if %W(shops shop_deposit_logs warehouses).include?(controller_name) %>">
        <%= left_nav_dropdown 'iconfont icon-shujuhongse','商铺管理' %>
          <ul class="submenu" style="<%='display: block' if %W(shops shop_deposit_logs warehouses).include?(controller_name) %>">
-          <% if can?(10) %>
+          <% if can?(9) %>
            <%=link_to_left_nav('商铺管理', admin_shops_path, controller_name == 'shops' )%>
           <% end %>
-          <% if can?(11) %>
+          <% if can?(10) %>
            <%=link_to_left_nav('保证金流水',admin_shop_deposit_logs_path, controller_name == 'shop_deposit_logs' )%>
           <% end %>
          </ul>
       </li>
     <%end%>
 
-    <% if can?(12)%>
-      <li class="<%= 'active' if controller_name =~ /assets/ %>">
-        <a href="<%= admin_assets_path %>">
-          <i class="icon-user"></i>
-          <span class="menu-text">资产采购管理</span>
-        </a >
-      </li>
-    <% end %>
 
-    <% if can?(13) || can?(14) %>
-      <li class="<%=parent_class if controller_name =~ /plant_assets|plant_usage_records|asset_check/ %>">
-       <%= left_nav_dropdown 'iconfont icon-guanli','设备资产管理' %>
-         <ul class="submenu" style="<%='display: block' if controller_name =~/plant_assets|plant_usage_records|asset_check/ %>">
-          <% if can?(13) %>
-            <%=link_to_left_nav('资产管理', admin_plant_assets_path,controller_name == 'plant_assets' )%>
-          <% end %>
-          <% if can?(14) %>
-            <%=link_to_left_nav('领用归还记录',admin_plant_usage_records_path,controller_name == 'plant_usage_records')%>
-          <% end %>
-          <% if can?(20) %>
-            <%=link_to_left_nav('盘点查询',admin_asset_checks_path, controller_name == 'asset_check')%>
-          <% end %>
-         </ul>
-        </li>
-    <%end%>
-
-    <% if can?(15) || can?(16) || can?(17)%>
-      <li class="<%=parent_class if controller_name =~ /materials|material_batches|material_usage_records/ %>">
-       <%= left_nav_dropdown 'iconfont icon-hudongfense','物资资产管理' %>
-       <ul class="submenu" style="<%='display: block' if controller_name =~/materials|material_batches|material_usage_records/ %>">
-        <% if can?(15) %>
-         <%=link_to_left_nav('资产管理', admin_materials_path,controller_name == 'materials' )%>
-        <% end %>
-        <% if can?(16) %>
-         <%=link_to_left_nav('批次管理',admin_material_batches_path,controller_name == 'material_batches')%>
-        <% end %>
-        <% if can?(17)%>
-         <%=link_to_left_nav('资产调整记录',admin_material_usage_records_path,controller_name == 'material_usage_records')%>
-        <% end %>
-       </ul>
-      </li>
-    <% end %>
-
-    <% if can?(18) || can?(19) %>
-      <li class="<%=parent_class if controller_name =~ /species/ %>">
-       <%= left_nav_dropdown 'iconfont icon-guanlibumen ','物种资产管理' %>
-         <ul class="submenu" style="<%='display: block' if controller_name =~/species/ %>">
-          <% if can?(18) %>
-           <%=link_to_left_nav('资产管理', admin_species_index_path,controller_name == 'species' )%>
-          <% end %>
-          <% if can?(19) %>
-           <%=link_to_left_nav('资产调整记录',admin_species_adjustments_path,controller_name == 'species_adjustments')%>
-          <% end %>
-         </ul>
-      </li>
-    <% end %>
-
-    <% if can?(21) || can?(22) %>
-      <li class="<%= parent_class if controller_name =~ /issue/ %>">
-        <%= left_nav_dropdown 'iconfont icon-jiaoseguanlihuise', '问题反馈系统' %>
-        <ul class="submenu" style="<%= 'display: block' if controller_name =~ /issue/ %>">
-          <% if can?(21) %>
-            <%= link_to_left_nav('问题类型', admin_issue_types_path, controller_name == 'issue_types') %>
-          <% end %>
-          <% if can?(22) %>
-            <%= link_to_left_nav('问题管理', admin_issues_path, controller_name == 'issues') %>
-          <% end %>
-        </ul>
-      </li>
-    <% end %>
-<!--
-    <li class="<%= parent_class if controller_name =~ /archive/ %>">
-      <%= left_nav_dropdown 'iconfont icon-jiaoseguanlihuise', '档案管理' %>
-      <ul class="submenu" style="<%= 'display: block' if controller_name =~ /archive/ %>">
-        <%= link_to_left_nav('分类管理', admin_archive_categories_path, controller_name == 'archive_categories') %>
-        <%= link_to_left_nav('档案管理', admin_archives_path, controller_name == 'archives') %>
-      </ul>
-    </li>
- -->
   </ul>
