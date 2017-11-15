@@ -1,8 +1,8 @@
 class ShopDepositLog < ActiveRecord::Base
 
   enum_attr :direction, in: [
-    ['plus', 1, '增加'],
-    ['reduce', 0, '减少']
+    ['plus', 1, '+'],
+    ['reduce', 0, '-']
   ]
 
   belongs_to :shop
