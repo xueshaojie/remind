@@ -22,6 +22,8 @@ class Shop < ActiveRecord::Base
   belongs_to :district
   has_many :shop_deposit_logs
   has_many :warehouses
+  has_many :shop_users
+  has_many :products
 
   accepts_nested_attributes_for :admin_shop_user
 

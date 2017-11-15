@@ -1,6 +1,10 @@
 # -*- coding: utf-8 -*-
 Wp::Application.routes.draw do
 
+  get "products/index"
+
+  get "products/show"
+
   root to: 'home#index'
 
   resources :addresses, only: []  do
@@ -48,25 +52,10 @@ Wp::Application.routes.draw do
   end
 
   namespace :admin do
-    # get 'task_templates/change', to: 'task_templates#change'
-
-    # resources :archive_categories
-
-    # resources :task_templates do
-    #   get :qrcode, :download, :copy, on: :member
-    #   put :on, :off, :delete_next, :delete_current, on: :member
-    # end
-    # resources :task_template_items do
-    #   put :up, :down, on: :member
-    # end
     resources :tasks, :task_records
     resources :task_categories
 
     resources :roles
-    # resources :departments do
-    #   put :sync, :normal, :disabled, on: :member
-    #   post :sync_fetch, on: :collection
-    # end
 
     resources :product_categories do
       put :frost, :normal, on: :member
@@ -152,31 +141,11 @@ Wp::Application.routes.draw do
   end
 
   namespace :wap do
-    # get '/home', to: 'home#index'
     root to: 'home#index'
+    get 'sign_in', to: 'sessions#new'
+    post 'sign_in', to: 'sessions#create'
 
-    get '/scan', to: 'assets#scan'
-
-    resources :visits, :tasks
-
-    resources :assets do
-      get :logs, :approve, on: :member
-      post :approve_result, on: :member
-      get :my, :approves, on: :collection
-    end
-
-    resources :plant_assets
-    resources :asset_checks do
-      get :scan, on: :member
-      post :check, :done, on: :member
-      get :asset_check_map, on: :collection
-    end
-
-    resources :issues  do
-      get :detail, on: :member
-      post :claim, on: :member
-      get :my, :pending, :list, on: :collection
-    end
+    resources :products
   end
 
 end
