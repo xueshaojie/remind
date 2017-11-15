@@ -63,10 +63,10 @@ Wp::Application.routes.draw do
     resources :task_categories
 
     resources :roles
-    resources :departments do
-      put :sync, :normal, :disabled, on: :member
-      post :sync_fetch, on: :collection
-    end
+    # resources :departments do
+    #   put :sync, :normal, :disabled, on: :member
+    #   post :sync_fetch, on: :collection
+    # end
 
     resources :product_categories do
       put :frost, :normal, on: :member
@@ -76,16 +76,18 @@ Wp::Application.routes.draw do
       put :frost, :normal, on: :member
     end
 
+    resources :guide_infos
+
     resources :brands do
       put :frost, :normal, on: :member
     end
+
     resources :shops do
       put :frost, :normal, :plus, :reduce, on: :member
       get :plus, :reduce, on: :member
       post :change_amount, on: :collection
     end
 
-    resources :shop_deposits
     resources :shop_deposit_logs
 
     resources :tags

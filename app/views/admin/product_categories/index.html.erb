@@ -33,6 +33,7 @@
              <tr>
                <th>商品类型</th>
                <th>创建时间</th>
+               <th>排序位</th>
                <th>操作</th>
               </tr>
             </thead>
@@ -41,6 +42,7 @@
                 <tr>
                   <td><%=product_category.name %></td>
                   <td><%=product_category.created_at %></td>
+                  <td><%=product_category.position %></td>
                   <td>
                   <%=link_to '编辑', 'javascript:;', class: 'fgreen',data:{target: "editSuppliee",toggle: 'modals', title: '编辑商品类型',height: '1000',
                      iframe:admin_product_category_path(product_category) } %>

@@ -1,3 +1,7 @@
 class GuideInfo < ActiveRecord::Base
-  # attr_accessible :title, :body
+  enum_attr :guide_type, in: [
+    ['help', 1, '帮助信息'],
+    ['about', 0, '关于我们']
+  ]
+
 end

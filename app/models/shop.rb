@@ -17,13 +17,12 @@ class Shop < ActiveRecord::Base
     ['five', 5, '5分']
   ]
   has_one :admin_shop_user, class_name: 'ShopUser', conditions: {user_type: ShopUser::MANAGER}
-  # has_one :ready_activity_notice, class_name: 'ActivityNotice', conditions: { activity_status: ActivityNotice::READY }
   belongs_to :province
   belongs_to :city
   belongs_to :district
   has_many :shop_deposit_logs
+  has_many :warehouses
 
-  # accepts_nested_attributes_for :ready_activity_notice, :active_activity_notice, :stopped_activity_notice
   accepts_nested_attributes_for :admin_shop_user
 
 end
