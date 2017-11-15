@@ -40,20 +40,20 @@ Wp::Application.routes.draw do
 
   resources :home, only: :index
 
-  resources :accounts, only: [:new, :create, :update, :edit] do
-    collection do
-      get :send_sms
-      post :update_mobile
-    end
-  end
+  # resources :accounts, only: [:new, :create, :update, :edit] do
+  #   collection do
+  #     get :send_sms
+  #     post :update_mobile
+  #   end
+  # end
 
   resources :addresses, only: []  do
     get :cities, :districts, on: :collection
   end
 
   namespace :admin do
-    resources :tasks, :task_records
-    resources :task_categories
+    # resources :tasks, :task_records
+    # resources :task_categories
 
     resources :roles
 
@@ -87,54 +87,45 @@ Wp::Application.routes.draw do
       post :sync_fetch, :transfer, :deal_transfer, on: :collection
     end
 
-    resources :visits do
-      put :pending, :done, on: :member
-    end
+    # resources :visits do
+    #   put :pending, :done, on: :member
+    # end
 
     resources :suppliers, :asset_checks, :warehouses, :asset_categories
 
-    resources :plant_assets  do
-      get :receive, :record, :qrcode, :download, on: :member
-      post :deal, :handle, on: :member
-      post :import, on: :collection
-    end
-    resources :plant_usage_records
+    # resources :plant_assets  do
+    #   get :receive, :record, :qrcode, :download, on: :member
+    #   post :deal, :handle, on: :member
+    #   post :import, on: :collection
+    # end
+    # resources :plant_usage_records
 
-    resources :assets do
-      get :detail, :approve, :print, on: :member
-      post :check, on: :member
-      put :deal, on: :member
-      resources :items, :logs
-    end
+    # resources :assets do
+    #   get :detail, :approve, :print, on: :member
+    #   post :check, on: :member
+    #   put :deal, on: :member
+    #   resources :items, :logs
+    # end
 
-    resources :materials, :material_usage_records
-    resources :material_batches do
-      get :receive, on: :member
-      put :deal, on: :member
-    end
+    # resources :materials, :material_usage_records
+    # resources :material_batches do
+    #   get :receive, on: :member
+    #   put :deal, on: :member
+    # end
 
-    resources :species do
-      get :adjust, on: :member
-      post :deal, on: :member
-    end
-    resources :species_adjustments, :asset_checks, :asset_check_maps
+    # resources :species do
+    #   get :adjust, on: :member
+    #   post :deal, on: :member
+    # end
+    # resources :species_adjustments, :asset_checks, :asset_check_maps
 
-    resources :issues, :issue_types, :issue_pictures
+    # resources :issues, :issue_types, :issue_pictures
 
-    resources :archive_categories
-    resources :archives do
-      get :categories, on: :collection
-    end
+    # resources :archive_categories
+    # resources :archives do
+    #   get :categories, on: :collection
+    # end
   end
-
-  namespace :merchant do
-    resources :sessions, only: :create
-    match 'sign_in'  => 'sessions#new',     as: :sign_in
-    match 'sign_out' => 'sessions#destroy', as: :sign_out
-    resources :shop_users
-
-  end
-
 
   namespace :api do
     resources :tasks
