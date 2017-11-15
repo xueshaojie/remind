@@ -5,7 +5,8 @@ require 'rvm/capistrano'
 set :rvm_ruby_string, '2.1.5' # Change to your ruby version
 set :rvm_type, :user # :user if RVM installed in $HOME
 
-set :repository, 'ssh://git@git.biaotutech.com:1688/opt/repos/projects/sturgeon.git'
+# set :repository, 'ssh://git@git.biaotutech.com:1688/opt/repos/projects/sturgeon.git'
+set :repository, 'ssh://git@git.biaotutech.com:1688/opt/repos/projects/shop.git'
 set :scm, :git
 # set :admin_runner, 'root'
 set :use_sudo, false
@@ -38,10 +39,13 @@ task :staging do
   set :port, 1688
 
   require 'rvm/capistrano'
-  server 'sturgeon.dajiaxiao.cn', :app, :web, :db, primary: true
-  config_deploy application: 'sturgeon', rails_env: 'staging', branch: 'master', releases: 2
+  # server 'sturgeon.dajiaxiao.cn', :app, :web, :db, primary: true
+  server 'shop.dajiaxiao.cn', :app, :web, :db, primary: true
+  # config_deploy application: 'sturgeon', rails_env: 'staging', branch: 'master', releases: 2
+  config_deploy application: 'shop', rails_env: 'staging', branch: 'master', releases: 2
 
-  role :whenever, 'sturgeon.dajiaxiao.cn'
+  # role :whenever, 'sturgeon.dajiaxiao.cn'
+  role :whenever, 'shop.dajiaxiao.cn'
   set :whenever_roles, 'whenever'
   deploy_whenever
 end
@@ -69,13 +73,25 @@ namespace :deploy do
     end
   end
 
-  task :custom_symlinks, roles: :app do
+  # task :custom_symlinks, roles: :app do
 
-    run "ln -nfs /opt/apps/shared/sturgeon/assets/sturgeon #{release_path}/public/assets"
+  #   run "ln -nfs /opt/apps/shared/sturgeon/assets/sturgeon #{release_path}/public/assets"
 
-    run "ln -nfs /opt/apps/shared/sturgeon/config/database.yml #{release_path}/config/database.yml"
-    run "ln -nfs /opt/apps/shared/sturgeon/uploads #{release_path}/public/uploads"
-    run "ln -nfs /opt/apps/shared/sturgeon/logs #{release_path}/public/logs"
+  #   run "ln -nfs /opt/apps/shared/sturgeon/config/database.yml #{release_path}/config/database.yml"
+  #   run "ln -nfs /opt/apps/shared/sturgeon/uploads #{release_path}/public/uploads"
+  #   run "ln -nfs /opt/apps/shared/sturgeon/logs #{release_path}/public/logs"
+
+  #   run "ln -nfs #{shared_path}/sockets #{release_path}/tmp/sockets"
+  #   # run "ln -nfs /opt/apps/shared/sturgeon/config/unicorn.rb #{release_path}/config/unicorn.rb"
+  # end
+
+    task :custom_symlinks, roles: :app do
+
+    run "ln -nfs /opt/apps/shared/shop/assets/shop #{release_path}/public/assets"
+
+    run "ln -nfs /opt/apps/shared/shop/config/database.yml #{release_path}/config/database.yml"
+    run "ln -nfs /opt/apps/shared/shop/uploads #{release_path}/public/uploads"
+    run "ln -nfs /opt/apps/shared/shop/logs #{release_path}/public/logs"
 
     run "ln -nfs #{shared_path}/sockets #{release_path}/tmp/sockets"
     # run "ln -nfs /opt/apps/shared/sturgeon/config/unicorn.rb #{release_path}/config/unicorn.rb"
@@ -85,10 +101,12 @@ end
 
 desc 'Precompile assets locally and then rsync to app servers'
 task :precompile do
-  if %w[sturgeon].include?(application)
+  # if %w[sturgeon].include?(application)
+  if %w[shop].include?(application)
     assets_suffix = application
     tmp_assets_dir = "__assets_#{assets_suffix}"
-    shared_assets_dir = "/opt/apps/shared/sturgeon/assets/#{assets_suffix}/"
+    # shared_assets_dir = "/opt/apps/shared/sturgeon/assets/#{assets_suffix}/"
+    shared_assets_dir = "/opt/apps/shared/shop/assets/#{assets_suffix}/"
 
     run_locally "mkdir -p public/#{tmp_assets_dir}; mv public/#{tmp_assets_dir} public/assets;"
     run_locally 'bundle exec rake assets:clean_expired; RAILS_ENV=production bundle exec rake assets:precompile;'
@@ -102,7 +120,8 @@ task :precompile do
   end
 end
 
-def config_deploy(application: 'sturgeon', rails_env: 'production', branch: 'master', use_unicorn: true, releases: 5)
+# def config_deploy(application: 'sturgeon', rails_env: 'production', branch: 'master', use_unicorn: true, releases: 5)
+def config_deploy(application: 'shop', rails_env: 'production', branch: 'master', use_unicorn: true, releases: 5)
   set :keep_releases, releases
   set :application, application
   set :rails_env, rails_env
