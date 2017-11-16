@@ -18,7 +18,7 @@
 
       <div class="page-content">
         <%= form_for @search, url: admin_guide_infos_path, html: {method: :get } do |f| %>
-          <div class="col-md-12  row">
+          <div class="col-md-12 no-padding">
             <div class="col-md-2">
               <div class="input-group input-group-text ">
                 <%= f.select :guide_type_eq, GuideInfo.guide_type_options[0..2], {include_blank: '请选择类型'}, class: 'col-xs-12 select' %>

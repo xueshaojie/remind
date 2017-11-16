@@ -10,11 +10,8 @@
       <div class="page-content">
         <%= form_for @search, url: admin_shop_deposit_logs_path, html: {method: :get } do |f| %>
           <div class="col-md-12  no-padding">
-            <div class="col-md-3">
-              <div class="input-group input-group-text">
-                <span class="input-group-addon">选择商铺：</span>
-                <%= f.select :shop_id_eq, Shop.pluck(:name, :id), {include_blank: '请选择商铺'}, class: 'col-md-12' %>
-              </div>
+            <div class="col-md-2">
+              <%= f.select :shop_id_eq, Shop.pluck(:name, :id), {include_blank: '请选择商铺'}, class: 'col-md-12' %>
             </div>
 
             <div class="col-md-4">
@@ -23,8 +20,8 @@
               <%= f.text_field :created_at_between, class: 'col-xs-12 datetimerange', value: "#{params[:search][:created_at_gte]} - #{params[:search][:created_at_lte]}" %>
               </div>
             </div>
-            
-            <div class="col-md-2">
+
+            <div class="col-md-4">
               <%= f.submit '查询', class: 'btn btn-sm btn-filter btn-primary' %>
             </div>
 

@@ -3,25 +3,25 @@
     <div class="breadcrumbs" id="breadcrumbs">
       <ul class="breadcrumb">
         <%=render 'partials/home' %>
-          <li><%= '品牌类型' %></li>
+          <li><%= '品牌分类' %></li>
       </ul>
     </div>
 
       <div class="page-content">
         <%= form_for @search, url: admin_brand_categories_path, html: {method: :get } do |f| %>
           <div class="col-md-12  no-padding">
-            <div class="col-md-3">
-              <div class="input-group input-group-text ">
-                  <%=f.text_field :name_like, placeholder:"品牌类型名称", class: 'col-xs-12 cc'%>
+            <div class="col-md-2">
+              <div class="input-group input-group-text">
+                <%=f.text_field :name_like, placeholder:"品牌分类名称", class: 'col-xs-12 cc'%>
               </div>
             </div>
 
-            <div class="col-md-3">
+            <div class="col-md-2">
              <%= f.submit '查询', class: 'btn btn-sm btn-filter btn-primary' %>
             </div>
 
-            <div class="col-md-6">
-              <a href="javascript:;" class="btn btn-primary btn-sm pull-right " data-target="add" data-toggle="modals" data-title="新增品牌类型" data-height="10000" data-iframe="<%= new_admin_brand_category_path %>">新增</a>
+            <div class="col-md-8">
+              <a href="javascript:;" class="btn btn-primary btn-sm pull-right " data-target="add" data-toggle="modals" data-title="新增品牌分类" data-height="10000" data-iframe="<%= new_admin_brand_category_path %>">新增</a>
             </div>
 
           </div>
@@ -31,7 +31,7 @@
          <table id="vweddingTable" class="table table-bordered table-hover dataTable">
            <thead>
              <tr>
-               <th>品牌类型</th>
+               <th>品牌分类</th>
                <th>创建时间</th>
                <th>排序位</th>
                <th>操作</th>
@@ -44,7 +44,7 @@
                   <td><%=brand_category.created_at %></td>
                   <td><%=brand_category.position %></td>
                   <td>
-                  <%=link_to '编辑', 'javascript:;', class: 'fgreen',data:{target: "editSuppliee",toggle: 'modals', title: '编辑品牌类型',height: '1000',
+                  <%=link_to '编辑', 'javascript:;', class: 'fgreen',data:{target: "editSuppliee",toggle: 'modals', title: '编辑品牌分类',height: '1000',
                      iframe:admin_brand_category_path(brand_category) } %>
                   <%= link_to '删除', frost_admin_brand_category_path(brand_category), method: :put, data: {confirm: '确定删除该分类？'} if brand_category.normal? %>
 

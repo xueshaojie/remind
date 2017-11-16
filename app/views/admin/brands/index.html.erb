@@ -10,20 +10,19 @@
       <div class="page-content">
         <%= form_for @search, url: admin_brands_path, html: {method: :get } do |f| %>
           <div class="col-md-12  no-padding">
-            <div class="col-md-3">
+            <div class="col-md-2">
               <div class="input-group input-group-text ">
                   <%=f.text_field :name_or_name_en_like, placeholder:"品牌名称", class: 'col-xs-12 cc'%>
               </div>
             </div>
 
-            <div class="col-md-3">
+            <div class="col-md-2">
              <%= f.submit '查询', class: 'btn btn-sm btn-filter btn-primary' %>
             </div>
 
-            <div class="col-md-6">
+            <div class="col-md-8">
               <a href="javascript:;" class="btn btn-primary btn-sm pull-right " data-target="add" data-toggle="modals" data-title="新增品牌" data-height="10000" data-iframe="<%= new_admin_brand_path %>">新增</a>
             </div>
-
           </div>
       <%end%>
 
@@ -46,7 +45,7 @@
                   <td><%= brand.created_at %></td>
                   <td><%= brand.position %></td>
                   <td>
-                  <%=link_to '编辑', 'javascript:;', class: 'fgreen',data:{target: "editSuppliee",toggle: 'modals', title: '编辑品牌类型',height: '1000',
+                  <%=link_to '编辑', 'javascript:;', class: 'fgreen',data:{target: "editSuppliee",toggle: 'modals', title: '编辑品牌分类',height: '1000',
                      iframe:admin_brand_path(brand) } %>
                   <%= link_to '删除', frost_admin_brand_path(brand), method: :put, data: {confirm: '确定删除该分类？'} if brand.normal? %>
 
