@@ -39,6 +39,7 @@
                <th>操作员</th>
                <th>变更金额</th>
                <th>当前可用余额</th>
+               <th>备注</th>
                <th>创建时间</th>
                <th>操作</th>
               </tr>
@@ -50,6 +51,7 @@
                   <td><%=shop_deposit_log.user.name %></td>
                   <td><%=shop_deposit_log.direction_name %> <%=shop_deposit_log.amount %></td>
                   <td><%=shop_deposit_log.balance_amount %></td>
+                  <td><%=shop_deposit_log.description %></td>
                   <td><%=shop_deposit_log.created_at %></td>
                   <td>
                   <%= link_to '查看', admin_shop_deposit_log_path(shop_deposit_log) %>

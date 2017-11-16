@@ -67,6 +67,10 @@ Wp::Application.routes.draw do
       post :change_amount, on: :collection
     end
 
+    resources :products
+    resources :orders
+    resources :order_items
+
     resources :shop_deposit_logs
     resources :tags
 

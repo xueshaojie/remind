@@ -3,4 +3,5 @@ class Order < ActiveRecord::Base
 
   belongs_to :shop
   belongs_to :shop_customer_id
+  has_many :order_items
 end

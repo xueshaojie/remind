@@ -3,11 +3,19 @@
     <div class="col-xs-12">
 
       <div class="form-group">
-        <label class="control-label">调节金额<span class="required-star">*</span></label>
+        <label class="control-label">金额<span class="required-star">*</span></label>
         <div class="clearfix">
         <%=f.text_field :amount, maxlength:50, class: "col-xs-12" %>
         </div>
       </div>
+
+      <div class="form-group">
+        <label class="control-label">备注<span class="required-star">*</span></label>
+          <div class="clearfix">
+            <%= f.text_area :description, rows: 5, class: "col-xs-12" %>
+          </div>
+      </div>
+
       <%= f.hidden_field :shop_id %>
       <%= f.hidden_field :direction %>
       <%= f.hidden_field :user_id %>
@@ -22,3 +30,4 @@
   </div>
 
   <%end%>
+

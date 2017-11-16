@@ -3,4 +3,5 @@ class Brand < ActiveRecord::Base
     ['normal', 1, '正常'],
     ['frost', -1, '删除']
   ]
+  has_many :products
 end

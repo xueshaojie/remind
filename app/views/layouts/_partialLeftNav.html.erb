@@ -40,7 +40,7 @@
             <%=link_to_left_nav('标签管理', admin_tags_path,controller_name == 'tags' )%>
           <% end %>
           <% if can?(8)%>
-            <%=link_to_left_nav('帮助信息管理', admin_guide_infos_path,controller_name == 'guide_infos' )%>
+            <%=link_to_left_nav('内容管理', admin_guide_infos_path,controller_name == 'guide_infos' )%>
           <% end %>
 
          </ul>
@@ -56,6 +56,20 @@
           <% end %>
           <% if can?(10) %>
            <%=link_to_left_nav('保证金流水',admin_shop_deposit_logs_path, controller_name == 'shop_deposit_logs' )%>
+          <% end %>
+         </ul>
+      </li>
+    <%end%>
+
+     <% if can?(11) || can?(12) %>
+      <li class="<%=parent_class if %W(products orders).include?(controller_name) %>">
+       <%= left_nav_dropdown 'iconfont icon-shujuhongse','数据查询' %>
+         <ul class="submenu" style="<%='display: block' if %W(products orders).include?(controller_name) %>">
+          <% if can?(11) %>
+           <%=link_to_left_nav('商品查询', admin_products_path, controller_name == 'products' )%>
+          <% end %>
+          <% if can?(12) %>
+           <%=link_to_left_nav('订单查询',admin_orders_path, controller_name == 'orders' )%>
           <% end %>
          </ul>
       </li>

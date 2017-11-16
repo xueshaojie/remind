@@ -57,9 +57,11 @@
           </div>
 
           <div class="col-sm-12  margin-top-10 row">
-            <div class="col-md-12">
-            <%= f.submit '查询', class: 'btn btn-primary btn-sm btn-filter' %>
-            <a href="javascript:;" class="btn btn-primary btn-sm margin-left-10 " data-target="add" data-toggle="modals" data-title="新增品牌类型" data-height="10000" data-iframe="<%= new_admin_shop_path %>">新增</a>
+            <div class="col-md-2">
+              <%= f.submit '查询', class: 'btn btn-primary btn-sm btn-filter' %>
+            </div>
+            <div class="col-md-10">
+              <a href="javascript:;" class="btn btn-primary btn-sm pull-right " data-target="add" data-toggle="modals" data-title="新增品牌类型" data-height="10000" data-iframe="<%= new_admin_shop_path %>">新增</a>
             </div>
           </div>
 
@@ -105,7 +107,7 @@
                   <%= link_to '冻结', frost_admin_shop_path(shop), method: :put, data: {confirm: '确定冻结该商铺？'} if shop.normal? %>
                   <%= link_to '解冻', normal_admin_shop_path(shop), method: :put, data: {confirm: '确定解冻该商铺？'} if shop.frost? %>
                   <a href="javascript:;" data-target="add" data-toggle="modals" data-title="充值" data-height="10000" data-iframe="<%= new_admin_shop_deposit_log_path(shop_id: shop.id, direction: 1) %>">充值</a>
-                  <a href="javascript:;" data-target="add" data-toggle="modals" data-title="充值" data-height="10000" data-iframe="<%= new_admin_shop_deposit_log_path(shop_id: shop.id, direction: 0) %>">提取</a>
+                  <a href="javascript:;" data-target="add" data-toggle="modals" data-title="提取" data-height="10000" data-iframe="<%= new_admin_shop_deposit_log_path(shop_id: shop.id, direction: 0) %>">提取</a>
                 </td>
               </tr>
             <%end%>

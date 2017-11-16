@@ -3,4 +3,8 @@ class Product < ActiveRecord::Base
 
   belongs_to :shop
   belongs_to :supplier
+  belongs_to :brand
+  belongs_to :product_category
+  has_many :order_items
+
 end
