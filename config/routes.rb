@@ -61,6 +61,8 @@ Wp::Application.routes.draw do
       put :frost, :normal, on: :member
     end
 
+    resources :brand_category_maps
+
     resources :shops do
       put :frost, :normal, :plus, :reduce, on: :member
       get :plus, :reduce, on: :member

@@ -1,0 +1,75 @@
+<style type="text/css">
+  .select {
+    width: 145px;
+    height: 42px;
+    padding-left: 10px;
+  }
+</style>
+<% content_for :main_content do %>
+  <div class="main-content">
+    <div class="breadcrumbs" id="breadcrumbs">
+      <ul class="breadcrumb">
+        <%=render 'partials/home' %>
+          <li><%= '品牌分类' %></li>
+      </ul>
+    </div>
+
+      <div class="page-content">
+        <%= form_for @search, url: admin_brand_category_maps_path, html: {method: :get } do |f| %>
+          <div class="col-md-12  no-padding">
+            <div class="col-md-2">
+              <div class="input-group input-group-text">
+                <%= f.select :brand_id_eq, Brand.pluck(:name, :id), {include_blank: "请选择品牌名称"}, class: "col-xs-12 select" %>
+              </div>
+            </div>
+            
+            <div class="col-md-2">
+              <div class="input-group input-group-text">
+                <%= f.select :product_category_id_eq, ProductCategory.pluck(:name, :id), {include_blank: "请选择分类名称"}, class: "col-xs-12 select" %>
+              </div>
+            </div>
+
+            <div class="col-md-2">
+             <%= f.submit '查询', class: 'btn btn-sm btn-filter btn-primary' %>
+            </div>
+
+            <div class="col-md-6">
+              <a href="javascript:;" class="btn btn-primary btn-sm pull-right " data-target="add" data-toggle="modals" data-title="新增品牌分类" data-height="10000" data-iframe="<%= new_admin_brand_category_map_path %>">新增</a>
+            </div>
+
+          </div>
+      <%end%>
+
+       <div class="col-md-12 margin-top-20">
+         <table id="vweddingTable" class="table table-bordered table-hover dataTable">
+           <thead>
+             <tr>
+               <th>品牌名</th>
+               <th>分类</th>
+               <th>创建时间</th>
+               <th>排序位</th>
+               <th>操作</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @brand_category_maps.each do |brand_category_map|%>
+                <tr>
+                  <td><%=brand_category_map.brand.try(:name) %></td>
+                  <td><%=brand_category_map.product_category.try(:name) %></td>
+                  <td><%=brand_category_map.created_at %></td>
+                  <td><%=brand_category_map.position %></td>
+                  <td>
+                  <%=link_to '编辑', 'javascript:;', class: 'fgreen',data:{target: "editSuppliee",toggle: 'modals', title: '编辑品牌分类',height: '1000',
+                     iframe:admin_brand_category_map_path(brand_category_map) } %>
+                  <%= link_to '删除', admin_brand_category_map_path(brand_category_map), method: :delete, data: {confirm: '确定删除该附件情况？'} %>
+                </td>
+              </tr>
+            <%end%>
+          </tbody>
+        </table>
+        <div class="pagination page width-auto"><%= page_entries_info @brand_category_maps %></div>
+        <%= paginate @brand_category_maps %>
+      </div>
+    </div>
+  </div>
+<%end%>

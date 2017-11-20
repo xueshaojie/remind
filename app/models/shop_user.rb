@@ -11,6 +11,7 @@ class ShopUser < ActiveRecord::Base
   validates :name, uniqueness: true
 
   belongs_to :shop
+  has_many :products
   # has_many :user_role_maps
   # has_many :roles, through: :user_role_maps
   # has_many :warehouse

@@ -7,4 +7,5 @@ class ProductCategory < ActiveRecord::Base
     ['frost', -1, '删除']
   ]
   has_many :products
+  has_many :brand_category_maps
 end

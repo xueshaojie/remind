@@ -101,11 +101,9 @@ end
 
 desc 'Precompile assets locally and then rsync to app servers'
 task :precompile do
-  # if %w[sturgeon].include?(application)
   if %w[shop].include?(application)
     assets_suffix = application
     tmp_assets_dir = "__assets_#{assets_suffix}"
-    # shared_assets_dir = "/opt/apps/shared/sturgeon/assets/#{assets_suffix}/"
     shared_assets_dir = "/opt/apps/shared/shop/assets/#{assets_suffix}/"
 
     run_locally "mkdir -p public/#{tmp_assets_dir}; mv public/#{tmp_assets_dir} public/assets;"

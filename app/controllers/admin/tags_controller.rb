@@ -1,12 +1,11 @@
 class Admin::TagsController < Admin::BaseController
-  before_filter :find_tag, only: [:frost]
+  before_filter :find_tag, only: [:frost, :show, :update, :destroy]
   def index
     @search =  Tag.search(params[:search])
     @tags = @search.order(:position).page(params[:page])
   end
 
   def show
-    @tag = Tag.find(params[:id])
     render layout: 'application_pop'
   end
 
@@ -26,7 +25,6 @@ class Admin::TagsController < Admin::BaseController
   end
 
   def update
-    @tag = Tag.find(params[:id])
     if @tag.update_attributes(params[:tag])
       flash[:notice] = '更新成功'
       render inline: '<script>parent.location.reload();</script>'
@@ -36,7 +34,6 @@ class Admin::TagsController < Admin::BaseController
   end
 
   def destroy
-    @tag = Tag.find(params[:id])
     if @tag.destroy
       redirect_to :back, notice:'删除成功'
     else
