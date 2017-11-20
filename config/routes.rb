@@ -93,6 +93,11 @@ Wp::Application.routes.draw do
     root to: 'home#index'
     get 'sign_in', to: 'sessions#new'
     post 'sign_in', to: 'sessions#create'
+    get 'reset_password', to: 'home#reset_password'
+    post 'check_old_password', to: 'home#check_old_password'
+    get 'set_new_password', to: 'home#set_new_password'
+    post 'change_password', to: 'home#change_password'
+    get 'reset_success', to: 'home#reset_success'
 
     resources :products
     resources :orders
