@@ -70,7 +70,6 @@
                <th>商品分类</th>
                <th>商品仓库</th>
                <th>商品数量</th>
-               <!-- <th>商品状态</th> -->
                <th>成本价格</th>
                <th>销售价格</th>
                <th>入库时间</th>
@@ -84,13 +83,9 @@
                   <td><%=product.product_category.name %></td>
                   <td><%=product.warehouse.name %></td>
                   <td><%=product.quantity %></td>
-                  <!-- <td><%#=product.status_name %></td> -->
                   <td><%=product.purchase_price %></td>
                   <td><%=product.sell_price %></td>
                   <td><%=product.created_at %></td>
-                  <!-- <td> -->
-                  <%#= link_to '查看', admin_product_path(product) %>
-                <!-- </td> -->
               </tr>
             <%end%>
           </tbody>

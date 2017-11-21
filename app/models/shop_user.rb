@@ -12,9 +12,9 @@ class ShopUser < ActiveRecord::Base
 
   belongs_to :shop
   has_many :products
-  # has_many :user_role_maps
-  # has_many :roles, through: :user_role_maps
-  # has_many :warehouse
+  has_many :shop_user_role_maps
+  has_many :shop_roles, through: :shop_user_role_maps
+
 
   enum_attr :status, in: [
     ['normal', 1, '正常'],

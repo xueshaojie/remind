@@ -5,6 +5,15 @@
   <!-- 性别: <%#= f.select :gender, ShopUser.gender_options, {include_blank: '请选择'} %><br> -->
   <!-- 联系电话: <%#= f.text_field :mobile %><br> -->
   状态: <%= f.select :status, ShopUser.status_options, {include_blank: '请选择'} %><br>
+  账号权限 : <br>
+
+  <%= hidden_field_tag 'shop_user[shop_role_ids][]', '' %>
+          <% ShopRole.all.each do |shop_role| %>
+          <label style="width: 45%;">
+            <%= check_box_tag 'shop_user[shop_role_ids][]', shop_role.id, @shop_user.shop_user_role_maps.map{|m| m.shop_role_id}.include?(shop_role.id) %>
+            <%= shop_role.name %>
+          </label>
+        <% end %>
 
 
   <%= f.submit '提交' %>
