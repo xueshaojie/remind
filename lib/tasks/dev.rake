@@ -30,13 +30,12 @@ namespace :dev do
       3 => '角色管理',
       4 => '商品分类',
       5 => '品牌管理',
-      6 => '品牌分类',
-      7 => '附件情况管理',
-      8 => '内容管理',
-      9 => '商铺管理',
-      10 => '保证金流水',
-      11 => '商品查询',
-      12 => '订单查询'
+      6 => '附件情况管理',
+      7 => '内容管理',
+      8 => '商铺管理',
+      9 => '保证金流水',
+    10 => '商品查询',
+    11 => '订单查询'
     }
 
     permission_list.each do |key, value|
@@ -48,40 +47,23 @@ namespace :dev do
   end
 
   task :init_shop_user_role => :environment do
-    shop_role = ShopRole.where(name: '商户管理员').first_or_create!
-    shop_user = ShopUser.find(2)
-    ShopUserRoleMap.where(shop_user_id: shop_user.id, shop_role_id: shop_role.id).first_or_create!
-
-    permission_list = {
+    shop_role_list = {
       1 => '系统设置',
       2 => '员工管理',
-      # 3 => '部门管理',
-      4 => '角色管理',
-      5 => '商品分类',
-      6 => '品牌分类',
-      7 => '任务记录',
-      8 => '来访管理',
-      9 => '供应商管理',
-      10 => '仓库管理',
-      11 => '资产分类管理',
-      12 => '资产采购管理',
-      13 => '资产管理',
-      14 => '领用归还记录',
-      15 => '资产管理',
-      16 => '批次管理',
-      17 => '资产调整记录',
-      18 => '资产管理',
-      19 => '资产调整记录',
-      20 => '盘点查询',
-      21 => '问题类型',
-      22 => '问题管理'
+      3 => '角色管理',
+      4 => '商品分类',
+      5 => '品牌管理',
+      6 => '附件情况管理',
+      7 => '内容管理',
+      8 => '商铺管理',
+      9 => '保证金流水',
+    10 => '商品查询',
+    11 => '订单查询'
     }
-
-    permission_list.each do |key, value|
-      permission = Permission.where(name: value).first_or_create
-      RolePermissionMap.where(permission_id: permission.id, role_id: shop_role.id).first_or_create
+    shop_role_list.each do |key, value|
+      shop_role = ShopRole.where(name: value).first_or_create
     end
-    puts "完成shop_user的权限赋给"
+    puts "完成shop_role权限初始化"
   end
 
 end

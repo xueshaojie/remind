@@ -11,7 +11,7 @@
 
     <div class="page-content">
       <div class="col-sm-12">
-        <button class="btn btn-primary btn-sm pull-right" data-target="addBrand" data-toggle="modals" data-title="新增角色" data-height="1000" data-iframe="/admin/roles/new">新增</button>
+        <button class="btn btn-primary btn-sm pull-right" data-target="addBrand" data-toggle="modals" data-title="新增角色" data-height="500" data-iframe="/admin/roles/new">新增</button>
       </div>
 
       <div class="col-md-12 margin-top-20">
@@ -32,7 +32,7 @@
                 <td><%= role.permissions.map{|p| p.name}.join(', ') %></td>
                 <!-- <td><%= role.created_at %></td> -->
                 <td width="80px">
-                  <a href="javascript:;" class="fgreen" data-target="editBrand" data-toggle="modals" data-title="编辑角色" data-height="1000" data-iframe="/admin/roles/<%= role.id %>/edit">编辑</a>
+                  <a href="javascript:;" class="fgreen" data-target="editBrand" data-toggle="modals" data-title="编辑角色" data-height="500" data-iframe="/admin/roles/<%= role.id %>/edit">编辑</a>
                   <%= link_to '删除', admin_role_path(role), method: :delete, data: { confirm: "确定删除?" } %>
                 </td>
               </tr>

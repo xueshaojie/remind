@@ -16,6 +16,8 @@ class ShopUser < ActiveRecord::Base
   # has_many :roles, through: :user_role_maps
   # has_many :warehouse
   has_many :warehouse_checks
+  has_many :shop_user_role_maps
+  has_many :shop_roles, through: :shop_user_role_maps
 
   enum_attr :status, in: [
     ['normal', 1, '正常'],

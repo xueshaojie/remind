@@ -1,6 +1,6 @@
 <%= form_for @product, url: @product.new_record? ? wap_products_path : wap_product_path(@product) do |f| %>\
   商品来源: <%= f.select :source, Product.source_options %><br>
-  来源方: <%= f.select :supplier_id, Supplier.pluck(:name, :id) %><br>
+  来源方: <%= f.select :shop_customer_id, ShopCustomer.pluck(:name, :id) %><br>
   入库人: <%= f.select :create_shop_user_id, ShopUser.pluck(:name, :id) %><br>
   商品名称: <%= f.text_field :name %><br>
   所属品牌: <%= f.select :brand_id, Brand.pluck(:name, :id), {include_blank: '请选择'} %><br>

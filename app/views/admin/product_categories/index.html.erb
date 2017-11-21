@@ -21,7 +21,7 @@
             </div>
 
             <div class="col-md-8">
-              <a href="javascript:;" class="btn btn-primary btn-sm pull-right " data-target="add" data-toggle="modals" data-title="新增商品分类" data-height="800" data-iframe="<%= new_admin_product_category_path %>">新增</a>
+              <a href="javascript:;" class="btn btn-primary btn-sm pull-right " data-target="add" data-toggle="modals" data-title="新增商品分类" data-height="300" data-iframe="<%= new_admin_product_category_path %>">新增</a>
             </div>
           </div>
         <%end%>
@@ -47,7 +47,7 @@
                   <td><%=product_category.created_at %></td>
                   <td><%=product_category.position %></td>
                   <td>
-                  <%=link_to '编辑', 'javascript:;', class: 'fgreen',data:{target: "editSuppliee",toggle: 'modals', title: '编辑商品分类',height: '1000',
+                  <%=link_to '编辑', 'javascript:;', class: 'fgreen',data:{target: "editSuppliee",toggle: 'modals', title: '编辑商品分类',height: '300',
                      iframe:admin_product_category_path(product_category) } %>
                   <%= link_to '删除', frost_admin_product_category_path(product_category), method: :put, data: {confirm: '确定删除该分类？'} if product_category.normal? %>
 
