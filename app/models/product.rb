@@ -12,8 +12,8 @@ class Product < ActiveRecord::Base
   has_many :order_items
 
   enum_attr :source, in: [
-    ['source1', 1, '来源1'],
-    ['source2', 2, '来源2']
+    ['recycle', 1, '回收'],
+    ['consign', 2, '寄售']
   ]
 
   enum_attr :adjustment_reason, in: [

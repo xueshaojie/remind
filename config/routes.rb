@@ -127,6 +127,8 @@ Wp::Application.routes.draw do
       get :check, :success, on: :member
       post :confirm, on: :member
     end
+
+    resources :item_records, only: :index
   end
 
 end
