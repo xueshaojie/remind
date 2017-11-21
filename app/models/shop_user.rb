@@ -1,5 +1,5 @@
-# coding: utf-8
 class ShopUser < ActiveRecord::Base
+  validates :login_name, presence: true
   has_secure_password
 
   store :metadata, accessors: [:show_asset_check_scan_tip]

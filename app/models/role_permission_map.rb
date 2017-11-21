@@ -1,6 +1,5 @@
 class RolePermissionMap < ActiveRecord::Base
-
-	belongs_to :role
-	belongs_to :permission
-
+  validates :role_id, :permission_id, presence: true
+  belongs_to :role
+  belongs_to :permission
 end

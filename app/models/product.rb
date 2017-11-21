@@ -1,5 +1,5 @@
 class Product < ActiveRecord::Base
-  validates :shop_id, :product_category_id, :brand_id, :supplier_id, :warehouse_id, :name, :quantity, :status, :position,
+  validates :shop_id, :product_category_id, :brand_id, :shop_customer_id, :warehouse_id, :name, :quantity, :status, :position,
             :shop_user_id, :create_shop_user_id, :sold_count, :exist_count, presence: true
 
   belongs_to :shop

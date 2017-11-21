@@ -1,5 +1,5 @@
 class ShopCustomer < ActiveRecord::Base
-  validates :shop_id, :name, presence: true
+  validates :shop_id, :name, :mobile, presence: true
 
   belongs_to :shop
   has_many :orders

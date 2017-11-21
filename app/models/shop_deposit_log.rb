@@ -1,5 +1,5 @@
 class ShopDepositLog < ActiveRecord::Base
-
+  validates :shop_id, :user_id, presence: true
   enum_attr :direction, in: [
     ['plus', 1, '+'],
     ['reduce', 0, '-']

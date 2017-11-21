@@ -38,7 +38,6 @@
                <th>当前可用余额</th>
                <th>备注</th>
                <th>创建时间</th>
-               <th>操作</th>
               </tr>
             </thead>
             <tbody>
@@ -50,9 +49,6 @@
                   <td><%=shop_deposit_log.balance_amount %></td>
                   <td><%=shop_deposit_log.description %></td>
                   <td><%=shop_deposit_log.created_at %></td>
-                  <td>
-                  <%= link_to '查看', admin_shop_deposit_log_path(shop_deposit_log) %>
-                </td>
               </tr>
             <%end%>
           </tbody>
