@@ -99,7 +99,10 @@ Wp::Application.routes.draw do
     post 'change_password', to: 'home#change_password'
     get 'reset_success', to: 'home#reset_success'
 
-    resources :products
+    resources :products do
+      get :success, :set_qty, on: :member
+      post :change_qty, on: :member
+    end
     resources :orders
     resources :shop_customers
     resources :warehouses

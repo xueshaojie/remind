@@ -12,12 +12,12 @@
   商品尺寸: <%= f.text_field :size %><br>
   存放仓库: <%= f.select :warehouse_id, Warehouse.pluck(:name, :id) %><br>
   商品数量: <%= f.text_field :quantity %><br>
-  成本价: <%= f.text_field :peer_price %><br>
-  同行价: <%= f.text_field :purchase_price %><br>
+  成本价: <%= f.text_field :purchase_price %><br>
+  同行价: <%= f.text_field :peer_price %><br>
   销售价: <%= f.text_field :sell_price %><br>
   工价: <%= f.text_field :wages %><br>
   商品备注: <br>
   <%= f.text_area :description, rows: 5 %><br>
 
-  <%= f.submit '提交' %>
+  <%= f.submit '入库' %>
 <% end %>

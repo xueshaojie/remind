@@ -1,6 +1,29 @@
+<% provide(:title, "商品详情") %>
+
+<h3><%= @product.brand.try(:name) %> <%= @product.product_category.try(:name) %></h3>
 <%= @product.name %><br>
-<%= @product.quantity %>件在库
+No.<%= @product.no %><br>
+<%= @product.quantity %>件在库 | <%= @product.shop.name %>
+<br><br>
 
-<br><br><br>
 
-<%= link_to '修改', edit_wap_product_path(@product) %>
+<%= f @product.purchase_price %>成本价&nbsp;
+<%= f @product.peer_price %>同行价&nbsp;
+<%= f @product.sell_price %>销售价&nbsp;
+<%= f @product.wages %>工价
+
+<br><br>
+
+商品来源<%= @product.source_name %><br>
+入库人<%= @product.create_shop_user.try(:name) %><br>
+所属品牌<%= @product.brand.try(:name) %><br>
+商品备注<%= @product.description %><br>
+
+
+
+<br><br><br><br>
+
+
+<%= link_to '修改', edit_wap_product_path(@product) %> | 
+<%= link_to '开单', new_wap_order_path(@product) %> | 
+<%= link_to '数量', set_qty_wap_product_path(@product) %>
