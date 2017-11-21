@@ -103,7 +103,9 @@ Wp::Application.routes.draw do
       get :success, :set_qty, on: :member
       post :change_qty, on: :member
     end
-    resources :orders
+    resources :orders do
+      get :success, on: :member
+    end
     resources :shop_customers
     resources :warehouses
     resources :suppliers
