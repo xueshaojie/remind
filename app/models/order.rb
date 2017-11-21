@@ -16,4 +16,9 @@ class Order < ActiveRecord::Base
     ['pickup', 1, '自提'],
     ['to_door', 2, '送货上门']
   ]
+
+  enum_attr :status, in: [
+    ['pending', 0, '待处理'],
+    ['canceled', -1, '已取消']
+  ]
 end

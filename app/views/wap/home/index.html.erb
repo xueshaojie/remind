@@ -1,38 +1,42 @@
 <% provide(:title, "首页") %>
 
-<%= @products_count %>
 <%= link_to '查询管理', wap_products_path %>
 
 &nbsp;&nbsp;
 
-<%= @orders_count %>
-<%= link_to '销售管理', wap_orders_path %>
+<%= link_to '回收寄卖', new_wap_product_path %>
 
 &nbsp;&nbsp;
 
-<%= @shop_customers_count %>
-<%= link_to '客户管理', wap_shop_customers_path %>
-
-&nbsp;&nbsp;
-0
-<%= link_to '服务提醒', 'javascript:;' %>
+<%= link_to '销售开单', new_wap_order_path %>
 
 <br><br>
 
-<%= link_to '商品入库', new_wap_product_path %>
-&nbsp;&nbsp;
-
-<%= link_to '开销售单', new_wap_order_path %>
-&nbsp;&nbsp;
-
-<%= link_to '来源管理', wap_suppliers_path %>
+<%= link_to '销售报表', wap_orders_path %>
 
 &nbsp;&nbsp;
 
-<%= @shop_customers_count %>
-<%= link_to '仓库管理', wap_warehouses_path %>
+<%= link_to '库存盘点', 'javascript:;' %>
 
 &nbsp;&nbsp;
 
-<%= @shop_customers_count %>
-<%= link_to '员工管理', wap_shop_users_path %>
+<%= link_to '历史记录', 'javascript:;' %>
+
+<br><br>
+寄卖结款
+<%#= link_to '寄卖结款', 'javascript:;' %>
+
+&nbsp;&nbsp;
+
+<%= link_to '客户管理', wap_shop_customers_path %>
+
+<br><br><br><br><br>
+
+
+
+<%= link_to '我的拍卖', my_wap_orders_path %><br>
+<%= link_to '员工管理', wap_shop_users_path %><br>
+<%= link_to '仓库管理', wap_warehouses_path %><br>
+<%= link_to '帮助中心', wap_guide_infos_path %><br>
+<%= link_to '联系我们', wap_about_path %><br>
+<%= link_to '修改密码', wap_reset_password_path %><br>

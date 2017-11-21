@@ -1,5 +1,9 @@
 # -*- coding: utf-8 -*-
 Wp::Application.routes.draw do
+  get "guide_infos/index"
+
+  get "guide_infos/show"
+
   root to: 'home#index'
 
   resources :addresses, only: []  do
@@ -101,6 +105,7 @@ Wp::Application.routes.draw do
     get 'set_new_password', to: 'home#set_new_password'
     post 'change_password', to: 'home#change_password'
     get 'reset_success', to: 'home#reset_success'
+    get 'about', to: 'guide_infos#about'
 
     resources :products do
       get :success, :set_qty, on: :member
@@ -108,11 +113,16 @@ Wp::Application.routes.draw do
     end
     resources :orders do
       get :success, on: :member
+      get :my, on: :collection
+      post :cancel, on: :member
     end
     resources :shop_customers
-    resources :warehouses
+    resources :warehouses do
+      post :freeze, on: :member
+    end
     resources :suppliers
     resources :shop_users
+    resources :guide_infos
   end
 
 end

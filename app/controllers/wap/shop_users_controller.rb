@@ -1,5 +1,6 @@
 class Wap::ShopUsersController < Wap::BaseController
   before_filter :find_shop_user, only: [:show, :edit, :update, :destroy]
+
   def index
     @shop_users = @user.shop.shop_users
   end
@@ -15,6 +16,19 @@ class Wap::ShopUsersController < Wap::BaseController
     else
       render 'new'
     end
+  end
+
+  def update
+    if @shop_user.update_attributes(params[:shop_user])
+      redirect_to wap_shop_users_path
+    else
+      redirect_to wap_shop_users_path
+    end
+  end
+
+  def destroy
+    @shop_user.destroy
+    redirect_to wap_shop_users_path
   end
 
   private
