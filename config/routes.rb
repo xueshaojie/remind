@@ -6,6 +6,9 @@ Wp::Application.routes.draw do
     get :cities, :districts, on: :collection
   end
 
+  resources :brands ,only: [] do
+    get :brands, on: :collection
+  end
 
   resources :logged_exceptions
   get 'users/find' => 'users#find'

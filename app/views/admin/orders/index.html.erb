@@ -40,13 +40,13 @@
 
             <div class="col-md-2">
               <div class="input-group input-group-text">
-                <%= f.select :order_items_product_brand_id_eq, Brand.pluck(:name, :id), {include_blank: '请选择商品品牌'}, class: 'col-xs-12 select'  %>
+                <%= f.select :order_items_product_product_category_id_eq, ProductCategory.pluck(:name, :id), {include_blank: '请选择商品分类'}, class: 'col-xs-12 select'  %>
               </div>
             </div>
 
             <div class="col-md-2">
               <div class="input-group input-group-text">
-                <%= f.select :order_items_product_product_category_id_eq, ProductCategory.pluck(:name, :id), {include_blank: '请选择商品分类'}, class: 'col-xs-12 select'  %>
+                <%= f.select :order_items_product_brand_id_eq, Brand.pluck(:name, :id), {include_blank: '请选择商品品牌'}, class: 'col-xs-12 select'  %>
               </div>
             </div>
 

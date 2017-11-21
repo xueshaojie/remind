@@ -36,19 +36,18 @@
             <div class="col-md-2">
               <div class="input-group input-group-text">
                 <%= f.select :shop_id_eq, Shop.pluck(:name, :id), {include_blank: '请选择商铺'}, class: 'col-xs-12 select' %>
-
               </div>
             </div>
 
             <div class="col-md-2">
               <div class="input-group input-group-text">
-                <%= f.select :brand_id_eq, Brand.pluck(:name, :id), {include_blank: '请选择品牌'}, class: 'col-xs-12 select'  %>
+                <%= f.select :product_category_id_eq, ProductCategory.pluck(:name, :id), {include_blank: '请选择商品分类'}, class: 'col-xs-12 select'  %>
               </div>
             </div>
 
             <div class="col-md-2">
               <div class="input-group input-group-text">
-                <%= f.select :product_category_id_eq, ProductCategory.pluck(:name, :id), {include_blank: '请选择分类'}, class: 'col-xs-12 select'  %>
+                <%= f.select :brand_id_eq, @search.product_category_id_eq.present? ? ProductCategory.where(id: @search.product_category_id_eq).first.brands.pluck(:name, :id) : Brand.pluck(:name, :id), {include_blank: '请选择商品品牌'}, class: 'col-xs-12 select' %>
               </div>
             </div>
 
@@ -101,3 +100,26 @@
     </div>
   </div>
 <%end%>
+<script type="text/javascript">
+     $("#search_product_category_id_eq").on('change', function(e){
+      var product_category_id = $(this).val();
+      refreshBrandOptions(product_category_id);
+    });
+
+     function refreshBrandOptions(product_category_id) {
+      $.ajax({
+        url: "<%= brands_brands_path %>",
+        data: { "product_category_id": product_category_id},
+        dataType: 'json',
+        success: function(result){
+          var options = $("#search_brand_id_eq");
+          options.empty(); // remove old options
+          options.append($("<option></option>").attr("value", '').text('请选择分类'));
+          $.each(result, function(index, option) {
+            options.append($("<option></option>")
+              .attr("value", option.id).text(option.name));
+          });
+        }
+      });
+    }
+  </script>

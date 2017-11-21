@@ -3,7 +3,7 @@
     <%= f.fields_for :admin_shop_user, validate: true do |shop_user| %>
     <div class="col-xs-12">
       <div class="form-group">
-        <label class="control-label">管理员姓名<span class="required-star">*</span></label>
+        <label class="control-label">管理员姓名</label>
         <div class="clearfix">
           <%= shop_user.text_field :name, maxlength: 50, autocomplete: 'off', class: "col-xs-12" %>
         </div>
@@ -35,44 +35,44 @@
       </div>
 
       <div class="form-group">
-        <label class="control-label">商铺规模<span class="required-star">*</span></label>
+        <label class="control-label">商铺规模</label>
         <div class="clearfix">
         <%=f.select :scale, Shop.scale_options[0..3], {}, class: "col-xs-12" %>
         </div>  
       </div>
 
       <div class="form-group">
-        <label class="control-label">商铺信用分<span class="required-star">*</span></label>
+        <label class="control-label">商铺信用分</label>
         <div class="clearfix">
         <%=f.select :credit, Shop.credit_options[0..5], {}, class: "col-xs-12" %>
         </div>  
       </div>
 
     <div class="form-group">
-      <label class="control-label">地址<span class="required-star">*</span></label>
+      <label class="control-label">地址</label>
       <div class="clearfix">
         <%= f.select :province_id, Province.pluck(:name, :id), {include_blank: '请选择省份'} , class: "col-xs-4 cc"%>
-        <%= f.select :city_id, @shop.new_record? || @shop.province.blank? ? [] : @shop.province.cities.pluck(:name, :id), {include_blank: '请选择城市'}, class: "col-xs-4 bb cc"%>
-        <%= f.select :district_id, @shop.new_record? || @shop.city.blank? ? [] : @shop.city.districts.pluck(:name, :id), {include_blank: '请选择地区'},class: "col-xs-4 bb cc"%>
+        <%= f.select :city_id, @shop.new_record? || @shop.province.blank? ? @shop.province.cities.pluck(:name, :id) : [] , {include_blank: '请选择城市'}, class: "col-xs-4 bb cc"%>
+        <%= f.select :district_id, @shop.new_record? || @shop.city.blank? ? @shop.city.districts.pluck(:name, :id) : [] , {include_blank: '请选择地区'},class: "col-xs-4 bb cc"%>
         </div>
       </div>
 
     <div class="form-group">
-      <label class="control-label">具体地址<span class="required-star">*</span></label>
+      <label class="control-label">具体地址</label>
       <div class="clearfix">
           <%=f.text_field :address, maxlength:50, class: "col-xs-12" %>
       </div>
     </div>
 
       <div class="form-group">
-        <label class="control-label">排序<span class="required-star">*</span></label>
+        <label class="control-label">排序</label>
         <div class="clearfix">
          <%=f.text_field :position, class: "col-xs-12 "%>  
         </div>  
       </div>
 
       <div class="form-group">
-        <label class="control-label">状态<span class="required-star">*</span></label>
+        <label class="control-label">状态</label>
         <div class="clearfix">
          <%= f.select :status, Shop.status_options[0..1], {}, class: "col-xs-12" %>
         </div>  

@@ -27,7 +27,14 @@ class Shop < ActiveRecord::Base
   has_many :orders
   has_many :shop_customers
   has_many :suppliers
-
   accepts_nested_attributes_for :admin_shop_user
+
+  def new_products_top30
+    self.products.where("created_at > ? ", Time.now - 24*30*60*60).count
+  end
+
+  def new_orders_top30
+    self.orders.where("created_at > ? ", Time.now - 24*30*60*60).count
+  end
 
 end
