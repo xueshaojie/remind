@@ -18,6 +18,15 @@ class Product < ActiveRecord::Base
 
   before_create :generate_no
 
+  def change_qty!(options = {})
+    update_attributes(quantity: options[:quantity], adjustment_reason: options[:adjustment_reason])
+
+    return true
+  rescue => e
+    Rails.logger.info e
+    return false
+  end
+
   private
     def generate_no
       self.no = Concerns::OrderNoGenerator.generate

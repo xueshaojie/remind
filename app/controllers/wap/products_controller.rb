@@ -1,5 +1,5 @@
 class Wap::ProductsController < Wap::BaseController
-  before_filter :find_product, only: [:show, :edit, :update]
+  before_filter :find_product, only: [:show, :edit, :update, :success, :set_qty, :change_qty]
 
   def index
     @products = @user.shop.products
@@ -12,7 +12,7 @@ class Wap::ProductsController < Wap::BaseController
   def create
     @product = @user.shop.products.new(params[:product].merge(shop_user_id: @user.id))
     if @product.save
-      redirect_to wap_product_path(@product)
+      redirect_to success_wap_product_path(@product)
     else
       render 'new'
     end
@@ -23,6 +23,14 @@ class Wap::ProductsController < Wap::BaseController
       redirect_to wap_product_path(@product)
     else
       render 'edit'
+    end
+  end
+
+  def change_qty
+    if @product.change_qty!(params[:product])
+      redirect_to wap_product_path(@product)
+    else
+      render 'set_qty'
     end
   end
 

@@ -1,0 +1,21 @@
+<%= form_for @product, url: @product.new_record? ? wap_products_path : wap_product_path(@product) do |f| %>\
+  商品来源: <%= f.select :source, Product.source_options %><br>
+  来源方: <%= f.select :supplier_id, Supplier.pluck(:name, :id) %><br>
+  入库人: <%= f.select :create_shop_user_id, ShopUser.pluck(:name, :id) %><br>
+  商品名称: <%= f.text_field :name %><br>
+  所属品牌: <%= f.select :brand_id, Brand.pluck(:name, :id), {include_blank: '请选择'} %><br>
+  商品分类: <%= f.select :product_category_id, ProductCategory.pluck(:name, :id), {include_blank: '请选择'} %><br>
+  规格型号: <%= f.text_field :specification %><br>
+  商品颜色: <%= f.text_field :color %><br>
+  商品尺寸: <%= f.text_field :size %><br>
+  存放仓库: <%= f.select :warehouse_id, Warehouse.pluck(:name, :id) %><br>
+  商品数量: <%= f.text_field :quantity %><br>
+  成本价: <%= f.text_field :purchase_price %><br>
+  同行价: <%= f.text_field :peer_price %><br>
+  销售价: <%= f.text_field :sell_price %><br>
+  工价: <%= f.text_field :wages %><br>
+  商品备注: <br>
+  <%= f.text_area :description, rows: 5 %><br>
+
+  <%= f.submit "#{@product.new_record? ? '入库' : '保存'}" %>
+<% end %>
