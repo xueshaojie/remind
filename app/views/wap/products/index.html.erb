@@ -1,4 +1,10 @@
-<% provide(:title, "商品管理") %>
+<% provide(:title, "查询管理") %>
+
+库存量 <%= @products.sum(:quantity) %>&nbsp;&nbsp;
+库存成本: <%= @products.sum(:purchase_price) %>&nbsp;&nbsp;
+SKU数: <%= @products.group(:no).count.size %>&nbsp;&nbsp;
+超期商品: <%= @products.count %>
+
 <table>
   <thead>
     <th>商品</th>
@@ -18,3 +24,5 @@
     <% end %>
   </tbody>
 </table>
+
+<%= link_to '商品入库', new_wap_product_path %>
