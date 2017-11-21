@@ -1,0 +1,16 @@
+<% provide(:title, "#{@warehouse_check.warehouse.name} 库存盘点") %>
+
+应盘<%= @warehouse_check.warehouse_check_items.pending.count %>&nbsp;&nbsp;
+已盘<%= @warehouse_check.warehouse_check_items.where(status: [1, -1]).count %>&nbsp;&nbsp;
+盘盈<%= @warehouse_check.warehouse_check_items.overage.count %>&nbsp;&nbsp;
+盘亏<%= @warehouse_check.warehouse_check_items.shortage.count %>&nbsp;&nbsp;
+
+<br><br><br>
+
+商品&nbsp;&nbsp;&nbsp;&nbsp;库存数量&nbsp;&nbsp;&nbsp;&nbsp;实盘数量&nbsp;&nbsp;&nbsp;&nbsp;状态<br>
+<% @warehouse_check.warehouse_check_items.each do |check_item| %>
+  <%= check_item.product.name %>&nbsp;&nbsp;&nbsp;&nbsp;<%= check_item.store_qty %>&nbsp;&nbsp;&nbsp;&nbsp;<%= check_item.real_qty %>&nbsp;&nbsp;&nbsp;&nbsp;<%= check_item.pending? ? "未盘" : "已盘" %>
+
+  <%= link_to '盘点', check_wap_warehouse_check_item_path(check_item) if check_item.pending? %>
+  <br>
+<% end %>

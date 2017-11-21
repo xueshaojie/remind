@@ -16,6 +16,11 @@ class Product < ActiveRecord::Base
     ['source2', 2, '来源2']
   ]
 
+  enum_attr :adjustment_reason, in: [
+    ['give_back', 1, '退还来源方'],
+    ['undefined', 2, '未设定']
+  ]
+
   before_create :generate_no
 
   def change_qty!(options = {})

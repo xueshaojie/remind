@@ -22,6 +22,7 @@ class Shop < ActiveRecord::Base
   belongs_to :district
   has_many :shop_deposit_logs
   has_many :warehouses
+  has_many :warehouse_checks
   has_many :shop_users
   has_many :products
   has_many :orders

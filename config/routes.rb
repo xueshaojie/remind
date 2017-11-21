@@ -1,9 +1,5 @@
 # -*- coding: utf-8 -*-
 Wp::Application.routes.draw do
-  get "guide_infos/index"
-
-  get "guide_infos/show"
-
   root to: 'home#index'
 
   resources :addresses, only: []  do
@@ -123,6 +119,14 @@ Wp::Application.routes.draw do
     resources :suppliers
     resources :shop_users
     resources :guide_infos
+
+    resources :warehouse_checks do
+      post :finish, on: :member
+    end
+    resources :warehouse_check_items do
+      get :check, :success, on: :member
+      post :confirm, on: :member
+    end
   end
 
 end

@@ -1,0 +1,13 @@
+<% provide(:title, "库存盘点") %>
+
+<% @warehouse_checks.each do |warehouse_check| %>
+  <%= link_to warehouse_check.warehouse.name, wap_warehouse_check_path(warehouse_check) %><br>
+  <%= link_to '结束本次盘点', finish_wap_warehouse_check_path(warehouse_check), method: :post, data: {confirm: '确定结束本次盘点?'} if warehouse_check.pending? %>
+
+  <br><br>
+<% end %>
+
+
+<br><br><br>
+
+<%= link_to '创建新盘点', new_wap_warehouse_check_path %>
