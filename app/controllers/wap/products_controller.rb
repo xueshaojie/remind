@@ -10,7 +10,7 @@ class Wap::ProductsController < Wap::BaseController
   end
 
   def create
-    @product = @user.shop.products.new(params[:product])
+    @product = @user.shop.products.new(params[:product].merge(shop_user_id: @user.id))
     if @product.save
       redirect_to wap_product_path(@product)
     else
