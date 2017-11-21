@@ -1,0 +1,5 @@
+<% provide(:title, "帮助中心") %>
+
+<% @guide_infos.each do |guide_info| %>
+  <%= link_to guide_info.title, wap_guide_info_path(guide_info) %>
+<% end %>
