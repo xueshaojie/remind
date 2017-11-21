@@ -9,6 +9,6 @@ No.<%= @product.no %><br>
 <%= form_for @product, url: change_qty_wap_product_path(@product), method: :post do |f| %>
 调整后数量: <%= f.text_field :quantity %><br>
 调整原因: <br>
-<%= f.text_area :adjustment_reason, rows: 5 %><br>
+<%= f.select :adjustment_reason, Product.adjustment_reason_options %><br>
 <%= f.submit "确定" %>
 <% end %>
