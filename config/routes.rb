@@ -105,9 +105,13 @@ Wp::Application.routes.draw do
     end
     resources :orders do
       get :success, on: :member
+      get :my, on: :collection
+      post :cancel, on: :member
     end
     resources :shop_customers
-    resources :warehouses
+    resources :warehouses do
+      post :freeze, on: :member
+    end
     resources :suppliers
     resources :shop_users
   end

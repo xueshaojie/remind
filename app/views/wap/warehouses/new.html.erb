@@ -1,2 +1,11 @@
-<h1>Wap::Warehouses#new</h1>
-<p>Find me in app/views/wap/warehouses/new.html.erb</p>
+<% provide(:title, "创建仓库") %>
+
+<%= form_for @warehouse, url: wap_warehouses_path do |f| %>
+  仓库名称: <%= f.text_field :name %><br>
+  仓库备注: <%= f.text_field :description %><br>
+  仓库状态: <%= f.select :status, Warehouse.status_options %><br>
+
+  <br><br>
+
+  <%= f.submit "保存" %>
+<% end %>

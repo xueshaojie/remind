@@ -1,4 +1,5 @@
 class Warehouse < ActiveRecord::Base
+  validates :shop_id, :name, :description, presence: true
 
   enum_attr :status, in: [
     ['normal', 1, '正常'],
@@ -6,6 +7,7 @@ class Warehouse < ActiveRecord::Base
   ]
 
   belongs_to :shop
+  has_many :products
 
 end
 

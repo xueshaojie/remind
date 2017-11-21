@@ -5,16 +5,21 @@
     <th>库存商品</th>
     <th>本月入库</th>
     <th>成本</th>
+    <th></th>
   </thead>
   <tbody>
     <% @warehouses.each do |warehouse| %>
       <tr>
         <td><%= warehouse.name %></td>
-        <td><%= warehouse.description %></td>
-        <td><%#= warehouse.orders.sum(:amount) %></td>
-        <td><%#= warehouse.created_at %></td>
-        <td><%= link_to '详情', wap_warehouse_path(warehouse) %></td>
+        <td><%= warehouse.products.sum(:quantity) %></td>
+        <td><%= warehouse.products.where("year(created_at) = ? and month(created_at) = ?", Date.today.year, Date.today.month).sum(:quantity) %></td>
+        <td></td>
+        <td><%= link_to '冻结', freeze_wap_warehouse_path(warehouse), method: :post, data: {confirm: '确定冻结?'} if warehouse.normal? %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
+
+<br><br>
+
+<%= link_to '创建新仓库', new_wap_warehouse_path %>
