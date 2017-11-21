@@ -29,7 +29,7 @@
           </div>
  -->
           <div class="col-md-12">
-            <a href="javascript:;" class="btn btn-primary btn-sm pull-right" data-target="addUser" data-toggle="modals" data-title="新增成员" data-height="1000" data-iframe="/admin/users/new">新增</a>
+            <a href="javascript:;" class="btn btn-primary btn-sm pull-right" data-target="addUser" data-toggle="modals" data-title="新增成员" data-height="600" data-iframe="/admin/users/new">新增</a>
           </div>
         </div>
       <% end %>
@@ -56,7 +56,7 @@
                   <td><%= user.status_name %></td>
                   <td><%= user.created_at %></td>
                   <td>
-                    <a href="javascript:;" class="fgreen" data-target="editUser" data-toggle="modals" data-title="编辑成员" data-height="1000" data-iframe="/admin/users/<%= user.id %>/edit">编辑</a>
+                    <a href="javascript:;" class="fgreen" data-target="editUser" data-toggle="modals" data-title="编辑成员" data-height="600" data-iframe="/admin/users/<%= user.id %>/edit">编辑</a>
                     <%= link_to '激活', normal_admin_user_path(user), method: :put, data: {confirm: '确定激活该成员？'} if user.frost? %>
                     <%= link_to '冻结', frost_admin_user_path(user), method: :put, data: {confirm: '确定冻结该成员？'} if user.normal? %>
                     <%#= link_to '密码重置', reset_admin_user_path(user), method: :put, data: {confirm: '确定为该成员进行密码重置？'} %>

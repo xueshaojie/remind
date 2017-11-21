@@ -49,7 +49,7 @@
                   <td><%= brand.created_at %></td>
                   <td><%= brand.position %></td>
                   <td>
-                  <%=link_to '编辑', 'javascript:;', class: 'fgreen',data:{target: "editSuppliee",toggle: 'modals', title: '编辑品牌分类',height: '1000',
+                  <%=link_to '编辑', 'javascript:;', class: 'fgreen',data:{target: "editSuppliee",toggle: 'modals', title: '编辑品牌分类',height: '800',
                      iframe:admin_brand_path(brand) } %>
                   <%= link_to '删除', frost_admin_brand_path(brand), method: :put, data: {confirm: '确定删除该分类？'} if brand.normal? %>
 
