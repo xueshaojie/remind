@@ -17,6 +17,14 @@ class Wap::WarehousesController < Wap::BaseController
     end
   end
 
+  def update
+    if @warehouse.update_attributes(params[:warehouse])
+      redirect_to wap_warehouses_path
+    else
+      render 'edit'
+    end
+  end
+
   def destroy
     if @warehouse.products.count > 1
       redirect_to wap_warehouse_path(@warehouse)

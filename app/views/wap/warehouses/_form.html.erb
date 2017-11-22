@@ -1,0 +1,9 @@
+<%= form_for @warehouse, url: @warehouse.new_record? ? wap_warehouses_path : wap_warehouse_path(@warehouse) do |f| %>
+  仓库名称: <%= f.text_field :name %><br>
+  仓库备注: <%= f.text_field :description %><br>
+  仓库状态: <%= f.select :status, Warehouse.status_options %><br>
+
+  <br><br>
+
+  <%= f.submit "保存" %>
+<% end %>
