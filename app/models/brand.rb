@@ -1,5 +1,5 @@
 class Brand < ActiveRecord::Base
-  validates :name, :position, :status, presence: true
+  validates :name, :name_en, :position, :status, presence: true
 
   enum_attr :status, in: [
     ['normal', 1, '正常'],

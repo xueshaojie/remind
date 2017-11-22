@@ -17,20 +17,6 @@
       </div>
 
       <div class="form-group">
-        <label class="control-label">分类</label>
-        <div class="clearfix">
-          <p><label><input type='checkbox' class='toggle' /> 全选/反选</label></p>
-          <%= hidden_field_tag 'brand[product_category_ids][]', '' %>
-          <% ProductCategory.all.each do |product_category| %>
-          <label style="width: 45%;">
-            <%= check_box_tag 'brand[product_category_ids][]', product_category.id, @brand.brand_category_maps.map{|m| m.product_category_id}.include?(product_category.id) %>
-            <%= product_category.name %>
-          </label>
-        <% end %>
-        </div>
-      </div>
-
-      <div class="form-group">
         <label class="control-label">排序</label>
         <div class="clearfix">
          <%=f.text_field :position, class: "col-xs-12 "%>  
@@ -42,6 +28,20 @@
         <div class="clearfix">
          <%= f.text_area :description, rows: 4, cols: 20,  class: "col-xs-12" %>
         </div>  
+      </div>
+
+      <div class="form-group">
+        <label class="control-label">分类</label>
+        <div class="clearfix">
+          <p><label><input type='checkbox' class='toggle' /> 全选/反选</label></p>
+          <%= hidden_field_tag 'brand[product_category_ids][]', '' %>
+          <% ProductCategory.all.each do |product_category| %>
+          <label style="width: 18%;">
+            <%= check_box_tag 'brand[product_category_ids][]', product_category.id, @brand.brand_category_maps.map{|m| m.product_category_id}.include?(product_category.id) %>
+            <%= product_category.name %>
+          </label>
+        <% end %>
+        </div>
       </div>
 
     </div>
