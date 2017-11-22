@@ -26,6 +26,12 @@ class Wap::ShopUsersController < Wap::BaseController
     end
   end
 
+  def list
+    @shop_user = current_user
+    @search =  @shop_user.products.search(params[:search])
+    @products = @search.order("created_at desc").order("purchase_price desc").order("quantity desc").page(params[:page])
+  end
+
   def destroy
     @shop_user.destroy
     redirect_to wap_shop_users_path

@@ -1,0 +1,9 @@
+回收记录<%= @shop_user.products.recycle.count %>
+寄售记录<%= @shop_user.products.consign.count %>
+销售记录<%#= @shop_user.products.consign.count %><br><br>
+<% @shop_user.products.each do |product| %>
+  <%= product.brand.name %> : <%= product.product_category.name %>    <%= product.created_at %>    <%= product.quantity %>    <%= product.purchase_price %><br>
+  <%= product.name %><br>
+  <%= product.shop.name %>,<%= product.source_name %>,<%= product.shop_customer.name %>
+  <br><br>
+<% end %>
