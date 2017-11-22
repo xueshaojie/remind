@@ -52,7 +52,7 @@
               <% @users.each do |user| %>
                 <tr>
                   <td><%= user.name %></td>
-                  <td><%= user.role_name(user.id) %></td>
+                  <td><%= user.roles.pluck(:name).join(", ") %></td>
                   <td><%= user.status_name %></td>
                   <td><%= user.created_at %></td>
                   <td>
