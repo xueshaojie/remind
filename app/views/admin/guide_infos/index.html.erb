@@ -54,7 +54,7 @@
                   <td><%=guide_info.created_at %></td>
                   <td><%=guide_info.position %></td>
                   <td>
-                  <%=link_to '编辑', 'javascript:;', class: 'fgreen',data:{target: "editSuppliee",toggle: 'modals', title: '编辑帮助信息',height: '800',
+                  <%=link_to '编辑', 'javascript:;', class: 'fgreen',data:{target: "editSuppliee",toggle: 'modals', title: '编辑内容',height: '800',
                      iframe:admin_guide_info_path(guide_info) } %>
                     <%=link_to '删除', admin_guide_info_path(guide_info), method: :delete, data: {confirm: '确定删除?'} %>
                 </td>

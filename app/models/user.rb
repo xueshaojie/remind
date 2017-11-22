@@ -37,9 +37,4 @@ class User < ActiveRecord::Base
     where("lower(login_name) LIKE ?", login.to_s.downcase).first.try(:authenticate, password)
   end
 
-  def role_name
-    role_id =  UserRoleMap.where(user_id: self.id).first.role_id
-    Role.where(id: role_id).first.name
-  end
-
 end
