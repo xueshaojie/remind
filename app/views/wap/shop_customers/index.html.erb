@@ -14,9 +14,9 @@
       <tr>
         <td><%= shop_customer.name %></td>
         <td><%= shop_customer.orders.count %></td>
-        <td><%= shop_customer.products.source1.count %></td>
-        <td><%= shop_customer.products.source2.count %></td>
-        <td><%= shop_customer.products.source2.sum(:exist_count) %></td>
+        <td><%= shop_customer.products.recycle.count %></td>
+        <td><%= shop_customer.products.consign.count %></td>
+        <td><%= shop_customer.products.sum(:exist_count) %></td>
         <!-- <td><%#= shop_customer.orders.sum(:amount) %></td> -->
         <td><%= shop_customer.created_at %></td>
         <td><%= link_to '详情', wap_shop_customer_path(shop_customer) %></td>
