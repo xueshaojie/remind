@@ -38,7 +38,7 @@ class User < ActiveRecord::Base
   end
 
   def role_name(user_id)
-    role_id =  UserRoleMap.where(user_id: self.id).first.role_id
+    role_id =  UserRoleMap.where(user_id: user_id).first.role_id
     Role.where(id: role_id).first.name
   end
 
