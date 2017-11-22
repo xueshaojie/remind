@@ -60,35 +60,54 @@
 
       <%end%>
 
+      <!-- 订单id
+商铺名称
+客户名称
+销售员
+时间范围
+订单明细商品名称
+订单明细品牌
+订单明细商品单价 -->
+
+
        <div class="col-md-12 margin-top-20">
          <table id="vweddingTable" class="table table-bordered table-hover dataTable">
            <thead>
              <tr>
+               <th>订单id</th>
+               <th>商铺名称</th>
+               <th>客户名称</th>
+               <th>时间范围</th>
                <th>商品名称</th>
-               <th>商品品牌</th>
-               <th>商品分类</th>
-               <th>商品仓库</th>
-               <th>商品数量</th>
-               <th>商品状态</th>
-               <th>成本价格</th>
-               <th>销售价格</th>
-               <th>入库时间</th>
+               <th>品牌</th>
+               <th>销售单价</th>
               </tr>
             </thead>
             <tbody>
               <% @orders.each do |order|%>
-                <tr>
-                  <td><%#=order.name %></td>
-                  <td><%#=order.brand.name %></td>
-                  <td><%#=order.order_category.name %></td>
-                  <td><%#=order.warehouse.name %></td>
-                  <td><%#=order.quantity %></td>
-                  <!-- <td><%#=order.status_name %></td> -->
-                  <td><%#=order.sell_price %></td>
-                  <td><%#=order.created_at %></td>
-                  <td>
-                  <%#= link_to '查看', admin_order_path(order) %>
-                </td>
+              <tr>
+              <td><%= order.id %></td>
+              <td><%= order.shop.name %></td>
+              <td><%= order.shop_customer.name %></td>
+              <td><%= order.created_at %></td>
+              <td>
+                <% order.order_items.each do |order_item| %>
+                  <%= order_item.product.name %><br>
+                <% end %>
+              </td>
+              
+              <td>
+                <% order.order_items.each do |order_item| %>
+                  <%= order_item.product.brand.name %><br>
+                <% end %>
+              </td>
+
+              <td>
+                <% order.order_items.each do |order_item| %>
+                  <%= order_item.price %><br>
+                <% end %>
+              </td>
+
               </tr>
             <%end%>
           </tbody>
