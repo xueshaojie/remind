@@ -11,6 +11,6 @@ class Wap::BaseController < ActionController::Base
   end
 
   def current_user
-    @user = ShopUser.where(id: session[:shop_user_id]).first
+    @user = ShopUser.normal.where(id: session[:shop_user_id]).first
   end
 end

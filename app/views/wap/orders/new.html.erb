@@ -1,7 +1,7 @@
 <% provide(:title, "开销售单") %>
 
 <%= nested_form_for @order, url: wap_orders_path do |f| %>
-  销售客户: <%= f.select :shop_customer_id, ShopCustomer.pluck(:name, :id) %><br>
+  销售客户: <%= f.select :shop_customer_id, ShopCustomer.normal.pluck(:name, :id) %><br>
   结算方式: <%= f.select :settlement_type, Order.settlement_type_options %>
   <!-- 销售员:  -->
   商品: 

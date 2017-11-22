@@ -3,9 +3,9 @@ class Wap::ProductsController < Wap::BaseController
 
   def index
     if params[:shop_customer_id].present? && params[:source].present?
-      @products = ShopCustomer.where(id: params[:shop_customer_id]).first.products.where(source: params[:source])
+      @products = ShopCustomer.normal.where(id: params[:shop_customer_id]).first.products.where(source: params[:source])
     elsif params[:shop_customer_id].present?
-      @products = ShopCustomer.where(id: params[:shop_customer_id]).first.products
+      @products = ShopCustomer.normal.where(id: params[:shop_customer_id]).first.products
     else
       @products = @user.shop.products
     end

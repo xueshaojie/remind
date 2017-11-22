@@ -5,7 +5,7 @@ class Wap::SessionsController < Wap::BaseController
   end
 
   def create
-    if @user = ShopUser.authenticated(params[:login_name], params[:password])
+    if @user = ShopUser.normal.authenticated(params[:login_name], params[:password])
       session[:shop_user_id] = @user.id
       redirect_to wap_root_path
     else
