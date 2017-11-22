@@ -117,7 +117,10 @@ Wp::Application.routes.draw do
       post :freeze, on: :member
     end
     resources :suppliers
-    resources :shop_users
+    resources :shop_users do
+      get :list, on: :collection
+      post :list, on: :collection
+    end
     resources :guide_infos
 
     resources :warehouse_checks do

@@ -1,7 +1,11 @@
 class Wap::OrdersController < Wap::BaseController
   before_filter :find_order, only: [:show, :edit, :update, :success, :cancel]
   def index
-    @orders = @user.shop.orders
+    if params[:shop_customer_id].present?
+      @orders = ShopCustomer.where(id: params[:shop_customer_id]).first.products
+    else
+      @orders = @user.shop.orders
+    end
   end
 
   def new

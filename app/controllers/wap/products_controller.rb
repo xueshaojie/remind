@@ -2,7 +2,13 @@ class Wap::ProductsController < Wap::BaseController
   before_filter :find_product, only: [:show, :edit, :update, :success, :set_qty, :change_qty]
 
   def index
-    @products = @user.shop.products
+    if params[:shop_customer_id].present? && params[:source].present?
+      @products = ShopCustomer.where(id: params[:shop_customer_id]).first.products.where(source: params[:source])
+    elsif params[:shop_customer_id].present?
+      @products = ShopCustomer.where(id: params[:shop_customer_id]).first.products
+    else
+      @products = @user.shop.products
+    end
   end
 
   def new
@@ -10,7 +16,7 @@ class Wap::ProductsController < Wap::BaseController
   end
 
   def create
-    @product = @user.shop.products.new(params[:product].merge(shop_user_id: @user.id))
+    @product = @user.shop.products.new(params[:product].merge(create_shop_user_id: @user.id))
     if @product.save
       redirect_to success_wap_product_path(@product)
     else

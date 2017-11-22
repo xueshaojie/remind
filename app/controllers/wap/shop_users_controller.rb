@@ -26,6 +26,16 @@ class Wap::ShopUsersController < Wap::BaseController
     end
   end
 
+  def list
+    @shop_user = current_user
+    if params[:name]
+      @products = @shop_user.products.where("name like '%#{params[:name]}%'")
+    else
+      @products = @shop_user.products
+    end
+
+  end
+
   def destroy
     @shop_user.destroy
     redirect_to wap_shop_users_path
