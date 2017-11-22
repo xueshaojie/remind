@@ -11,27 +11,27 @@
 
     <div class="page-content">
       <%= form_for @search, url: admin_users_path, html: { method: :get } do |f| %>
-        <div class="col-md-12 no-padding">
-<!--           <div class="col-md-2">
+     <!--    <div class="col-md-12 no-padding">
+          <div class="col-md-2">
             <div class="input-group input-group-text">
-              <%= f.text_field :name_like, placeholder:"员工姓名",class: "col-xs-12" %>
+              <%#= f.text_field :name_like, placeholder:"员工姓名",class: "col-xs-12" %>
             </div>
           </div>
 
           <div class="col-md-2">
             <div class="input-group input-group-text">
-              <%= f.text_field :login_name_like, placeholder:"员工登录账号",class: "col-xs-12" %>
+              <%#= f.text_field :login_name_like, placeholder:"员工登录账号",class: "col-xs-12" %>
             </div>
           </div>
 
           <div class="col-md-2 margin-top">
-            <%= f.submit '查询', class: 'btn btn-sm btn-filter btn-primary' %>
+            <%#= f.submit '查询', class: 'btn btn-sm btn-filter btn-primary' %>
           </div>
- -->
+
           <div class="col-md-12">
             <a href="javascript:;" class="btn btn-primary btn-sm pull-right" data-target="addUser" data-toggle="modals" data-title="新增成员" data-height="600" data-iframe="/admin/users/new">新增</a>
           </div>
-        </div>
+        </div> -->
       <% end %>
 
       <div class="col-md-12 margin-top-20">
