@@ -1,5 +1,5 @@
 class Shop < ActiveRecord::Base
-  validates :name, presence: true
+  validates :name, :status, :position, presence: true
   enum_attr :status, in: [
     ['normal', 1, '正常'],
     ['frost', -1, '冻结']
