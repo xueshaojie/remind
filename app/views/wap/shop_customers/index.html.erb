@@ -2,7 +2,7 @@
 <table>
   <thead>
     <th>名称</th>
-    <th>历史订单</th>
+    <th>订单</th>
     <th>回收</th>
     <th>寄卖</th>
     <th>在库</th>
@@ -13,10 +13,10 @@
     <% @shop_customers.each do |shop_customer| %>
       <tr>
         <td><%= shop_customer.name %></td>
-        <td><%= shop_customer.orders.count %></td>
-        <td><%= shop_customer.products.recycle.count %></td>
-        <td><%= shop_customer.products.consign.count %></td>
-        <td><%= shop_customer.products.sum(:exist_count) %></td>
+        <td><%= link_to shop_customer.orders.count, wap_orders_path(shop_customer.id) %></td>
+        <td><%= link_to shop_customer.products.recycle.count, wap_products_path(shop_customer_id: shop_customer.id, source: 1) %></td>
+        <td><%= link_to shop_customer.products.consign.count, wap_products_path(shop_customer_id: shop_customer.id, source: 2) %></td>
+        <td><%= link_to shop_customer.products.count, wap_products_path(shop_customer.id) %></td>
         <!-- <td><%#= shop_customer.orders.sum(:amount) %></td> -->
         <td><%= shop_customer.created_at %></td>
         <td><%= link_to '详情', wap_shop_customer_path(shop_customer) %></td>
