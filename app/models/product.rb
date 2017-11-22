@@ -8,6 +8,7 @@ class Product < ActiveRecord::Base
   belongs_to :product_category
   belongs_to :warehouse
   belongs_to :shop_user
+  belongs_to :shop_customer
   belongs_to :create_shop_user, class_name: 'ShopUser', foreign_key: 'create_shop_user_id'
   has_many :order_items
 

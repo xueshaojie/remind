@@ -3,6 +3,7 @@ class ShopCustomer < ActiveRecord::Base
 
   belongs_to :shop
   has_many :orders
+  has_many :products
 
   enum_attr :status, in: [
     ['normal', 1, '正常'],
