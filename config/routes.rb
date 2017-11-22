@@ -119,6 +119,7 @@ Wp::Application.routes.draw do
     resources :suppliers
     resources :shop_users do
       get :list, on: :collection
+      post :list, on: :collection
     end
     resources :guide_infos
 

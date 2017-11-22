@@ -28,8 +28,12 @@ class Wap::ShopUsersController < Wap::BaseController
 
   def list
     @shop_user = current_user
-    @search =  @shop_user.products.search(params[:search])
-    @products = @search.order("created_at desc").order("purchase_price desc").order("quantity desc").page(params[:page])
+    if params[:name]
+      @products = @shop_user.products.where("name like '%#{params[:name]}%'")
+    else
+      @products = @shop_user.products
+    end
+
   end
 
   def destroy

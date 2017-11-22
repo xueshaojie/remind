@@ -11,6 +11,8 @@ class Product < ActiveRecord::Base
   belongs_to :shop_customer
   belongs_to :create_shop_user, class_name: 'ShopUser', foreign_key: 'create_shop_user_id'
   has_many :order_items
+  has_many :product_tags
+  has_many :tags, through: :product_tags
 
   enum_attr :source, in: [
     ['recycle', 1, '回收'],

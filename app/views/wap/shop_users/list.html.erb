@@ -1,7 +1,17 @@
+<%#= form_for @search, url: list_wap_shop_users_path, html: {method: :get } do |f| %>
+<%#=f.text_field :name_like, placeholder:"商品名称", class: 'col-xs-12 cc'%>
+<%#= f.submit '查询', class: 'btn btn-primary btn-sm btn-filter' %>
+<%# end %>
+
+<%= form_tag list_wap_shop_users_path, method: "post" do %>
+<input type="text" name="name" placeholder="商品名称"   value=""  />
+<input type="submit" value="搜索" />
+<% end %>
+
 回收记录<%= @shop_user.products.recycle.count %>
 寄售记录<%= @shop_user.products.consign.count %>
 销售记录<%#= @shop_user.products.consign.count %><br><br>
-<% @shop_user.products.each do |product| %>
+<% @products.each do |product| %>
   <%= product.brand.name %> : <%= product.product_category.name %>    <%= product.created_at %>    <%= product.quantity %>    <%= product.purchase_price %><br>
   <%= product.name %><br>
   <%= product.shop.name %>,<%= product.source_name %>,<%= product.shop_customer.name %>
