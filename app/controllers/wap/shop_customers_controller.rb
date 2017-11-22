@@ -17,6 +17,14 @@ class Wap::ShopCustomersController < Wap::BaseController
     end
   end
 
+  def update
+    if @shop_customer.update_attributes(params[:shop_customer])
+      redirect_to wap_shop_customer_path
+    else
+      render 'edit'
+    end
+  end
+
   private
 
     def find_shop_customer

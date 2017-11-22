@@ -1,0 +1,10 @@
+<%= form_for @shop_customer, url: @shop_customer.new_record? ? wap_shop_customers_path : wap_shop_customer_path(@shop_customer) do |f| %>
+  姓名: <%= f.text_field :name %><br>
+  性别: <%= f.select :gender, ShopCustomer.gender_options, {include_blank: '请选择'} %><br>
+  联系电话: <%= f.text_field :mobile %><br>
+  收款信息: <br>
+  <%= f.text_area :description, rows: 5 %><br>
+  状态: <%= f.select :status, ShopCustomer.status_options, {include_blank: '请选择'} %><br>
+
+  <%= f.submit "#{@shop_customer.new_record? ? '提交' : '保存'}" %>
+<% end %>

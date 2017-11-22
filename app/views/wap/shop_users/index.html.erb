@@ -12,8 +12,8 @@
       <tr>
         <td><%= shop_user.name %></td>
         <td><%= shop_user.shop.orders.count %></td>
-        <td><%= shop_user.products.source1.count %></td>
-        <td><%= shop_user.products.source2.count %></td>
+        <td><%= shop_user.products.recycle.count %></td>
+        <td><%= shop_user.products.consign.count %></td>
         <td>
           <%= link_to '修改', edit_wap_shop_user_path(shop_user) %>
           <%= link_to '删除', wap_shop_user_path(shop_user), method: :delete, data: {confirm: '确定删除?'} %>

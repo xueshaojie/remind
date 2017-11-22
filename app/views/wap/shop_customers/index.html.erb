@@ -2,11 +2,10 @@
 <table>
   <thead>
     <th>名称</th>
-    <th>历史订单</th>
+    <th>订单</th>
     <th>回收</th>
     <th>寄卖</th>
     <th>在库</th>
-    <!-- <th>历史金额</th> -->
     <th>创建时间</th>
   </thead>
   <tbody>
@@ -14,12 +13,14 @@
       <tr>
         <td><%= shop_customer.name %></td>
         <td><%= shop_customer.orders.count %></td>
-        <td><%= shop_customer.products.source1.count %></td>
-        <td><%= shop_customer.products.source2.count %></td>
-        <td><%= shop_customer.products.source2.sum(:exist_count) %></td>
-        <!-- <td><%#= shop_customer.orders.sum(:amount) %></td> -->
+        <td><%= shop_customer.products.recycle.count %></td>
+        <td><%= shop_customer.products.consign.count %></td>
+        <td><%= shop_customer.products.where("exist_count > 0").count %></td>
         <td><%= shop_customer.created_at %></td>
-        <td><%= link_to '详情', wap_shop_customer_path(shop_customer) %></td>
+        <td>
+          <%= link_to '详情', wap_shop_customer_path(shop_customer) %>
+          <%= link_to '修改', edit_wap_shop_customer_path(shop_customer) %>
+        </td>
       </tr>
     <% end %>
   </tbody>

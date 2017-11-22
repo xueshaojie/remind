@@ -25,5 +25,5 @@ No.<%= @product.no %><br>
 
 
 <%= link_to '修改', edit_wap_product_path(@product) %> | 
-<%= link_to '开单', new_wap_order_path(@product) %> | 
+<%= link_to '开单', new_wap_order_path(product_id: @product) %> | 
 <%= link_to '数量', set_qty_wap_product_path(@product) %>

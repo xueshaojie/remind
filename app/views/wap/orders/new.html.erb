@@ -7,7 +7,8 @@
   商品: 
 
   <%= f.fields_for :order_items do |order_item| %>
-    <%= order_item.select :product_id, Product.pluck(:name, :id) %>
+    <%= order_item.select :product_id, Product.pluck(:name, :id) %>&nbsp;
+    数量: <%= order_item.text_field :quantity, style: 'width: 30px;' %>
     <%= order_item.link_to_remove "删除" %>
   <% end %>
   <p><%= f.link_to_add "添加商品", :order_items %></p>

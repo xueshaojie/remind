@@ -5,9 +5,9 @@
 <!-- 销售员:  -->
 商品: 
 
-<%= @order.order_items.each do |order_item| %>
-<%= order_item.product.name %>&nbsp;&nbsp;
-<%= order_item.quantity %>
+<% @order.order_items.each do |order_item| %>
+  <%= order_item.product.name %>&nbsp;&nbsp;
+  <%= order_item.quantity %>
 <% end %>
 <br>
 
