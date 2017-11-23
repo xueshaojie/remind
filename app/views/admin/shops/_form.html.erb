@@ -3,7 +3,7 @@
     <%= f.fields_for :admin_shop_user, validate: true do |shop_user| %>
     <div class="col-xs-12">
       <div class="form-group">
-        <label class="control-label">管理员姓名</label>
+        <label class="control-label">管理员姓名<span class="required-star">*</span></label>
         <div class="clearfix">
           <%= shop_user.text_field :name, maxlength: 50, autocomplete: 'off', class: "col-xs-12" %>
         </div>
