@@ -18,6 +18,11 @@ class Admin::AuctionsController < Admin::BaseController
   end
 
   def update
+    if @product.update_column(:status, params[:status].to_i)
+      redirect_to :back, notice: "验证成功"
+    else
+      redirect_to :back, alert: "验证失败"
+    end
   end
 
   private

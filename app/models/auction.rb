@@ -33,5 +33,23 @@ class Auction < ActiveRecord::Base
 
   default_scope { order("auctions.created_at desc") } 
   scope :product, -> {where("auction_status not in (?)", [INIT])}
+  before_create :set_no
+  after_create :set_brand_name
+
+  def set_no
+    next_no = generate_no 
+    auction = Auction.where(no: next_no).blank?
+    return self.no = next_no if auction
+    set_no    
+  end
+
+  def generate_no
+    rand(10000000..99999999)
+  end
+
+  def set_brand_name
+    self.brand_name ||= brand.try(:name)
+    self.brand_id ||= -1
+  end
   
 end

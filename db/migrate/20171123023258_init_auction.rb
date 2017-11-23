@@ -12,8 +12,8 @@ class InitAuction < ActiveRecord::Migration
   	  t.integer   :status,         default: 0, 	comment: "状态"
   	  t.integer   :auction_status, default: -2, comment: "竞拍状态"
       t.string    :mobile,                      comment: "手机号码"
-      t.date      :start_at,                    comment: "开始时间"
-      t.date      :end_at,                      comment: "结束时间"
+      t.datetime  :start_at,                    comment: "开始时间"
+      t.datetime  :end_at,                      comment: "结束时间"
   	  t.timestamps
   	end
 
