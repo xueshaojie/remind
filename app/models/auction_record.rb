@@ -1,6 +1,6 @@
 class AuctionRecord < ActiveRecord::Base
-  belongs_to :user
-  belongs_to :auction_product
+  belongs_to :shop_user
+  belongs_to :auction
 
   enum_attr :status, in:[
   	['refuse', -1, "已拒绝"],

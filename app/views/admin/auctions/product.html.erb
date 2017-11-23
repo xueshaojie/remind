@@ -1,0 +1,113 @@
+<% content_for :main_content do %>
+  <div class="main-content">
+    <div class="breadcrumbs" id="breadcrumbs">
+      <ul class="breadcrumb">
+        <%=render 'partials/home' %>
+          <li><%= link_to  '送拍管理', product_admin_auctions_path %></li>
+      </ul>
+    </div>
+
+    <div class="page-content">
+      <%= form_for @search, url: product_admin_auctions_path do |f| %>
+        <div class="row">
+          <div class="col-sm-12  no-padding">
+            <div class="col-md-2">
+              <div class="input-group input-group-text ">
+                <%= text_field_tag "name", "", placeholder:"姓名", class: 'col-xs-12'%>
+              </div>
+            </div>
+
+            <div class="col-md-2">
+              <div class="input-group input-group-text ">
+                <%= f.text_field :mobile_like, placeholder:"手机号", class: 'col-xs-12'%>
+              </div>
+            </div>
+
+            <div class="col-md-2">
+              <div class="input-group input-group-text">
+                <%= f.text_field :name_like, placeholder: "拍品名称", class: 'col-xs-12 select' %>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="input-group input-group-text">
+              <span class="input-group-addon">送拍时间：</span>
+              <%= f.text_field :created_at_between, class: 'col-xs-12 datetimerange', value: "#{params[:search][:created_at_gte] if params[:search]} - #{params[:search][:created_at_lte] if params[:search]}" %>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-12 margin-top-15 no-padding">
+            <div class="col-md-2">
+              <div class="input-group input-group-text">
+                <%= f.select :product_category_id_eq, ProductCategory.normal.pluck(:name, :id), {include_blank: '请选择品目'}, class: "col-xs-12 select2" %>
+              </div>
+            </div>
+
+            <div class="col-md-2">
+              <div class="input-group input-group-text">
+                <%= f.select :brand_id_eq, Brand.normal.pluck(:name, :id), {include_blank: '请选择品牌'}, class: "col-xs-12 select2" %>
+              </div>
+            </div>
+
+            <div class="col-md-2">
+              <div class="input-group input-group-text">
+                <%= select_tag "search[status_eq]", options_for_select([["所有状态", nil]] + Auction::STATUS.to_a.map(&:reverse), params[:search][:status_eq]), class: 'col-xs-12' %>
+
+              </div>
+            </div>
+
+            <div class="col-md-2">
+              <%= f.submit '查询', class: 'btn btn-info btn-sm', style: "width:70px;height: 30px" %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+
+      <div class="col-sm-12 margin-top-15">
+        <table id="vweddingTable" class="table table-bordered table-hover dataTable">
+          <thead>
+            <tr>
+              <th>拍品名称</th>
+              <th>送拍人</th>
+              <th>手机号</th>
+              <th>品目</th>
+              <th>品牌</th>
+              <th>送拍时间</th>
+              <th>状态</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @products.each do |product| %>
+              <tr>
+                <td><%= product.name %></td>
+                <td><%= product.auction_user.try(:name) %></td>
+                <td><%= product.auction_user.try(:mobile) %></td>
+                <td><%= product.product_category.try(:name) %></td>
+                <td><%= product.brand_name %></td>
+                <td><%= product.created_at.to_s %></td>
+                <td><%= product.status_name %></td>
+                <td>
+                  <a href="javascript:;" class="fgreen" data-target="add" data-toggle="modals" data-title="拍品详情" data-height="800" data-iframe="<%= admin_auction_product_path(product) %>">查看</a>
+                  <%= link_to '验证通过', admin_auction_products_path(product, status: 1), method: :put, class: "fgreen" if product.wait? %>
+                  <%= link_to '验证未通过', admin_auction_products_path(product, status: -1), method: :put, class: "fgreen" if product.wait? %>
+                </td>
+              </tr>
+            <% end.blank? %>
+          </tbody>
+        </table>
+        <div class="pagination page width-auto">
+          <%= page_entries_info @products %>
+        </div>
+        <%= paginate @products %>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<script type="text/javascript">
+  $(function(){
+    $(".select2").select2();
+    //$(".select2").css({"margin-left":"-12px","width":"195px"});
+  })
+</script>

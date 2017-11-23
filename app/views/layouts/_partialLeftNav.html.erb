@@ -73,15 +73,15 @@
     <% end %>
 
     <% if true %>
-      <li class="<%=parent_class if %W(auction_products auction_records).include?(controller_name) %>">
+      <li class="<%=parent_class if %W(auctions auction_records).include?(controller_name) %>">
        <%= left_nav_dropdown 'icon-legal','竞拍管理' %>
-         <ul class="submenu" style="<%='display: block' if %W(auction_products auction_records).include?(controller_name) %>">
+         <ul class="submenu" style="<%='display: block' if %W(auctions auction_records).include?(controller_name) %>">
           <% if true %>
-           <%=link_to_left_nav('送拍管理', admin_auction_products_path, current_page?(admin_auction_products_path) )%>
+           <%=link_to_left_nav('送拍管理', admin_auctions_path, current_page?(admin_auctions_path) )%>
           <% end %>
 
           <% if true %>
-           <%=link_to_left_nav('拍品查询', product_admin_auction_products_path, current_page?(product_admin_auction_products_path) )%>
+           <%=link_to_left_nav('拍品查询', product_admin_auctions_path, current_page?(product_admin_auctions_path) )%>
           <% end %>
          </ul>
       </li>

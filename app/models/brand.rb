@@ -9,5 +9,5 @@ class Brand < ActiveRecord::Base
   has_many :brand_category_maps
   has_many :product_categories, through: :brand_category_maps
 
-  has_many :auction_products
+  has_many :auctions
 end
