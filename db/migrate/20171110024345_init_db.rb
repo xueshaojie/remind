@@ -184,7 +184,7 @@ class InitDb < ActiveRecord::Migration
       t.integer  "shop_id", null: false
       t.integer  "product_category_id", null: false
       t.integer  "brand_id", null: false
-      t.integer  "supplier_id", null: false
+      t.integer  "shop_customer_id", null: false
       t.integer  "warehouse_id", null: false
       t.string   "no", null: false
       t.string   "name"
