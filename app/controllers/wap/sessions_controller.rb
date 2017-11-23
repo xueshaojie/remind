@@ -12,4 +12,9 @@ class Wap::SessionsController < Wap::BaseController
       render 'new'
     end
   end
+
+  def destroy
+    session[:shop_user_id] = nil
+    redirect_to wap_root_path
+  end
 end

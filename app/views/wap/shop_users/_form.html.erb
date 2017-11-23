@@ -8,13 +8,14 @@
   账号权限 : <br>
 
   <%= hidden_field_tag 'shop_user[shop_role_ids][]', '' %>
-          <% ShopRole.all.each do |shop_role| %>
-          <label style="width: 45%;">
-            <%= check_box_tag 'shop_user[shop_role_ids][]', shop_role.id, @shop_user.shop_user_role_maps.map{|m| m.shop_role_id}.include?(shop_role.id) %>
-            <%= shop_role.name %>
-          </label>
-        <% end %>
+    <% ShopRole.all.each do |shop_role| %>
+    <label style="width: 45%;">
+      <%= check_box_tag 'shop_user[shop_role_ids][]', shop_role.id, @shop_user.shop_user_role_maps.map{|m| m.shop_role_id}.include?(shop_role.id) %>
+      <%= shop_role.name %>
+    </label>
+  <% end %>
 
+  <br><br><br>
 
   <%= f.submit '提交' %>
 <% end %>

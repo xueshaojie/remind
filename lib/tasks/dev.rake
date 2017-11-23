@@ -46,19 +46,17 @@ namespace :dev do
     puts "finish"
   end
 
-  task :init_shop_user_role => :environment do
+  task :init_shop_role => :environment do
     shop_role_list = {
-      1 => '系统设置',
-      2 => '员工管理',
-      3 => '角色管理',
-      4 => '商品分类',
-      5 => '品牌管理',
-      6 => '附件情况管理',
-      7 => '内容管理',
-      8 => '商铺管理',
-      9 => '保证金流水',
-    10 => '商品查询',
-    11 => '订单查询'
+      1 => '商品管理',
+      2 => '商品入库',
+      3 => '人员管理',
+      4 => '销售管理',
+      5 => '开销售单',
+      6 => '仓库管理',
+      7 => '仓库盘点',
+      8 => '来源方管理',
+      9 => '客户管理'
     }
     shop_role_list.each do |key, value|
       shop_role = ShopRole.where(name: value).first_or_create

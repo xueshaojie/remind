@@ -96,6 +96,7 @@ Wp::Application.routes.draw do
     root to: 'home#index'
     get 'sign_in', to: 'sessions#new'
     post 'sign_in', to: 'sessions#create'
+    delete 'logout', to: 'sessions#destroy'
     get 'reset_password', to: 'home#reset_password'
     post 'check_old_password', to: 'home#check_old_password'
     get 'set_new_password', to: 'home#set_new_password'
