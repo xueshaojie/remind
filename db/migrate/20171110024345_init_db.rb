@@ -101,7 +101,6 @@ class InitDb < ActiveRecord::Migration
     end
 
     create_table "brands", options: 'AUTO_INCREMENT = 10001' do |t|
-      t.integer  "brand_category_id",  :null => false
       t.string   "name"
       t.string   "name_en"
       t.integer  "position",      :default => 1, :null => false
@@ -117,7 +116,6 @@ class InitDb < ActiveRecord::Migration
       t.datetime "created_at", :null => false
       t.datetime "updated_at", :null => false
     end
-
 
     create_table "shops", options: 'AUTO_INCREMENT = 10001' do |t|
       t.string   "name"
@@ -164,7 +162,7 @@ class InitDb < ActiveRecord::Migration
     create_table "shop_deposit_logs", :force => true do |t|
       t.integer  "shop_id",  :null => false
       t.integer  "user_id",  :null => false
-      t.decimal  "amount",  :precision => 12, :scale => 2, :default => 0.0,            :null => false
+      t.decimal  "amount",  :precision => 12, :scale => 2, :default => nil,            :null => false
       t.integer  "direction",  :null => false, :default => 1
       t.decimal  "balance_amount",  :precision => 12, :scale => 2,       :null => false
       t.text     "description"
@@ -182,25 +180,13 @@ class InitDb < ActiveRecord::Migration
       t.datetime "updated_at", :null => false
     end
 
-    create_table "suppliers", :force => true do |t|
-      t.integer  "shop_id", null: false
-      t.string   "name"
-      t.string   "mobile"
-      t.string   "pay_info"
-      t.integer  "status",      :default => 1, :null => false
-      t.integer  "position",      :default => 1, :null => false
-      t.text     "description"
-      t.datetime "created_at",      :null => false
-      t.datetime "updated_at",      :null => false
-    end
-
     create_table "products", options: 'AUTO_INCREMENT = 10001' do |t|
       t.integer  "shop_id", null: false
       t.integer  "product_category_id", null: false
       t.integer  "brand_id", null: false
       t.integer  "supplier_id", null: false
       t.integer  "warehouse_id", null: false
-      t.integer  "no", null: false
+      t.string   "no", null: false
       t.string   "name"
       t.string   "specification"
       t.string   "color"
@@ -229,6 +215,7 @@ class InitDb < ActiveRecord::Migration
       t.string   "name"
       t.string   "mobile", null: false
       t.integer  "gender"
+      t.string   "pay_info"
       t.integer  "status",      :default => 1, :null => false
       t.integer  "position",      :default => 1, :null => false
       t.text     "description"
@@ -244,6 +231,8 @@ class InitDb < ActiveRecord::Migration
       t.decimal  "amount",  :precision => 12, :scale => 2, :default => 0.0,            :null => false
       t.integer  "status",      :default => 1, :null => false
       t.integer  "position",      :default => 1, :null => false
+      t.integer  "settlement_type",  :default => 1, :null => false
+      t.string  "express_photo"
       t.text     "description"
       t.datetime "created_at",      :null => false
       t.datetime "updated_at",      :null => false
@@ -251,11 +240,20 @@ class InitDb < ActiveRecord::Migration
 
     create_table "order_items", :force => true do |t|
       t.integer  "order_id", null: false
+      t.integer  "product_id", null: false
       t.decimal  "price",  :precision => 12, :scale => 2,  :null => false
       t.integer  "quantity", default: 1, null: false
       t.decimal  "total_price",  :precision => 12, :scale => 2, null:false
       t.datetime "created_at",      :null => false
       t.datetime "updated_at",      :null => false
+    end
+
+    create_table :guide_infos do |t|
+      t.string  "title"
+      t.integer  "guide_type",    :default => 1, :null => false
+      t.integer  "position",      :default => 1, :null => false
+      t.text  "content"
+      t.timestamps
     end
 
   end
