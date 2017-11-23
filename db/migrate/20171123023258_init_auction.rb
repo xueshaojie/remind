@@ -17,6 +17,8 @@ class InitAuction < ActiveRecord::Migration
   	  t.timestamps
   	end
 
+    add_index "auctions", ["wx_user_id"], :name => "index_auctions_on_wx_user_id"
+
   	create_table  :auction_tags, comment: "拍品标签表" do |t|
   	  t.integer    :auction_id,             comment: "拍品id"
   	  t.integer    :tag_id,							    comment: "标签id"
@@ -30,6 +32,9 @@ class InitAuction < ActiveRecord::Migration
   	  t.integer    :status,         default: 1,     comment: "状态"
   	  t.timestamps    
   	end
+
+    add_index "auction_records", ["shop_user_id"], :name => "index_auction_records_on_shop_user_id"
+    add_index "auction_records", ["auction_id"], :name => "index_auction_records_on_auction_id"
 
   	create_table  :product_pictures, comment: "商品图片表" do |t|
   	  t.integer    :pictureable_id
