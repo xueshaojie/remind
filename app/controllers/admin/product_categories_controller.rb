@@ -1,12 +1,11 @@
 class Admin::ProductCategoriesController < Admin::BaseController
-  before_filter :find_product_category, only: [:frost]
+  before_filter :find_product_category, only: [:frost, :show, :edit, :update, :destroy]
   def index
-    @search =  ProductCategory.normal.search(params[:search])
+    @search = ProductCategory.normal.search(params[:search])
     @product_categories = @search.order(:position).page(params[:page])
   end
 
   def show
-    @product_category = ProductCategory.find(params[:id])
     render layout: 'application_pop'
   end
 
@@ -26,7 +25,6 @@ class Admin::ProductCategoriesController < Admin::BaseController
   end
 
   def update
-    @product_category = ProductCategory.find(params[:id])
     if @product_category.update_attributes(params[:product_category])
       flash[:notice] = '更新成功'
       render inline: '<script>parent.location.reload();</script>'

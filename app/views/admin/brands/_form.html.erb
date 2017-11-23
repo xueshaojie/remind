@@ -33,8 +33,8 @@
       <div class="form-group">
         <label class="control-label">分类</label>
         <div class="clearfix">
-          <p><label><input type='checkbox' class='toggle' /> 全选/反选</label></p>
-          <%= hidden_field_tag 'brand[product_category_ids][]', '' %>
+          <p><label><input type='checkbox' name="checkall" class='toggle' /> 全选/反选</label></p>
+          <%#= hidden_field_tag 'brand[product_category_ids][]', '' %>
           <% ProductCategory.all.each do |product_category| %>
           <label style="width: 18%;">
             <%= check_box_tag 'brand[product_category_ids][]', product_category.id, @brand.brand_category_maps.map{|m| m.product_category_id}.include?(product_category.id) %>
@@ -56,14 +56,16 @@
   <%end%>
   <script type="text/javascript">
   $(document).ready(function() {
+    var e = $("input[name='checkall']"),
+        f = $("input[name='brand[product_category_ids][]']"),
+        g = f.length;
+    $("input[name ='brand[product_category_ids][]']:checked").length == g ? e.prop("checked", true) : e.prop("checked", false);
 
-    // toggle checkbox
-    // <label><input type='checkbox' class='checkbox toggle' />全选/反选</label>
-    $(':checkbox.toggle').on('click', function() {
-      $(":checkbox:not(.toggle)").each( function(i, checkbox) {
-        checkbox.checked = !checkbox.checked;
-      });
+    f.click(function() {
+      $("input[name='brand[product_category_ids][]']:checked").length == g ? e.prop("checked", true) : e.prop("checked", false);
+    }),
+    e.click(function() {
+      for (var i = 0; g > i; i++) f[i].checked = this.checked;
     });
-
   });
 </script>
