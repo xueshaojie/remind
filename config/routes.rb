@@ -86,6 +86,10 @@ Wp::Application.routes.draw do
     end
 
     resources :suppliers, :asset_checks, :warehouses, :asset_categories
+
+    resources :auction_products do
+      get :product, on: :collection
+    end
   end
 
   namespace :api do

@@ -15,6 +15,9 @@ class User < ActiveRecord::Base
   has_many :roles, through: :user_role_maps
   has_many :warehouse
   has_many :shop_deposit_logs
+  has_many :auction_products
+  has_many :auction_records
+  has_many :auction_users
 
   # acts_as_enum :gender, :in => [
   #   ['male', 1, '男'],

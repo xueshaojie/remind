@@ -8,4 +8,6 @@ class ProductCategory < ActiveRecord::Base
   has_many :products
   has_many :brand_category_maps
   has_many :brands, through: :brand_category_maps
+
+  has_many :auction_products
 end

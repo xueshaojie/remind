@@ -23,7 +23,7 @@
       </li>
     <% end %>
 
-          <% if can?(4) || can?(5) || can?(6) || can?(7) %>
+    <% if can?(4) || can?(5) || can?(6) || can?(7) %>
       <li class="<%=parent_class if %W(product_categories brand_category_maps brands tags guide_infos).include?(controller_name) %>">
        <%= left_nav_dropdown 'icon-file','基础数据' %>
          <ul class="submenu" style="<%='display: block' if %W(product_categories brand_category_maps brands tags guide_infos).include?(controller_name) %>">
@@ -42,7 +42,7 @@
 
          </ul>
       </li>
-    <%end%>
+    <% end %>
 
     <% if can?(8) || can?(9) %>
       <li class="<%=parent_class if %W(shops shop_deposit_logs warehouses).include?(controller_name) %>">
@@ -56,9 +56,9 @@
           <% end %>
          </ul>
       </li>
-    <%end%>
+    <% end %>
 
-     <% if can?(10) || can?(11) %>
+    <% if can?(10) || can?(11) %>
       <li class="<%=parent_class if %W(products orders).include?(controller_name) %>">
        <%= left_nav_dropdown 'iconfont icon-shujuhongse','数据查询' %>
          <ul class="submenu" style="<%='display: block' if %W(products orders).include?(controller_name) %>">
@@ -70,7 +70,22 @@
           <% end %>
          </ul>
       </li>
-    <%end%>
+    <% end %>
+
+    <% if true %>
+      <li class="<%=parent_class if %W(auction_products auction_records).include?(controller_name) %>">
+       <%= left_nav_dropdown 'icon-legal','竞拍管理' %>
+         <ul class="submenu" style="<%='display: block' if %W(auction_products auction_records).include?(controller_name) %>">
+          <% if true %>
+           <%=link_to_left_nav('送拍管理', admin_auction_products_path, current_page?(admin_auction_products_path) )%>
+          <% end %>
+
+          <% if true %>
+           <%=link_to_left_nav('拍品查询', product_admin_auction_products_path, current_page?(product_admin_auction_products_path) )%>
+          <% end %>
+         </ul>
+      </li>
+    <% end %>
 
 
   </ul>
