@@ -34,7 +34,7 @@ class Admin::TagsController < Admin::BaseController
   end
 
   def destroy
-    if @tag.destroy
+    if @tag.frost!
       redirect_to :back, notice:'删除成功'
     else
       redirect_to :back, alert:'删除失败'

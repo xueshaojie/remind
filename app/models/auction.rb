@@ -48,7 +48,7 @@ class Auction < ActiveRecord::Base
   end
 
   def set_brand_name
-    self.brand_name ||= brand.try(:name)
+    self.brand_name = brand.try(:name) || self.brand_name
     self.brand_id ||= -1
   end
   

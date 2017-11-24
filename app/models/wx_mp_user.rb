@@ -20,13 +20,8 @@ class WxMpUser < ActiveRecord::Base
     ['plugin', 2, '插件'],
   ]
 
-  belongs_to :site#, inverse_of: :wx_mp_user
   
   has_many :wx_users, inverse_of: :wx_mp_user
-  has_many :users, through: :wx_users
-  has_many :vip_users, through: :users
-  has_many :wx_menus
-  has_many :cards, class_name: "Wx::Card"
 
   # before_create { generate_token(:token) }
   # before_create :generate_code
@@ -64,10 +59,6 @@ class WxMpUser < ActiveRecord::Base
     replies.text_event.first rescue nil
   end
 
-  def kf_account
-    Kf::Account.where(token: kefu_token).first
-  end
-
   def can_fetch_wx_user_info?
     auth_subscribe? || auth_service?
   end
@@ -82,10 +73,6 @@ class WxMpUser < ActiveRecord::Base
   end
 
   def update_openid_to(new_openid = nil)
-    # if openid.present? && openid != openid
-    #   WxMpUser.where(openid: openid).where('id != ?', id).update_all(openid: "#{openid}_#{Time.now.to_i}", app_id: "#{app_id}_#{Time.now.to_i}")
-    #   update_attributes(openid: openid)
-    # end
     update_attributes(openid: new_openid) if openid.blank?
   end
 
