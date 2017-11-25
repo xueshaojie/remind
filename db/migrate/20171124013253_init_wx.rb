@@ -66,6 +66,5 @@ class InitWx < ActiveRecord::Migration
     add_index "wx_users", ["nickname"], :name => "index_wx_users_on_nickname"
     add_index "wx_users", ["openid"], :name => "index_wx_users_on_openid"
     add_index "wx_users", ["wx_mp_user_id"], :name => "index_wx_users_on_wx_mp_user_id"
-    add_index "auctions", ["wx_user_id"], :name => "index_auctions_on_wx_user_id"
   end
 end

@@ -30,7 +30,7 @@ class InitAuction < ActiveRecord::Migration
   	  t.integer    :auction_id,              comment: "拍品id"
   	  t.decimal    :price, 							precision: 12, scale: 2, comment: "竞拍价格"
   	  t.integer    :status,         default: 1,     comment: "状态"
-  	  t.timestamps    
+  	  t.timestamps
   	end
 
     add_index "auction_records", ["shop_user_id"], :name => "index_auction_records_on_shop_user_id"
