@@ -11,7 +11,7 @@ class ShopCustomer < ActiveRecord::Base
   ]
 
   enum_attr :gender, in: [
-    ['normal', 1, '男'],
-    ['frost', 2, '女']
+    ['gender1', 1, '男'],
+    ['gender2', 2, '女']
   ]
 end

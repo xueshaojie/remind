@@ -12,7 +12,7 @@
           <div class="col-md-12 no-padding">
             <div class="col-md-2">
               <div class="input-group input-group-text">
-                <%=f.text_field :name_like, placeholder:"附件情况名称", class: 'col-xs-12 cc'%>
+                <%=f.text_field :name_like, placeholder:"名称", class: 'col-xs-12 cc'%>
               </div>
             </div>
 
@@ -30,9 +30,9 @@
           <table id="vweddingTable" class="table table-bordered table-hover dataTable">
             <thead>
               <tr>
-                <th>附件情况名</th>
+                <th>名称</th>
+                <th>排序</th>
                 <th>创建时间</th>
-                <th>排序位</th>
                 <th>操作</th>
               </tr>
             </thead>
@@ -40,11 +40,11 @@
               <% @tags.each do |tag|%>
                 <tr>
                   <td><%=tag.name %></td>
-                  <td><%=tag.created_at %></td>
                   <td><%=tag.position %></td>
+                  <td><%=tag.created_at %></td>
                   <td>
-                  <%=link_to '编辑', 'javascript:;', class: 'fgreen',data:{target: "editSuppliee",toggle: 'modals', title: '编辑附件情况',height: '300', iframe:admin_tag_path(tag) } %>
-                  <%= link_to '删除', admin_tag_path(tag), method: :delete, data: {confirm: '确定删除该附件情况？'} %>
+                    <%=link_to '编辑', 'javascript:;', class: 'fgreen',data:{target: "editSuppliee",toggle: 'modals', title: '编辑附件情况',height: '300', iframe:admin_tag_path(tag) } %>
+                    <%= link_to '删除', admin_tag_path(tag), method: :delete, data: {confirm: '确定删除？'} %>
                 </td>
               </tr>
             <%end%>

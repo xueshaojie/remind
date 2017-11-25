@@ -1,32 +1,31 @@
 <%= form_for [:admin, @shop], validate: true, html:{class: 'form' } do | f| %>
   <div class="modal-body">
     <%= f.fields_for :admin_shop_user, validate: true do |shop_user| %>
+      <div class="col-xs-12">
+        <div class="form-group">
+          <label class="control-label">管理员姓名<span class="required-star">*</span></label>
+          <div class="clearfix">
+            <%= shop_user.text_field :name, maxlength: 50, autocomplete: 'off', class: "col-xs-12" %>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="control-label">登录账号<span class="required-star">*</span></label>
+          <div class="clearfix">
+            <%= shop_user.text_field :login_name, maxlength: 50, autocomplete: 'off', class: "col-xs-12" %>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="control-label">登录密码<span class="required-star">*</span></label>
+          <div class="clearfix">
+            <%= shop_user.text_field :password, maxlength: 30, autocomplete: 'off', onfocus: "this.type='password'", class: "col-xs-12" %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+
     <div class="col-xs-12">
-      <div class="form-group">
-        <label class="control-label">管理员姓名<span class="required-star">*</span></label>
-        <div class="clearfix">
-          <%= shop_user.text_field :name, maxlength: 50, autocomplete: 'off', class: "col-xs-12" %>
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label class="control-label">登录账号<span class="required-star">*</span></label>
-        <div class="clearfix">
-          <%= shop_user.text_field :login_name, maxlength: 50, autocomplete: 'off', class: "col-xs-12" %>
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label class="control-label">登录密码<span class="required-star">*</span></label>
-        <div class="clearfix">
-          <%= shop_user.text_field :password, maxlength: 30, autocomplete: 'off', onfocus: "this.type='password'", class: "col-xs-12" %>
-        </div>
-      </div>
-    </div>
-<% end %>
-  
-    <div class="col-xs-12">
-
       <div class="form-group">
         <label class="control-label">商铺名称<span class="required-star">*</span></label>
         <div class="clearfix">
@@ -86,58 +85,57 @@
     <button type="submit" class="btn btn-sm btn-primary form-submit" data-fn="submit">确定</button>
     <button type="button" class="btn btn-sm btn-default" data-dismiss="modals">取消</button>
   </div>
+<%end%>
 
-  <%end%>
-
-  <script type="text/javascript">
-    $(document).ready(function() {
-      //更新地址栏省市区数据
-      function refreshCityOptions(province_id) {
-        $.ajax({
-          // url: "/invite/cities",
-          url: "<%= cities_addresses_path %>",
-          data: { "province_id": province_id },
-          dataType: 'json',
-          success: function(result){
-            var options = $("#shop_city_id");
-            options.empty(); // remove old options
-            options.append($("<option></option>").attr("value", '').text('请选择城市'));
-            var shop_district_options = $("#shop_district_id");
-            shop_district_options.empty(); // remove old options
-            shop_district_options.append($("<option></option>").attr("value", '').text('请选择地区'));
-            $.each(result, function(index, option) {
-              options.append($("<option></option>")
-                .attr("value", option.id).text(option.name));
-            });
-          }
-        });
-      }
-
-      $("#shop_province_id").on('change', function(e){
-        var province_id = $(this).val();
-        refreshCityOptions(province_id);
+<script type="text/javascript">
+  $(document).ready(function() {
+    //更新地址栏省市区数据
+    function refreshCityOptions(province_id) {
+      $.ajax({
+        // url: "/invite/cities",
+        url: "<%= cities_addresses_path %>",
+        data: { "province_id": province_id },
+        dataType: 'json',
+        success: function(result){
+          var options = $("#shop_city_id");
+          options.empty(); // remove old options
+          options.append($("<option></option>").attr("value", '').text('请选择城市'));
+          var shop_district_options = $("#shop_district_id");
+          shop_district_options.empty(); // remove old options
+          shop_district_options.append($("<option></option>").attr("value", '').text('请选择地区'));
+          $.each(result, function(index, option) {
+            options.append($("<option></option>")
+              .attr("value", option.id).text(option.name));
+          });
+        }
       });
+    }
 
-      function refreshCityOption(city_id) {
-        $.ajax({
-          url: "<%= districts_addresses_path %>",
-          data: { "city_id": city_id },
-          dataType: 'json',
-          success: function(result){
-            var options = $("#shop_district_id");
-            options.empty(); // remove old options
-            options.append($("<option></option>").attr("value", '').text('请选择地区'));
-            $.each(result, function(index, option) {
-              options.append($("<option></option>")
-                .attr("value", option.id).text(option.name));
-            });
-          }
-        });
-      }
-
-      $("#shop_city_id").on('change', function(e){
-        var city_id = $(this).val();
-        refreshCityOption(city_id);
-      });
+    $("#shop_province_id").on('change', function(e){
+      var province_id = $(this).val();
+      refreshCityOptions(province_id);
     });
-  </script>
+
+    function refreshCityOption(city_id) {
+      $.ajax({
+        url: "<%= districts_addresses_path %>",
+        data: { "city_id": city_id },
+        dataType: 'json',
+        success: function(result){
+          var options = $("#shop_district_id");
+          options.empty(); // remove old options
+          options.append($("<option></option>").attr("value", '').text('请选择地区'));
+          $.each(result, function(index, option) {
+            options.append($("<option></option>")
+              .attr("value", option.id).text(option.name));
+          });
+        }
+      });
+    }
+
+    $("#shop_city_id").on('change', function(e){
+      var city_id = $(this).val();
+      refreshCityOption(city_id);
+    });
+  });
+</script>

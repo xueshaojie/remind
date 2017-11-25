@@ -73,13 +73,13 @@
              <tr>
                <th>名称</th>
                <th>位置</th>
-               <th>地址</th>
+               <!-- <th>地址</th> -->
                <th>规模</th>
                <th>信用分</th>
                <th>汇总</th>
                <th>30天情况</th>
                <th>保证金</th>
-               <th>排序位</th>
+               <th>排序</th>
                <th>操作</th>
               </tr>
             </thead>
@@ -88,18 +88,14 @@
                 <tr>
                   <td><%=shop.name %></td>
                   <td>
-                  <% if shop.province.name == shop.city.name %>
-                  <%=shop.province.name %> - <%=shop.district.name %>
-                  <% else %>
-                  <%=shop.province.name %> - <%=shop.city.name %> - <%=shop.district.name %>
-                  <% end %>
+                    <%= [shop.province.try(:name), shop.city.try(:name), shop.district.try(:name)].compact.uniq.join('') %>
                   </td>
-                  <td><%=shop.address %></td>
+                  <!-- <td><%=shop.address %></td> -->
                   <td><%=shop.scale_name %></td>
                   <td><%=shop.credit %></td>
                   <td>总商品数 : <%= shop.products.count %><br>总订单数 : <%= shop.orders.count %></td>
                   <td>新商品数 : <%=shop.new_products_top30 %><br>新订单数 : <%= shop.new_orders_top30 %></td>
-                  <td>账户保证金 : <%=shop.total_amount %><br>可用保证金 : <%=shop.usable_amount %></td>
+                  <td>账户: <%= f shop.total_amount %><br>可用: <%= f shop.usable_amount %></td>
                   <td><%=shop.position %></td>
                   <td>
                   <%=link_to '编辑', 'javascript:;', class: 'fgreen',data:{target: "editSuppliee",toggle: 'modals', title: '编辑商铺',height: '1000',

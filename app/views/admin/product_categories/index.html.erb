@@ -33,8 +33,8 @@
                <th>商品分类</th>
                <th>品牌数</th>
                <th>商品数</th>
+               <th>排序</th>
                <th>创建时间</th>
-               <th>排序位</th>
                <th>操作</th>
               </tr>
             </thead>
@@ -44,8 +44,8 @@
                   <td><%=product_category.name %></td>
                   <td><%=product_category.brands.count %></td>
                   <td><%=product_category.products.count %></td>
-                  <td><%=product_category.created_at %></td>
                   <td><%=product_category.position %></td>
+                  <td><%=product_category.created_at %></td>
                   <td>
                   <%=link_to '编辑', 'javascript:;', class: 'fgreen',data:{target: "editSuppliee",toggle: 'modals', title: '编辑商品分类',height: '300',
                      iframe:admin_product_category_path(product_category) } %>

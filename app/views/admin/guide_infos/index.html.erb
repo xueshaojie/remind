@@ -41,8 +41,8 @@
              <tr>
                <th>类型</th>
                <th>标题</th>
+               <th>排序</th>
                <th>创建时间</th>
-               <th>排序位</th>
                <th>操作</th>
               </tr>
             </thead>
@@ -51,8 +51,8 @@
                 <tr>
                   <td><%=guide_info.guide_type_name %></td>
                   <td><%=guide_info.title %></td>
-                  <td><%=guide_info.created_at %></td>
                   <td><%=guide_info.position %></td>
+                  <td><%=guide_info.created_at %></td>
                   <td>
                   <%=link_to '编辑', 'javascript:;', class: 'fgreen',data:{target: "editSuppliee",toggle: 'modals', title: '编辑内容',height: '800',
                      iframe:admin_guide_info_path(guide_info) } %>

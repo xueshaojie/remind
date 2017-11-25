@@ -12,8 +12,14 @@
         <div class="row">
           <div class="col-sm-12  no-padding">
             <div class="col-md-2">
+              <div class="input-group input-group-text">
+                <%= f.text_field :name_like, placeholder: "拍品名称", class: 'col-xs-12 select' %>
+              </div>
+            </div>
+
+            <div class="col-md-2">
               <div class="input-group input-group-text ">
-                <%= text_field_tag "name", "", placeholder:"姓名", class: 'col-xs-12'%>
+                <%= f.text_field :user_name_like, placeholder:"姓名", class: 'col-xs-12'%>
               </div>
             </div>
 
@@ -22,54 +28,41 @@
                 <%= f.text_field :mobile_like, placeholder:"手机号", class: 'col-xs-12'%>
               </div>
             </div>
-
             <div class="col-md-2">
-              <div class="input-group input-group-text">
-                <%= f.text_field :name_like, placeholder: "拍品名称", class: 'col-xs-12 select' %>
-              </div>
+              <%= f.select :product_category_id_eq, ProductCategory.normal.pluck(:name, :id), {include_blank: '请选择分类'}, class: "col-xs-12 select2" %>
             </div>
 
+            <div class="col-md-2">
+              <%= f.select :brand_id_eq, Brand.normal.pluck(:name, :id).push(["其他", -1]), {include_blank: '请选择品牌'}, class: "col-xs-12 select2" %>
+            </div>
+
+            <div class="col-md-2">
+              <%= f.select :status_eq, Auction.status_options, {include_blank: '送拍状态'}, class: "col-xs-12" %>
+            </div>
+          </div>
+          <div class="col-sm-12 margin-top-15 no-padding">
             <div class="col-md-4">
               <div class="input-group input-group-text">
               <span class="input-group-addon">送拍时间：</span>
               <%= f.text_field :created_at_between, class: 'col-xs-12 datetimerange', value: "#{params[:search][:created_at_gte] if params[:search]} - #{params[:search][:created_at_lte] if params[:search]}" %>
               </div>
             </div>
-          </div>
-          <div class="col-sm-12 margin-top-15 no-padding">
-            <div class="col-md-2">
-              <div class="input-group input-group-text">
-                <%= f.select :product_category_id_eq, ProductCategory.normal.pluck(:name, :id), {include_blank: '请选择品目'}, class: "col-xs-12 select2" %>
-              </div>
-            </div>
 
             <div class="col-md-2">
-              <div class="input-group input-group-text">
-                <%= f.select :brand_id_eq, Brand.normal.pluck(:name, :id).push(["其他", -1]), {include_blank: '请选择品牌'}, class: "col-xs-12 select2" %>
-              </div>
-            </div>
-
-            <div class="col-md-2">
-              <div class="input-group input-group-text">
-                <%= f.select :status_eq, Auction.status_options, {include_blank: '送拍状态'}, class: "col-xs-12" %>
-              </div>
-            </div>
-
-            <div class="col-md-2">
-              <%= f.submit '查询', class: 'btn btn-info btn-sm', style: "width:70px;height: 30px" %>
+              <%= f.submit '查询', class: 'btn btn-sm btn-filter btn-primary' %>
             </div>
           </div>
         </div>
       <% end %>
 
-      <div class="col-sm-12 margin-top-15 row">
+      <div class="col-sm-12 margin-top-15 no-padding">
         <table id="vweddingTable" class="table table-bordered table-hover dataTable">
           <thead>
             <tr>
               <th>拍品名称</th>
               <th>送拍人</th>
               <th>手机号</th>
-              <th>品目</th>
+              <th>分类</th>
               <th>品牌</th>
               <th>送拍时间</th>
               <th>状态</th>
@@ -80,11 +73,11 @@
             <% @products.each do |product| %>
               <tr>
                 <td><%= product.name %></td>
-                <td><%= '' %></td>
+                <td><%= product.user.try(:name) %></td>
                 <td><%= product.mobile %></td>
                 <td><%= product.product_category.try(:name) %></td>
                 <td><%= product.brand_name %></td>
-                <td><%= product.created_at.to_s %></td>
+                <td><%= product.created_at %></td>
                 <td><%= product.status_name %></td>
                 <td>
                   <a href="javascript:;" class="" data-target="add" data-toggle="modals" data-title="拍品详情" data-height="800" data-iframe="<%= admin_auction_path(product) %>">查看</a>

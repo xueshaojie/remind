@@ -35,20 +35,20 @@
                <th>店铺名称</th>
                <th>操作员</th>
                <th>变更金额</th>
-               <th>当前可用余额</th>
+               <th>可用余额</th>
                <th>备注</th>
-               <th>创建时间</th>
+               <th>操作时间</th>
               </tr>
             </thead>
             <tbody>
               <% @shop_deposit_logs.each do |shop_deposit_log|%>
                 <tr>
-                  <td><%=shop_deposit_log.shop.name %></td>
-                  <td><%=shop_deposit_log.user.name %></td>
-                  <td><%=shop_deposit_log.direction_name %> <%=shop_deposit_log.amount %></td>
-                  <td><%=shop_deposit_log.balance_amount %></td>
-                  <td><%=shop_deposit_log.description %></td>
-                  <td><%=shop_deposit_log.created_at %></td>
+                  <td><%= shop_deposit_log.shop.try(:name) %></td>
+                  <td><%= shop_deposit_log.user.try(:name) %></td>
+                  <td><%= shop_deposit_log.direction_name %> <%=f shop_deposit_log.amount %></td>
+                  <td><%= f shop_deposit_log.balance_amount %></td>
+                  <td><%= shop_deposit_log.description %></td>
+                  <td><%= shop_deposit_log.created_at %></td>
               </tr>
             <%end%>
           </tbody>
