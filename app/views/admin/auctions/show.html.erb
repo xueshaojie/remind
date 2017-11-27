@@ -11,7 +11,7 @@
 
         <tr>
           <th width="20%">姓名</th>
-          <td><%= "" %></td>
+          <td><%= @product.wx_user.try(:nickname) %></td>
           <th width="20%">手机号</th>
           <td><%= @product.mobile %></td>
         </tr>
@@ -39,7 +39,7 @@
           <th>图片</th>
           <td colspan="3" style="text-align: left;">
             <% @product.product_pictures.each do |pic| %>
-              <a class="pic" href="<%= pic.pic %>" target="_blank" >
+              <a class="pic" href="<%= pic.pic_url %>" target="_blank" >
                 <%= image_tag pic.pic_url, size: "100x100" if pic.pic_url %>
               </a>
             <% end %>

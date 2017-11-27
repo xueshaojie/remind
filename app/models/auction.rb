@@ -1,6 +1,6 @@
 class Auction < ActiveRecord::Base
   
-  belongs_to :user
+  belongs_to :wx_user
   belongs_to :product_category
   belongs_to :brand
   
@@ -33,8 +33,7 @@ class Auction < ActiveRecord::Base
 
   default_scope { order("auctions.created_at desc") } 
   scope :product, -> {where("auction_status not in (?)", [INIT])}
-  before_create :set_no
-  after_create :set_brand_name
+  before_create :set_no, :set_brand_name
 
   after_save :update_auction_name
 

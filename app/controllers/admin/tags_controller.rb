@@ -1,7 +1,7 @@
 class Admin::TagsController < Admin::BaseController
   before_filter :find_tag, only: [:frost, :show, :update, :destroy]
   def index
-    @search =  Tag.search(params[:search])
+    @search =  Tag.normal.search(params[:search])
     @tags = @search.order(:position).page(params[:page])
   end
 
@@ -34,7 +34,7 @@ class Admin::TagsController < Admin::BaseController
   end
 
   def destroy
-    if @tag.destroy
+    if @tag.deleted!
       redirect_to :back, notice:'删除成功'
     else
       redirect_to :back, alert:'删除失败'
@@ -44,7 +44,7 @@ class Admin::TagsController < Admin::BaseController
     private
 
     def find_tag
-      @tag = Tag.find(params[:id])
+      @tag = Tag.normal.find(params[:id])
     end
 
 end

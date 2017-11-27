@@ -19,7 +19,7 @@
 
             <div class="col-md-2">
               <div class="input-group input-group-text ">
-                <%= f.text_field :user_name_like, placeholder:"姓名", class: 'col-xs-12'%>
+                <%= f.text_field :wx_user_nickname_like, placeholder:"姓名", class: 'col-xs-12'%>
               </div>
             </div>
 
@@ -73,7 +73,7 @@
             <% @products.each do |product| %>
               <tr>
                 <td><%= product.name %></td>
-                <td><%= product.user.try(:name) %></td>
+                <td><%= product.wx_user.try(:nickname) %></td>
                 <td><%= product.mobile %></td>
                 <td><%= product.product_category.try(:name) %></td>
                 <td><%= product.brand_name %></td>
