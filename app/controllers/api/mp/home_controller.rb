@@ -14,7 +14,7 @@ class Api::Mp::HomeController < Api::Mp::BaseController
   end
 
   def tag
-  	@tags = Tag.normal.pluck(:name, :id)
+  	@tags = Tag.pluck(:name, :id)
   	render json: {tags: @tags}
   end
 
