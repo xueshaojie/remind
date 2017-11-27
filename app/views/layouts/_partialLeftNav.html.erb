@@ -8,7 +8,6 @@
       </ul>
     </li>
 
-    
     <% if can?(2) || can?(3) %>
       <li class="<%= parent_class if controller_name =~ /users|roles/ %>">
         <%= left_nav_dropdown 'iconfont icon-jiaoseguanlihuise', '组织结构' %>
@@ -46,7 +45,7 @@
 
     <% if can?(8) || can?(9) %>
       <li class="<%=parent_class if %W(shops shop_deposit_logs warehouses).include?(controller_name) %>">
-       <%= left_nav_dropdown 'iconfont icon-shujuhongse','商铺管理' %>
+       <%= left_nav_dropdown 'iconfont icon-jifenhuise','商铺管理' %>
          <ul class="submenu" style="<%='display: block' if %W(shops shop_deposit_logs warehouses).include?(controller_name) %>">
           <% if can?(8) %>
            <%=link_to_left_nav('商铺管理', admin_shops_path, controller_name == 'shops' )%>
