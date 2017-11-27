@@ -9,4 +9,6 @@ class AuctionRecord < ActiveRecord::Base
     ['pass',    2, "成交"]
   ]
 
+  default_scope { order("auction_records.created_at desc") } 
+
 end

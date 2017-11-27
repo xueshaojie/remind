@@ -6,7 +6,7 @@ Wp::Application.routes.draw do
       resources :auctions
       resources :home, only: [] do
         collection do
-          get :category, :brand, :tag
+          get :category, :brand, :tag, :my
         end
       end
     end

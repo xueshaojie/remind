@@ -21,11 +21,11 @@ class Auction < ActiveRecord::Base
 
   enum_attr :auction_status, in:[
   	['init',           -2, '初始化'],
-  	['auction_refuse', -1, '拒绝'],
+  	['auction_refuse', -1, '已拒绝'],
   	['wait_auction',    0, '待拍卖'],
     ['auction_in',      1, '拍卖中'],
-    ['wait_agree',      2, '待同意'],
-    ['pending',      	3, '待付款'],
+    ['wait_agree',      2, '待确认'],
+    ['pending',      	  3, '待付款'],
     ['auction_pass',    4, '已成交']
   ]
 
@@ -35,6 +35,15 @@ class Auction < ActiveRecord::Base
   scope :product, -> {where("auction_status not in (?)", [INIT])}
   before_create :set_no
   after_create :set_brand_name
+
+  after_save :update_auction_name
+
+  def update_auction_name
+    if self.changed.include?('status') && self.pass?
+      self.wait_auction!
+    end
+  end
+
 
   def set_no
     next_no = generate_no 
