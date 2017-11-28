@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 Wp::Application.routes.draw do
+
   root to: 'home#index'
 
   resources :addresses, only: []  do
@@ -93,6 +94,11 @@ Wp::Application.routes.draw do
   end
 
   namespace :api do
+    namespace :wx_users do
+      resources :sessions do
+        get :logout, on: :collection
+      end
+    end
     resources :tasks
   end
 
