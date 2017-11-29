@@ -12,7 +12,7 @@ development:
   adapter: mysql2
   encoding: utf8
   reconnect: false
-  database: shop_development
+  database: survey_development
   pool: 5
   username: root
   password: 123456
@@ -35,9 +35,8 @@ production:
   adapter: mysql2
   encoding: utf8
   reconnect: false
-  database: shop_development
+  database: survey_development
   pool: 5
   username: root
   password: 123456
   socket: /tmp/mysql.sock
-

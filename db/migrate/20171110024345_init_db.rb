@@ -21,10 +21,10 @@ class InitDb < ActiveRecord::Migration
 
     create_table "surveies" do |t|
       t.string   "name"
-      t.integer  "position",                                 comment: "序号"
-      t.integer  "status"
-      t.integer  "option_type",                              comment: "选项形式"
       t.integer  "survey_type",                              comment: "题目类型"
+      t.integer  "option_type",                              comment: "选项形式"
+      t.integer  "position", default: 1, null: false
+      t.integer  "status", default: 1, null: false
       t.integer  "total_score",                              comment: "总分"
       t.datetime "created_at",                               :null => false
       t.datetime "updated_at",                               :null => false
@@ -34,8 +34,8 @@ class InitDb < ActiveRecord::Migration
       t.integer  "survey_id"
       t.string   "answer"
       t.integer  "point"
-      t.integer  "position",                                 default: 1
-      t.integer  "status"
+      t.integer  "position", default: 1, null: false
+      t.integer  "status", default: 1, null: false
       t.datetime "created_at",                               :null => false
       t.datetime "updated_at",                               :null => false
     end
@@ -44,11 +44,12 @@ class InitDb < ActiveRecord::Migration
       t.integer  "wx_user_id"
       t.integer  "survey_type"
       t.integer  "score"
-      t.integer  "status"
+      t.integer  "status", default: 1, null: false
       t.text     "metatada"
       t.datetime "created_at",                               :null => false
       t.datetime "updated_at",                               :null => false
     end
+    add_index "survey_results", ["wx_user_id"], :name => "index_survey_results_on_wx_user_id"
 
     create_table "feedbacks" do |t|
       t.integer "wx_user_id"
@@ -90,7 +91,6 @@ class InitDb < ActiveRecord::Migration
 
     add_index "wx_users", ["nickname"], :name => "index_wx_users_on_nickname"
     add_index "wx_users", ["openid"], :name => "index_wx_users_on_openid"
-
 
   end
 end
