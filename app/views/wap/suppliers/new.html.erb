@@ -1,9 +1,0 @@
-<%= form_for @supplier, url: wap_suppliers_path do |f| %>
-  姓名: <%= f.text_field :name %><br>
-  性别: <%= f.select :gender, ShopCustomer.gender_options, {include_blank: '请选择'} %><br>
-  联系电话: <%= f.text_field :mobile %><br>
-  备注: <%= f.text_field :pay_info %><br>
-  状态: <%= f.select :status, ShopCustomer.status_options, {include_blank: '请选择'} %><br>
-
-  <%= f.submit '提交' %>
-<% end %>

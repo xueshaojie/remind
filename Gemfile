@@ -20,7 +20,7 @@ gem 'rmb_chinese_yuan'
 gem 'json', '1.8.2'
 # gem 'oj'
 # gem 'oj_mimic_json'
-gem 'rmagick', '2.13.2', require: 'RMagick'
+gem 'rmagick', '2.16.0', require: 'RMagick'
 gem 'mini_magick'
 
 gem 'rucaptcha'

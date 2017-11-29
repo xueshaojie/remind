@@ -371,7 +371,7 @@ GEM
     rest-client (1.7.3)
       mime-types (>= 1.16, < 3.0)
       netrc (~> 0.7)
-    rmagick (2.13.2)
+    rmagick (2.16.0)
     rmb_chinese_yuan (1.1.0)
     rmmseg-cpp (0.2.9)
     roo (1.13.2)
@@ -573,7 +573,7 @@ DEPENDENCIES
   rails (= 3.2.14)
   rails-i18n
   rest-client
-  rmagick (= 2.13.2)
+  rmagick (= 2.16.0)
   rmb_chinese_yuan
   roo
   rqrcode_png

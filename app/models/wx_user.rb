@@ -31,7 +31,6 @@ class WxUser < ActiveRecord::Base
   ]
 
   validates :openid, presence: true
-  belongs_to :wx_mp_user
-  has_many :auctions
-
+  has_many :survey_results
+  has_many :feedbacks
 end

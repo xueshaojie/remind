@@ -7,8 +7,8 @@ class HomeController < ApplicationController
   # caches_page :about
 
   def index
-    if session[:user_id]
-      current_user && current_user.is_a?(User)
+    if session[:account_id]
+      current_user && current_user.is_a?(Account)
       redirect_to console_path
     else
       @html_class = 'index'

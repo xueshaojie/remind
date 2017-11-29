@@ -8,83 +8,12 @@
       </ul>
     </li>
 
-    <% if can?(2) || can?(3) %>
-      <li class="<%= parent_class if controller_name =~ /users|roles/ %>">
-        <%= left_nav_dropdown 'iconfont icon-jiaoseguanlihuise', '组织结构' %>
-        <ul class="submenu" style="<%= 'display: block' if controller_name =~ /users|roles/ %>">
-          <% if can?(2) %>
-            <%= link_to_left_nav('员工管理', admin_users_path, controller_name == 'users') %>
-          <% end %>
-          <% if can?(3) %>
-            <%= link_to_left_nav('角色管理', admin_roles_path, controller_name == 'roles') %>
-          <% end %>
-        </ul>
-      </li>
-    <% end %>
-
-    <% if can?(4) || can?(5) || can?(6) || can?(7) %>
-      <li class="<%=parent_class if %W(product_categories brand_category_maps brands tags guide_infos).include?(controller_name) %>">
-       <%= left_nav_dropdown 'icon-file','基础数据' %>
-         <ul class="submenu" style="<%='display: block' if %W(product_categories brand_category_maps brands tags guide_infos).include?(controller_name) %>">
-          <% if can?(4) %>
-           <%=link_to_left_nav('商品分类', admin_product_categories_path,controller_name == 'product_categories' )%>
-          <% end %>
-          <% if can?(5)%>
-            <%=link_to_left_nav('品牌管理', admin_brands_path,controller_name == 'brands' )%>
-          <% end %>
-          <% if can?(6)%>
-            <%=link_to_left_nav('附件情况管理', admin_tags_path,controller_name == 'tags' )%>
-          <% end %>
-          <% if can?(7)%>
-            <%=link_to_left_nav('内容管理', admin_guide_infos_path,controller_name == 'guide_infos' )%>
-          <% end %>
-
-         </ul>
-      </li>
-    <% end %>
-
-    <% if can?(8) || can?(9) %>
-      <li class="<%=parent_class if %W(shops shop_deposit_logs warehouses).include?(controller_name) %>">
-       <%= left_nav_dropdown 'iconfont icon-jifenhuise','商铺管理' %>
-         <ul class="submenu" style="<%='display: block' if %W(shops shop_deposit_logs warehouses).include?(controller_name) %>">
-          <% if can?(8) %>
-           <%=link_to_left_nav('商铺管理', admin_shops_path, controller_name == 'shops' )%>
-          <% end %>
-          <% if can?(9) %>
-           <%=link_to_left_nav('保证金流水',admin_shop_deposit_logs_path, controller_name == 'shop_deposit_logs' )%>
-          <% end %>
-         </ul>
-      </li>
-    <% end %>
-
-    <% if can?(10) || can?(11) %>
-      <li class="<%=parent_class if %W(products orders).include?(controller_name) %>">
-       <%= left_nav_dropdown 'iconfont icon-shujuhongse','数据查询' %>
-         <ul class="submenu" style="<%='display: block' if %W(products orders).include?(controller_name) %>">
-          <% if can?(10) %>
-           <%=link_to_left_nav('商品查询', admin_products_path, controller_name == 'products' )%>
-          <% end %>
-          <% if can?(11) %>
-           <%=link_to_left_nav('订单查询',admin_orders_path, controller_name == 'orders' )%>
-          <% end %>
-         </ul>
-      </li>
-    <% end %>
-
-    <% if true %>
-      <li class="<%=parent_class if %W(auctions auction_records).include?(controller_name) %>">
-       <%= left_nav_dropdown 'icon-legal','竞拍管理' %>
-         <ul class="submenu" style="<%='display: block' if %W(auctions auction_records).include?(controller_name) %>">
-          <% if true %>
-           <%=link_to_left_nav('送拍管理', admin_auctions_path, current_page?(admin_auctions_path) )%>
-          <% end %>
-
-          <% if true %>
-           <%=link_to_left_nav('拍品查询', product_admin_auctions_path, current_page?(product_admin_auctions_path) )%>
-          <% end %>
-         </ul>
-      </li>
-    <% end %>
-
+    <li class="<%= parent_class if controller_name =~ /users|roles/ %>">
+      <%= left_nav_dropdown 'iconfont icon-jiaoseguanlihuise', '组织结构' %>
+      <ul class="submenu" style="<%= 'display: block' if controller_name =~ /users|roles/ %>">
+        <%= link_to_left_nav('员工管理', '', controller_name == 'users') %>
+        <%= link_to_left_nav('角色管理', '', controller_name == 'roles') %>
+      </ul>
+    </li>
 
   </ul>

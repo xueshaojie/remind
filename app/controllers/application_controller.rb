@@ -28,8 +28,8 @@ class ApplicationController < ActionController::Base
   end
 
   def current_user(force_reload = false)
-    @current_user ||= if session[:user_id]
-                        User.find(session[:user_id])
+    @current_user ||= if session[:account_id]
+                        Account.find(session[:account_id])
                       end
     @current_user.reload if force_reload
     @current_user
@@ -95,7 +95,7 @@ class ApplicationController < ActionController::Base
   #登陆账号session保存
   #管理员登陆
   def current_account(force_reload = false)
-    @current_account ||= Account.active.where(id: session[:account_id]).first
+    @current_account ||= Account.where(id: session[:account_id]).first
     @current_account.reload if force_reload
     @current_account
   end
