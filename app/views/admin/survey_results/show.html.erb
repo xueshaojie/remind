@@ -1,0 +1,80 @@
+<form>
+  <div class="modal-body">
+    <div class="col-xs-12">
+      <div class="form-group">
+        <table id="vweddingTable" class="table table-bordered table-hover dataTable">
+          <tr>
+            <th>测评人</th>
+            <td><%= @result.wx_user.try(:nickname) %></td>
+            <th>测评时间</th>
+            <td><%= @result.created_at %></td>
+          </tr>
+          <tr>
+            <th>测评类型</th>
+            <td colspan="3"><%= @result.survey_type_name %></td>
+          </tr>
+
+          <% if @result.energy? %>
+            <tr>
+              <th>测评分数</th>
+              <td colspan="3"><%= @result.score %></td>
+            </tr>
+            <% @result.result.each do |result| %>
+              <tr>
+                <th><%= result[0] %></th>
+                <td colspan="3"><%= result[1] %></td>
+              </tr>
+            <% end %>
+          <% elsif @result.effect? %>
+            <tr>
+              <th>测评分数</th>
+              <td colspan="3"><%= @result.score %></td>
+            </tr>
+            <tr>
+              <th>活动名称</th>
+              <td><%= @result.event_name %></td>
+              <th>曝光量PV</th>
+              <td><%= @result.exposure %></td>
+            </tr>
+            <tr>
+              <th>交互量</th>
+              <td><%= @result.interaction %></td>
+              <th>销售量</th>
+              <td><%= @result.sales_volume %></td>
+            </tr>
+
+            <tr>
+              <th>沉淀粉丝</th>
+              <td><%= @result.precipitate_fans %></td>
+              <th>执行成本</th>
+              <td><%= @result.implementation_costs %></td>
+            </tr>
+
+          <% elsif @result.income? %>
+            <tr>
+              <th>收益</th>
+              <td colspan="3"><%= @result.score %>万元</td>
+            </tr>
+            <tr>
+              <th>销售额</th>
+              <td><%= @result.sales_volume %></td>
+              <th>沉淀粉丝</th>
+              <td><%= @result.precipitate_fans %></td>
+              
+            </tr>
+            <tr>
+              <th>曝光量PV</th>
+              <td><%= @result.exposure %></td>
+              <th>交互量</th>
+              <td><%= @result.interaction %></td>
+            </tr>
+          <% end %>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="clearfix"></div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-sm btn-default" data-dismiss="modals">取消</button>
+  </div>
+</form>

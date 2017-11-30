@@ -48,10 +48,11 @@
               <tr>
                 <td><%= survey_result.wx_user.try(:nickname) %></td>
                 <td><%= survey_result.created_at %></td>
-                <td><%= survey_result.survey_type %></td>
+                <td><%= survey_result.survey_type_name %></td>
                 <td><%= survey_result.score %></td>
                 <td>
-                  <a href="javascript:;" class="" data-target="add" data-toggle="modals" data-title="测评详情" data-height="800" data-iframe="<%= admin_survey_result_path(survey_result) %>">查看</a>
+                  <%= link_to "测评详情",admin_survey_result_path(survey_result) %>
+                  <a href="javascript:;" class="" data-target="Result" data-toggle="modals" data-title="测评详情" data-height="600" data-iframe="<%= admin_survey_result_path(survey_result) %>">测评详情</a>
                 </td>
               </tr>
             <% end.blank? %>

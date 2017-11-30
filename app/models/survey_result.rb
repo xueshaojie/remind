@@ -1,4 +1,8 @@
 class SurveyResult < ActiveRecord::Base
+
+  store :metadata, accessors: [:event_name, :exposure, :interaction, :sales_volume, :precipitate_fans, :implementation_costs]
+  serialize :result, Array
+
   belongs_to :wx_user
 
   enum_attr :status, :in => [

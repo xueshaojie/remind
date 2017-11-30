@@ -11,6 +11,8 @@ class Admin::SurveyResultsController < Admin::BaseController
   end
 
   def show
+    @result = SurveyResult.normal.find(params[:id])
+    render layout: 'application_pop'
   end
 
 

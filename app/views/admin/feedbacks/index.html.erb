@@ -52,7 +52,7 @@
                 <td><%= feedback.mobile %></td>
                 <td><%= feedback.desctription %></td>
                 <td>
-                  <a href="javascript:;" class="" data-target="add" data-toggle="modals" data-title="测评历史记录" data-height="800" data-iframe="<%= admin_feedback_path(feedback) %>">查看</a>
+                  <%= link_to "测试记录", admin_survey_results_path(search: {wx_user_nickname_like: feedback.wx_user.try(:nickname)}) %>
                 </td>
               </tr>
             <% end.blank? %>

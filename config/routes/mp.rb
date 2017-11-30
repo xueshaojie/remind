@@ -3,10 +3,9 @@ Wp::Application.routes.draw do
   namespace :api do
     namespace :mp do
       resources :wx_users
-      resources :auctions
-      resources :home, only: [] do
+      resources :survey_results do
         collection do
-          get :category, :brand, :tag, :my
+          get :get_info
         end
       end
     end
