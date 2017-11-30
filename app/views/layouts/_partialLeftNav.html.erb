@@ -8,12 +8,25 @@
       </ul>
     </li>
 
-    <li class="<%= parent_class if controller_name =~ /users|roles/ %>">
-      <%= left_nav_dropdown 'iconfont icon-jiaoseguanlihuise', '组织结构' %>
-      <ul class="submenu" style="<%= 'display: block' if controller_name =~ /users|roles/ %>">
-        <%= link_to_left_nav('员工管理', '', controller_name == 'users') %>
-        <%= link_to_left_nav('角色管理', '', controller_name == 'roles') %>
-      </ul>
+    <li>
+      <a href="<%= admin_surveys_path %>">
+        <i class="icon-tasks"></i>
+        <span class="menu-text">题库管理</span>
+      </a>
+    </li>
+
+    <li>
+      <a href="<%= admin_survey_results_path %>">
+        <i class="icon-align-center"></i>
+        <span class="menu-text">评测记录</span>
+      </a>
+    </li>
+
+    <li>
+      <a href="<%= admin_feedbacks_path %>">
+        <i class="icon-bullhorn"></i>
+        <span class="menu-text">反馈查询</span>
+      </a>
     </li>
 
   </ul>

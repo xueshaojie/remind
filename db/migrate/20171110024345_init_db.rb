@@ -19,7 +19,7 @@ class InitDb < ActiveRecord::Migration
       t.datetime "updated_at",                                :null => false
     end
 
-    create_table "surveies" do |t|
+    create_table "surveys" do |t|
       t.string   "name"
       t.integer  "survey_type",                              comment: "题目类型"
       t.integer  "option_type",                              comment: "选项形式"
