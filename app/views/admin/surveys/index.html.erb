@@ -1,0 +1,91 @@
+<% content_for :main_content do %>
+  <div class="main-content">
+    <div class="breadcrumbs" id="breadcrumbs">
+      <ul class="breadcrumb">
+        <%=render 'partials/home' %>
+          <li><%= link_to  '题库管理', admin_surveys_path %></li>
+      </ul>
+    </div>
+
+    <div class="page-content">
+      <%= form_for @search, url: admin_surveys_path do |f| %>
+        <div class="row">
+          <div class="col-sm-12  no-padding">
+            <div class="col-md-2">
+              <div class="input-group input-group-text">
+                <%= f.text_field :name_like, placeholder: "题目名称", class: 'col-xs-12 select' %>
+              </div>
+            </div>
+
+            <div class="col-md-2">
+              <div class="input-group input-group-text ">
+                <%= f.text_field :total_score_eq, placeholder:"题目总分", class: 'col-xs-12'%>
+              </div>
+            </div>
+
+            <div class="col-md-2">
+              <div class="input-group input-group-text ">
+                <%= f.select :survey_type_eq, Survey.survey_type_options, {include_blank: '请选择题目类型'} , class: 'col-xs-12'%>
+              </div>
+            </div>
+
+            <div class="col-md-2">
+              <div class="input-group input-group-text ">
+                <%= f.select :option_type_eq, Survey.option_type_options, {include_blank: '请选择选项形式'} , class: 'col-xs-12'%>
+              </div>
+            </div>
+
+            <div class="col-md-2">
+              <%= f.submit '查询', class: 'btn btn-sm btn-filter btn-primary' %>
+            </div>
+
+            <div class="col-md-2">
+              <a href="javascript:;" class="btn btn-primary btn-sm pull-right" data-target="addSurvey" data-toggle="modals" data-title="新增题目" data-height="600" data-iframe="<%= new_admin_survey_path %>">新增</a>
+            </div>
+          </div>
+        </div>
+      <% end %>
+
+      <div class="col-sm-12 margin-top-15 no-padding">
+        <table id="vweddingTable" class="table table-bordered table-hover dataTable">
+          <thead>
+            <tr>
+              <th>题目序号</th>
+              <th>题目名称</th>
+              <th>题目总分</th>
+              <th>选项形式</th>
+              <th>题目类型</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @surveys.each do |survey| %>
+              <tr>
+                <td><%= survey.position %></td>
+                <td><%= survey.name %></td>
+                <td><%= survey.total_score %></td>
+                <td><%= survey.option_type_name %></td>
+                <td><%= survey.survey_type_name %></td>
+                <td>
+                  <a href="javascript:;" class="fgreen" data-target="addSurvey" data-toggle="modals" data-title="修改题目" data-height="600" data-iframe="<%= edit_admin_survey_path(survey) %>">修改</a>
+                  <%= link_to "删除", admin_survey_path(survey), method: :delete, class: "fgreen", data: {confirm: "确定要删除该题目？"} %>
+                  <%= link_to "选项管理", admin_survey_survey_items_path(survey_id: survey.id),class: "fgreen" %>
+                </td>
+              </tr>
+            <% end %>
+            
+          </tbody>
+        </table>
+        <div class="pagination page width-auto">
+          <%= page_entries_info @surveys %>
+        </div>
+        <%= paginate @surveys %>
+      </div>
+    </div>
+  </div>
+<% end %>
+<style type="text/css">
+  a.btn.btn-primary:hover {
+    color: #fff !important;
+}
+</style>

@@ -1,0 +1,40 @@
+<style type="text/css">
+  .aa{
+    margin-left: 15px;
+  }
+  .cc {
+    height: 32px;
+  }
+</style>
+<%= form_for @item, url: @item.new_record? ? admin_survey_survey_items_path(survey_id: @survey.id) : admin_survey_survey_item_path(survey_id: @survey.id,id: @item.id) ,validate: true, html: {class: 'form'} do |f| %>
+  <div class="modal-body">
+    <div class="col-xs-12">
+      <div class="form-group">
+        <label class="control-label">选项内容<span class="required-star">*</span></label>
+        <div class="clearfix">
+          <%= f.text_field :answer, maxlength: 200, class: "col-xs-12" %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="control-label">选项分数<span class="required-star"></span></label>
+        <div class="clearfix">
+          <%= f.number_field :point, class: "col-xs-12" %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="control-label">选项序号<span class="required-star"></span></label>
+        <div class="clearfix">
+          <%= f.number_field :position, class: "col-xs-12" %>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="clearfix"></div>
+  <div class="modal-footer">
+    <button type="submit" class="btn btn-sm btn-primary form-submit" data-fn="submit">确定</button>
+    <button type="button" class="btn btn-sm btn-default" data-dismiss="modals">取消</button>
+  </div>
+<% end %>

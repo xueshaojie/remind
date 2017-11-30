@@ -1,0 +1,56 @@
+<style type="text/css">
+  .aa{
+    margin-left: 15px;
+  }
+  .cc {
+    height: 32px;
+  }
+</style>
+<%= form_for @survey, url: @survey.new_record? ? admin_surveys_path : admin_survey_path(@survey) ,validate: true, html: {class: 'form'} do |f| %>
+  <div class="modal-body">
+    <div class="col-xs-12">
+      <div class="form-group">
+        <label class="control-label">题目名称<span class="required-star">*</span></label>
+        <div class="clearfix">
+          <%= f.text_field :name, maxlength: 50, class: "col-xs-12" %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="control-label">题目类型<span class="required-star"></span></label>
+        <div class="clearfix">
+          <%= f.select :survey_type, Survey.survey_type_options, class: "col-xs-12" %>
+        </div>
+      </div>
+
+      
+      <div class="form-group">
+        <label class="control-label">选项形式<span class="required-star"></span></label>
+        <div class="clearfix">
+          <%= f.select :option_type, Survey.option_type_options, class: "col-xs-12" %>
+        </div>
+      </div>
+
+
+      <div class="form-group">
+        <label class="control-label">题目总分<span class="required-star">*</span></label>
+        <div class="clearfix">
+          <%= f.number_field :total_score, class: "col-xs-12" %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="control-label">题目序号<span class="required-star">*</span></label>
+        <div class="clearfix">
+          <%= f.text_field :position, class: "col-xs-12" %>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="clearfix"></div>
+  <div class="modal-footer">
+    <button type="submit" class="btn btn-sm btn-primary form-submit" data-fn="submit">确定</button>
+    <button type="button" class="btn btn-sm btn-default" data-dismiss="modals">取消</button>
+  </div>
+<% end %>

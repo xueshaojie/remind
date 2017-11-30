@@ -1,0 +1,75 @@
+<% content_for :main_content do %>
+  <div class="main-content">
+    <div class="breadcrumbs" id="breadcrumbs">
+      <ul class="breadcrumb">
+        <%=render 'partials/home' %>
+          <li><%= link_to  '题库管理', admin_surveys_path %></li>
+          <li><%= link_to  '选项管理', admin_survey_survey_items_path(survey_id: @survey.id) %></li>
+      </ul>
+    </div>
+
+    <div class="page-content">
+      <%= form_for @search, url: admin_survey_survey_items_path(survey_id: @survey.id) do |f| %>
+        <div class="row">
+          <div class="col-sm-12  no-padding">
+            <div class="col-md-2">
+              <div class="input-group input-group-text">
+                <%= f.text_field :answer_like, placeholder: "选项内容", class: 'col-xs-12 select' %>
+              </div>
+            </div>
+
+            <div class="col-md-2">
+              <div class="input-group input-group-text ">
+                <%= f.text_field :point_eq, placeholder:"选项分数", class: 'col-xs-12'%>
+              </div>
+            </div>
+
+            <div class="col-md-2">
+              <%= f.submit '查询', class: 'btn btn-sm btn-filter btn-primary' %>
+            </div>
+
+            <div class="col-md-6">
+              <a href="javascript:;" class="btn btn-primary btn-sm pull-right" data-target="addSurvey" data-toggle="modals" data-title="新增选项" data-height="600" data-iframe="<%= new_admin_survey_survey_item_path %>">新增</a>
+            </div>
+          </div>
+        </div>
+      <% end %>
+
+      <div class="col-sm-12 margin-top-15 no-padding">
+        <table id="vweddingTable" class="table table-bordered table-hover dataTable">
+          <thead>
+            <tr>
+              <th>选项序号</th>
+              <th>选项内容</th>
+              <th>选项分数</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @items.each do |item| %>
+              <tr>
+                <td><%= item.position %></td>
+                <td><%= item.answer %></td>
+                <td><%= item.point %></td>
+                <td>
+                  <a href="javascript:;" class="fgreen" data-target="addSurvey" data-toggle="modals" data-title="修改选项" data-height="600" data-iframe="<%= edit_admin_survey_survey_item_path(survey_id: @survey.id, id: item.id ) %>">修改</a>
+                  <%= link_to "删除", admin_survey_survey_item_path(survey_id: @survey.id, id: item.id), method: :delete, class: "fgreen", data: {confirm: "确定要删除该选项？"} %>
+                </td>
+              </tr>
+            <% end %>
+            
+          </tbody>
+        </table>
+        <div class="pagination page width-auto">
+          <%= page_entries_info @items %>
+        </div>
+        <%= paginate @items %>
+      </div>
+    </div>
+  </div>
+<% end %>
+<style type="text/css">
+  a.btn.btn-primary:hover {
+    color: #fff !important;
+}
+</style>
