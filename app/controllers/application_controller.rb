@@ -126,7 +126,7 @@ class ApplicationController < ActionController::Base
   end
 
   def clear_user_sign_in_session
-    session[:user_id] = nil
+    session[:account_id] = nil
   end
 
   def clear_shop_user_sign_in_session

