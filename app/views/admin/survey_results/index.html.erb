@@ -1,0 +1,74 @@
+<% content_for :main_content do %>
+  <div class="main-content">
+    <div class="breadcrumbs" id="breadcrumbs">
+      <ul class="breadcrumb">
+        <%=render 'partials/home' %>
+          <li><%= link_to  '评测记录管理', admin_survey_results_path %></li>
+      </ul>
+    </div>
+
+    <div class="page-content">
+      <%= form_for @search, url: admin_survey_results_path do |f| %>
+        <div class="row">
+          <div class="col-sm-12  no-padding">
+            <div class="col-md-2">
+              <div class="input-group input-group-text">
+                <%= f.text_field :wx_user_nickname_like, placeholder: "测评人", class: 'col-xs-12 select' %>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="input-group input-group-text">
+              <span class="input-group-addon">测评时间：</span>
+              <%= f.text_field :created_at_between, class: 'col-xs-12 datetimerange', value: "#{params[:search][:created_at_gte] if params[:search]} - #{params[:search][:created_at_lte] if params[:search]}" %>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <%= f.select :survey_type_eq, SurveyResult.survey_type_options, {include_blank: '测评类型'}, class: "col-xs-12" %>
+            </div>
+            <div class="col-md-2">
+              <%= f.submit '查询', class: 'btn btn-sm btn-filter btn-primary' %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+
+      <div class="col-sm-12 margin-top-15 no-padding">
+        <table id="vweddingTable" class="table table-bordered table-hover dataTable">
+          <thead>
+            <tr>
+              <th>测评人</th>
+              <th>测评时间</th>
+              <th>测评类型</th>
+              <th>测评分数</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @survey_results.each do |survey_result| %>
+              <tr>
+                <td><%= survey_result.wx_user.try(:nickname) %></td>
+                <td><%= survey_result.created_at %></td>
+                <td><%= survey_result.survey_type %></td>
+                <td><%= survey_result.score %></td>
+                <td>
+                  <a href="javascript:;" class="" data-target="add" data-toggle="modals" data-title="测评详情" data-height="800" data-iframe="<%= admin_survey_result_path(survey_result) %>">查看</a>
+                </td>
+              </tr>
+            <% end.blank? %>
+          </tbody>
+        </table>
+        <div class="pagination page width-auto">
+          <%= page_entries_info @survey_results %>
+        </div>
+        <%= paginate @survey_results %>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<script type="text/javascript">
+  $(function(){
+    //$(".select2").select2();
+    //$(".select2").css({"margin-left":"-12px","width":"195px"});
+  })
+</script>

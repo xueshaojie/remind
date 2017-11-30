@@ -1,0 +1,68 @@
+<% content_for :main_content do %>
+  <div class="main-content">
+    <div class="breadcrumbs" id="breadcrumbs">
+      <ul class="breadcrumb">
+        <%=render 'partials/home' %>
+          <li><%= link_to  '评测记录管理', admin_feedbacks_path %></li>
+      </ul>
+    </div>
+
+    <div class="page-content">
+      <%= form_for @search, url: admin_feedbacks_path do |f| %>
+        <div class="row">
+          <div class="col-sm-12  no-padding">
+            <div class="col-md-2">
+              <div class="input-group input-group-text">
+                <%= f.text_field :wx_user_nickname_like, placeholder: "提交人", class: 'col-xs-12 select' %>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="input-group input-group-text">
+              <span class="input-group-addon">提交时间：</span>
+              <%= f.text_field :created_at_between, class: 'col-xs-12 datetimerange', value: "#{params[:search][:created_at_gte] if params[:search]} - #{params[:search][:created_at_lte] if params[:search]}" %>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <%= f.submit '查询', class: 'btn btn-sm btn-filter btn-primary' %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+
+      <div class="col-sm-12 margin-top-15 no-padding">
+        <table id="vweddingTable" class="table table-bordered table-hover dataTable">
+          <thead>
+            <tr>
+              <th>提交人</th>
+              <th>提交时间</th>
+              <th>公司名称</th>
+              <th>姓名</th>
+              <th>电话</th>
+              <th>备注</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @feedbacks.each do |feedback| %>
+              <tr>
+                <td><%= feedback.wx_user.try(:nickname) %></td>
+                <td><%= feedback.created_at %></td>
+                <td><%= feedback.company_name %></td>
+                <td><%= feedback.name %></td>
+                <td><%= feedback.mobile %></td>
+                <td><%= feedback.desctription %></td>
+                <td>
+                  <a href="javascript:;" class="" data-target="add" data-toggle="modals" data-title="测评历史记录" data-height="800" data-iframe="<%= admin_feedback_path(feedback) %>">查看</a>
+                </td>
+              </tr>
+            <% end.blank? %>
+          </tbody>
+        </table>
+        <div class="pagination page width-auto">
+          <%= page_entries_info @feedbacks %>
+        </div>
+        <%= paginate @feedbacks %>
+      </div>
+    </div>
+  </div>
+<% end %>
