@@ -1,7 +1,7 @@
 class Api::Mp::BaseController < ActionController::Base
   skip_before_filter :verify_authenticity_token
   before_filter :set_wx_mp_user, :set_wx_user
-  
+
   private
     def set_wx_user
       return render json: {code: 4001, errormsg: "未找到此应用"} unless @current_mp_user
