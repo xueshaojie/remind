@@ -1,16 +1,19 @@
 class Api::Mp::SurveyResultsController < Api::Mp::BaseController
 
   def index
+    #接口传递参数  {"openid" =>  'openid', "survey_type" => 1/2/3} 1: 营销能量 2: 营销执行效果 3: 企业营销收益
     @results = @current_wx_user.survey_results.where(survey_type: params[:survey_type])
     respond_to :json
   end
 
   def new
+    #接口传递参数  {"openid" => 'openid'} 
     @surveys = Survey.normal.energy
     respond_to :json
   end
 
   def create
+    #接口传递参数  {"openid" => 'openid', "survey_result" => {"survey_type" => 1/2/3, }, "result"=>{"0"=>{"id"=>"survey_id", "score"=>"得分"}, "1"=>{"id"=>"survey_id", "score"=>"得分"}, ...} } 
     @survey = @current_wx_user.survey_results.new(params[:survey_result])
     if @survey.energy?
       times = params[:result].size
@@ -39,6 +42,7 @@ class Api::Mp::SurveyResultsController < Api::Mp::BaseController
   end
 
   def destroy
+    #接口传递参数  {"openid" => 'openid', "id" => 'id'} 
     @survey = @current_wx_user.survey_results.find(params[:id].to_i)
     if @survey.destroy
       render json: {code: 1, errormsg: "ok"}
@@ -48,6 +52,7 @@ class Api::Mp::SurveyResultsController < Api::Mp::BaseController
   end
 
   def get_info
+    #接口传递参数  {"openid" => 'openid'} 
     @results = @current_wx_user.survey_results
     render json: {code: 1, errormsg: "ok", precipitate_fans: @result.sum(:precipitate_fans), sales_volume: @result.sum(:sales_volume), interaction:  @result.sum(:interaction)}
   end
@@ -60,8 +65,5 @@ class Api::Mp::SurveyResultsController < Api::Mp::BaseController
       return [survey.name, score.to_i] if score.to_i <= survey.total_score
       [survey.name, survey.total_score]
     end
-
-
-
-
+    
 end

@@ -1,4 +1,9 @@
 class Survey < ActiveRecord::Base
+
+  validates :name, presence: true
+  validates :total_score, numericality: {greater_than_or_equal_to: 1, only_integer: true}
+  validates :position, numericality: {greater_than_or_equal_to: 1, only_integer: true}
+
   has_many :survey_items
 
   enum_attr :status, :in => [
