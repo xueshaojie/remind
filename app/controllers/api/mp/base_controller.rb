@@ -1,7 +1,7 @@
 class Api::Mp::BaseController < ActionController::Base
   skip_before_filter :verify_authenticity_token
   before_filter :set_wx_user
-  
+
   private
     def set_wx_user
       @current_wx_user = WxUser.where(openid: params[:openid]).first

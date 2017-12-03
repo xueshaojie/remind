@@ -76,14 +76,14 @@
 # #   rake "wx_user:fetch_and_update_wx_user_info"
 # # end
 
-every :day, :at => '00:01 am' do
-  # rake "job:update_task_status"
-  rake "job:genrate_tasks"
-end
+# every :day, :at => '00:01 am' do
+#   # rake "job:update_task_status"
+#   rake "job:genrate_tasks"
+# end
 
-every :day, :at => '01:01 am' do
-  rake "job:check_task_status"
-end
+# every :day, :at => '01:01 am' do
+#   rake "job:check_task_status"
+# end
 
 # every :sunday, :at => '03:05 am' do
 #   rake "auto_generate_week_task:generate_tasks"

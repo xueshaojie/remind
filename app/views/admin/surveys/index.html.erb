@@ -22,20 +22,16 @@
                 <%= f.text_field :total_score_eq, placeholder:"题目总分", class: 'col-xs-12'%>
               </div>
             </div>
-
+<!-- 
             <div class="col-md-2">
-              <div class="input-group input-group-text ">
-                <%= f.select :survey_type_eq, Survey.survey_type_options, {include_blank: '请选择题目类型'} , class: 'col-xs-12'%>
-              </div>
+              <%#= f.select :survey_type_eq, Survey.survey_type_options, {include_blank: '请选择题目类型'} , class: 'col-xs-12'%>
+            </div>
+ -->
+            <div class="col-md-2">
+              <%= f.select :option_type_eq, Survey.option_type_options, {include_blank: '选项形式'} , class: 'col-xs-12'%>
             </div>
 
-            <div class="col-md-2">
-              <div class="input-group input-group-text ">
-                <%= f.select :option_type_eq, Survey.option_type_options, {include_blank: '请选择选项形式'} , class: 'col-xs-12'%>
-              </div>
-            </div>
-
-            <div class="col-md-2">
+            <div class="col-md-4">
               <%= f.submit '查询', class: 'btn btn-sm btn-filter btn-primary' %>
             </div>
 
@@ -52,9 +48,10 @@
             <tr>
               <th>题目序号</th>
               <th>题目名称</th>
-              <th>题目总分</th>
+              <th>最高总分</th>
               <th>选项形式</th>
-              <th>题目类型</th>
+              <!-- <th>题目类型</th> -->
+              <th>创建时间</th>
               <th>操作</th>
             </tr>
           </thead>
@@ -65,7 +62,8 @@
                 <td><%= survey.name %></td>
                 <td><%= survey.total_score %></td>
                 <td><%= survey.option_type_name %></td>
-                <td><%= survey.survey_type_name %></td>
+                <!-- <td><%= survey.survey_type_name %></td> -->
+                <td><%= survey.created_at %></td>
                 <td>
                   <a href="javascript:;" class="fgreen" data-target="addSurvey" data-toggle="modals" data-title="修改题目" data-height="600" data-iframe="<%= edit_admin_survey_path(survey) %>">修改</a>
                   <%= link_to "删除", admin_survey_path(survey), method: :delete, class: "fgreen", data: {confirm: "确定要删除该题目？"} %>
@@ -73,7 +71,6 @@
                 </td>
               </tr>
             <% end %>
-            
           </tbody>
         </table>
         <div class="pagination page width-auto">

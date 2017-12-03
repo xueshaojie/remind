@@ -29,9 +29,9 @@ task :production do
 
   config_deploy
 
-  role :whenever, 'work.chinese-sturgeon.com.cn'
-  set :whenever_roles, 'whenever'
-  deploy_whenever
+  # role :whenever, 'work.chinese-sturgeon.com.cn'
+  # set :whenever_roles, 'whenever'
+  # deploy_whenever
 end
 
 task :staging do
@@ -44,10 +44,9 @@ task :staging do
   # config_deploy application: 'sturgeon', rails_env: 'staging', branch: 'master', releases: 2
   config_deploy application: 'shop', rails_env: 'staging', branch: 'master', releases: 2
 
-  # role :whenever, 'sturgeon.dajiaxiao.cn'
-  role :whenever, 'shop.dajiaxiao.cn'
-  set :whenever_roles, 'whenever'
-  deploy_whenever
+  # role :whenever, 'shop.dajiaxiao.cn'
+  # set :whenever_roles, 'whenever'
+  # deploy_whenever
 end
 
 

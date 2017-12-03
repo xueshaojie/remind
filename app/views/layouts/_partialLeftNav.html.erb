@@ -1,32 +1,31 @@
 <% parent_class, sub_class = 'open active', 'open active' %>
-  <ul class="nav nav-list sly">
 
-    <li class="<%= 'parent_class' if controller_name =~ /corps|passwords/ %>">
-      <%= left_nav_dropdown 'iconfont icon-shezhihuise', '系统设置' %>
-      <ul class="submenu" style="<%= 'display: block' if controller_name =~ /corps|passwords/ %>">
-        <%= link_to_left_nav('修改密码', new_admin_password_path, controller_name == 'passwords') %>
-      </ul>
-    </li>
+<ul class="nav nav-list sly">
+  <li class="<%= 'parent_class' if controller_name =~ /passwords/ %>">
+    <%= left_nav_dropdown 'iconfont icon-shezhihuise', '系统设置' %>
+    <ul class="submenu" style="<%= 'display: block' if controller_name =~ /passwords/ %>">
+      <%= link_to_left_nav('修改密码', new_admin_password_path, controller_name == 'passwords') %>
+    </ul>
+  </li>
 
-    <li>
-      <a href="<%= admin_surveys_path %>">
-        <i class="icon-tasks"></i>
-        <span class="menu-text">题库管理</span>
-      </a>
-    </li>
+  <li class="<%= parent_class if current_page?(admin_surveys_path) %>">
+    <a href="<%= admin_surveys_path %>">
+      <i class="icon-tasks"></i>
+      <span class="menu-text">题库管理</span>
+    </a>
+  </li>
 
-    <li>
-      <a href="<%= admin_survey_results_path %>">
-        <i class="icon-align-center"></i>
-        <span class="menu-text">评测记录</span>
-      </a>
-    </li>
+  <li class="<%= parent_class if current_page?(admin_survey_results_path) %>">
+    <a href="<%= admin_survey_results_path %>">
+      <i class="icon-align-center"></i>
+      <span class="menu-text">评测记录</span>
+    </a>
+  </li>
 
-    <li>
-      <a href="<%= admin_feedbacks_path %>">
-        <i class="icon-bullhorn"></i>
-        <span class="menu-text">反馈查询</span>
-      </a>
-    </li>
-
-  </ul>
+  <li class="<%= parent_class if current_page?(admin_feedbacks_path) %>">
+    <a href="<%= admin_feedbacks_path %>">
+      <i class="icon-bullhorn"></i>
+      <span class="menu-text">反馈查询</span>
+    </a>
+  </li>
+</ul>

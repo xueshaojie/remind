@@ -605,3 +605,6 @@ DEPENDENCIES
   unicorn-worker-killer
   uuidtools
   whenever
+
+BUNDLED WITH
+   1.11.2

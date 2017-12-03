@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 class Admin::PasswordsController < Admin::BaseController
-  
+
   def create
     if params[:account][:current_password]
       if !current_user.authenticate(params[:account][:current_password])

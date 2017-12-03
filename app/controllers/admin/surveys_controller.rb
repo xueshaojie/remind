@@ -1,22 +1,18 @@
 class Admin::SurveysController < Admin::BaseController
-
   before_filter :find_survey, only: [:edit, :update, :destroy]
-  
+
   def index
   	@search = Survey.normal.search(params[:search])
   	@surveys = @search.page(params[:page])
   end
 
-  def show
-  end
-
   def new
-    @survey = Survey.new
+    @survey = Survey.new(position: Survey.count + 1)
     render layout: 'application_pop'
   end
 
   def create
-    @survey = Survey.new(params[:survey])
+    @survey = Survey.new(params[:survey].merge(survey_type: 1))
     if @survey.save
       flash[:notice] = '创建成功'
       render inline: '<script>parent.location.reload();</script>'

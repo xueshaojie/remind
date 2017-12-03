@@ -8,7 +8,6 @@ class Api::Mp::WxUsersController < Api::Mp::BaseController
       encrypted_data = params[:encryptedData].gsub(" ", "+")
       iv = params[:iv].gsub(" ", "+")
 
-
       url = "https://api.weixin.qq.com/sns/jscode2session?appid=#{app_id}&secret=#{secret}&js_code=#{params[:code]}&grant_type=authorization_code"
       result = RestClient.get(url)
       session[:session_info] = JSON(result)

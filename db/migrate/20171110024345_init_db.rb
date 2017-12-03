@@ -45,6 +45,7 @@ class InitDb < ActiveRecord::Migration
       t.integer  "survey_type"
       t.integer  "score"
       t.integer  "status", default: 1, null: false
+      # t.text     "result", comment: "评测结果"
       t.text     "metatada"
       t.datetime "created_at",                               :null => false
       t.datetime "updated_at",                               :null => false
@@ -76,15 +77,10 @@ class InitDb < ActiveRecord::Migration
       t.datetime "subscribe_time"
       t.string   "unionid"
       t.string   "remark"
-      t.integer  "groupid",                 :default => 0,     :null => false
       t.string   "location_x"
       t.string   "location_y"
       t.string   "location_label"
       t.datetime "location_updated_at"
-      t.boolean  "leave_message_forbidden", :default => false
-      t.boolean  "is_show_product_pic",     :default => true
-      t.integer  "match_type",              :default => 1,     :null => false
-      t.datetime "match_at"
       t.datetime "created_at",                                 :null => false
       t.datetime "updated_at",                                 :null => false
     end

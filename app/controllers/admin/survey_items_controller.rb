@@ -2,14 +2,14 @@ class Admin::SurveyItemsController < Admin::BaseController
 
   before_filter :find_survey
   before_filter :find_item, only: [:edit, :update, :destroy]
-  
+
   def index
   	@search = @survey.survey_items.normal.search(params[:search])
   	@items = @search.page(params[:page])
   end
 
   def new
-    @item = @survey.survey_items.new
+    @item = @survey.survey_items.new(position: SurveyItem.count + 1)
     render layout: 'application_pop'
   end
 

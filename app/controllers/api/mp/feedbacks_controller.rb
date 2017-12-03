@@ -7,7 +7,6 @@ class Api::Mp::FeedbacksController < Api::Mp::BaseController
     else
       render json: {code: 0, errormsg: "#{@feedback.errors.messages}"}
     end
-
   end
 
   def destroy
