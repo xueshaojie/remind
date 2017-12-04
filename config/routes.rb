@@ -49,10 +49,6 @@ Wp::Application.routes.draw do
       end
     end
     resources :tasks
-
-    namespace :mp do
-      resources :feedbacks, only: [:create, :destroy]
-    end
   end
 
 end
