@@ -6,6 +6,6 @@ class Api::Mp::BaseController < ActionController::Base
     def set_wx_user
       @current_wx_user = WxUser.where(openid: params[:openid]).first
       #@current_wx_user = WxUser.first
-      return render json: {code: 4001,  errormsg: "你还未授权 请10分钟后再次点击授权 或删除小程序重新进入"} unless @current_wx_user
+      return render json: {errcode: 40001,  errmsg: "你还未授权 请10分钟后再次点击授权 或删除小程序重新进入"} unless @current_wx_user
     end
 end

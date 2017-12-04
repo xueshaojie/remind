@@ -7,13 +7,13 @@ class Api::Mp::SurveyResultsController < Api::Mp::BaseController
   end
 
   def new
-    #接口传递参数  {"openid" => 'openid'} 
+    #接口传递参数  {"openid" => 'openid'}
     @surveys = Survey.normal.energy
     respond_to :json
   end
 
   def create
-    #接口传递参数  {"openid" => 'openid', "survey_result" => {"survey_type" => 1/2/3, }, "result"=>{"0"=>{"id"=>"survey_id", "score"=>"得分"}, "1"=>{"id"=>"survey_id", "score"=>"得分"}, ...} } 
+    #接口传递参数  {"openid" => 'openid', "survey_result" => {"survey_type" => 1/2/3, }, "result"=>{"0"=>{"id"=>"survey_id", "score"=>"得分"}, "1"=>{"id"=>"survey_id", "score"=>"得分"}, ...} }
     @survey = @current_wx_user.survey_results.new(params[:survey_result])
     if @survey.energy?
       times = params[:result].size
@@ -35,26 +35,26 @@ class Api::Mp::SurveyResultsController < Api::Mp::BaseController
     end
 
     if @survey.save
-      render json: {code: 1, errormsg: "ok", score: @survey.score}
+      render json: {errcode: 0, errmsg: "ok", score: @survey.score}
     else
-      render json: {code: 0, errormsg: @survey.errors.messages}
+      render json: {errcode: 40001, errmsg: "#{@survey.errors.messages}"}
     end
   end
 
   def destroy
-    #接口传递参数  {"openid" => 'openid', "id" => 'id'} 
+    #接口传递参数  {"openid" => 'openid', "id" => 'id'}
     @survey = @current_wx_user.survey_results.find(params[:id].to_i)
     if @survey.destroy
-      render json: {code: 1, errormsg: "ok"}
+      render json: {errcode: 0, errmsg: "ok"}
     else
-      render json: {code: 0, errormsg: "删除失败"}
+      render json: {errcode: 40001, errmsg: "删除失败"}
     end
   end
 
   def get_info
-    #接口传递参数  {"openid" => 'openid'} 
+    #接口传递参数  {"openid" => 'openid'}
     @results = @current_wx_user.survey_results
-    render json: {code: 1, errormsg: "ok", precipitate_fans: @result.sum(:precipitate_fans), sales_volume: @result.sum(:sales_volume), interaction:  @result.sum(:interaction)}
+    render json: {errcode: 0, errmsg: "ok", precipitate_fans: @result.sum(:precipitate_fans), sales_volume: @result.sum(:sales_volume), interaction:  @result.sum(:interaction)}
   end
 
   private
@@ -65,5 +65,5 @@ class Api::Mp::SurveyResultsController < Api::Mp::BaseController
       return [survey.name, score.to_i] if score.to_i <= survey.total_score
       [survey.name, survey.total_score]
     end
-    
+
 end

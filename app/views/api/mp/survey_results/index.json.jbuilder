@@ -1,4 +1,4 @@
-json.code      1
+json.errcode      0
 json.survey_results  @survey_results do |result|
   json.id            result.id
   json.score         result.score
