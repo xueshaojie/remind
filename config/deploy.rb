@@ -6,8 +6,9 @@ set :rvm_ruby_string, '2.1.5' # Change to your ruby version
 set :rvm_type, :user # :user if RVM installed in $HOME
 
 # set :repository, 'ssh://git@git.biaotutech.com:1688/opt/repos/projects/sturgeon.git'
-set :repository, 'ssh://git@git.biaotutech.com:1688/opt/repos/projects/shop.git'
+set :repository, 'ssh://git@git.biaotutech.com:1688/opt/repos/mp/survey.git'
 set :scm, :git
+set :user, 'deploy'
 # set :admin_runner, 'root'
 set :use_sudo, false
 # set :group_writable, false
@@ -24,8 +25,8 @@ set :keep_releases, 5
 # 主站的程序部署在 web1.biaotu.com、 web2.biaotu.com 上
 task :production do
   set :user, 'deploy'
-  role :app, *%w[work.chinese-sturgeon.com.cn]
-  role :db, 'work.chinese-sturgeon.com.cn', primary: true
+  role :app, *%w[test.dajiaxiao.cn]
+  role :db, 'test.dajiaxiao.cn', primary: true
 
   config_deploy
 
@@ -36,13 +37,13 @@ end
 
 task :staging do
   set :user, 'deploy'
-  set :port, 1688
+  set :port, 22
 
   require 'rvm/capistrano'
   # server 'sturgeon.dajiaxiao.cn', :app, :web, :db, primary: true
-  server 'shop.dajiaxiao.cn', :app, :web, :db, primary: true
+  server 'test.dajiaxiao.cn', :app, :web, :db, primary: true
   # config_deploy application: 'sturgeon', rails_env: 'staging', branch: 'master', releases: 2
-  config_deploy application: 'shop', rails_env: 'staging', branch: 'master', releases: 2
+  config_deploy application: 'survey', rails_env: 'staging', branch: 'master', releases: 2
 
   # role :whenever, 'shop.dajiaxiao.cn'
   # set :whenever_roles, 'whenever'
@@ -86,24 +87,24 @@ namespace :deploy do
 
     task :custom_symlinks, roles: :app do
 
-    run "ln -nfs /opt/apps/shared/shop/assets/shop #{release_path}/public/assets"
+    run "ln -nfs /opt/apps/shared/survey/assets/survey #{release_path}/public/assets"
 
-    run "ln -nfs /opt/apps/shared/shop/config/database.yml #{release_path}/config/database.yml"
-    run "ln -nfs /opt/apps/shared/shop/uploads #{release_path}/public/uploads"
-    run "ln -nfs /opt/apps/shared/shop/logs #{release_path}/public/logs"
+    run "ln -nfs /opt/apps/shared/survey/config/database.yml #{release_path}/config/database.yml"
+    run "ln -nfs /opt/apps/shared/survey/uploads #{release_path}/public/uploads"
+    run "ln -nfs /opt/apps/shared/survey/logs #{release_path}/public/logs"
 
     run "ln -nfs #{shared_path}/sockets #{release_path}/tmp/sockets"
-    # run "ln -nfs /opt/apps/shared/sturgeon/config/unicorn.rb #{release_path}/config/unicorn.rb"
+    run "ln -nfs /opt/apps/shared/survey/config/unicorn.rb #{release_path}/config/unicorn.rb"
   end
 
 end
 
 desc 'Precompile assets locally and then rsync to app servers'
 task :precompile do
-  if %w[shop].include?(application)
+  if %w[survey].include?(application)
     assets_suffix = application
     tmp_assets_dir = "__assets_#{assets_suffix}"
-    shared_assets_dir = "/opt/apps/shared/shop/assets/#{assets_suffix}/"
+    shared_assets_dir = "/opt/apps/shared/survey/assets/#{assets_suffix}/"
 
     run_locally "mkdir -p public/#{tmp_assets_dir}; mv public/#{tmp_assets_dir} public/assets;"
     run_locally 'bundle exec rake assets:clean_expired; RAILS_ENV=production bundle exec rake assets:precompile;'
@@ -118,7 +119,7 @@ task :precompile do
 end
 
 # def config_deploy(application: 'sturgeon', rails_env: 'production', branch: 'master', use_unicorn: true, releases: 5)
-def config_deploy(application: 'shop', rails_env: 'production', branch: 'master', use_unicorn: true, releases: 5)
+def config_deploy(application: 'survey', rails_env: 'production', branch: 'master', use_unicorn: true, releases: 5)
   set :keep_releases, releases
   set :application, application
   set :rails_env, rails_env
