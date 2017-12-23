@@ -8,24 +8,12 @@
     </ul>
   </li>
 
-  <li class="<%= parent_class if current_page?(admin_surveys_path) %>">
-    <a href="<%= admin_surveys_path %>">
-      <i class="icon-tasks"></i>
-      <span class="menu-text">题库管理</span>
-    </a>
-  </li>
-
-  <li class="<%= parent_class if current_page?(admin_survey_results_path) %>">
-    <a href="<%= admin_survey_results_path %>">
+  <li class="<%= parent_class if current_page?(admin_currencies_path) %>">
+    <a href="<%= admin_currencies_path %>">
       <i class="icon-align-center"></i>
-      <span class="menu-text">评测记录</span>
+      <span class="menu-text">货币</span>
     </a>
   </li>
 
-  <li class="<%= parent_class if current_page?(admin_feedbacks_path) %>">
-    <a href="<%= admin_feedbacks_path %>">
-      <i class="icon-bullhorn"></i>
-      <span class="menu-text">反馈查询</span>
-    </a>
-  </li>
+
 </ul>

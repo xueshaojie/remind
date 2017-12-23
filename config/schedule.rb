@@ -102,7 +102,11 @@
 # every 6.months do
 # 	rake "auto_generate_cycle_half_a_year_task:generate_tasks"
 # end
- 
-# every :year do 
+
+# every :year do
 # 	rake "auto_generate_cycle_year_task:generate_tasks"
 # end
+
+every 15.months do
+  rake "admin:update_currencies"
+end

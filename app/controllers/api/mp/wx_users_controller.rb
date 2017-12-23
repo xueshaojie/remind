@@ -1,9 +1,9 @@
 class Api::Mp::WxUsersController < Api::Mp::BaseController
-
-  def create
+  skip_before_filter :verify_authenticity_token, :set_wx_user
+  def wx_login
     if params[:code].present?
-      app_id = ""
-      secret = ""
+      app_id = "wxf3c6f40bea069985"
+      secret = "454126a4ac934e556c5565f840dff609"
       code = params[:code].gsub(" ", "+")
       encrypted_data = params[:encryptedData].gsub(" ", "+")
       iv = params[:iv].gsub(" ", "+")
@@ -11,7 +11,7 @@ class Api::Mp::WxUsersController < Api::Mp::BaseController
       url = "https://api.weixin.qq.com/sns/jscode2session?appid=#{app_id}&secret=#{secret}&js_code=#{params[:code]}&grant_type=authorization_code"
       result = RestClient.get(url)
       session[:session_info] = JSON(result)
-
+      session[:session_info] = {session_key: "ao1s3cS0Qqbquw8/vSM5zg==",expires_in: 7200,openid: "oUobx0DykpzTe2Affl6YdNkPzGy4"}
       encrypt_decrypt_key, openid = session[:session_info].values_at("session_key", "openid")
       wx_user = WxUser.where(openid: openid).first_or_create
 

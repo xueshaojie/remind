@@ -1,0 +1,70 @@
+<% content_for :main_content do %>
+  <div class="main-content">
+    <div class="breadcrumbs" id="breadcrumbs">
+      <ul class="breadcrumb">
+        <%=render 'partials/home' %>
+          <li><%= link_to  '货币管理', admin_currencies_path %></li>
+      </ul>
+    </div>
+
+    <div class="page-content">
+      <%= form_for @search, url: admin_currencies_path do |f| %>
+        <div class="row">
+          <div class="col-sm-12  no-padding">
+            <div class="col-md-2">
+              <div class="input-group input-group-text">
+                <%= f.text_field :name_like, placeholder: "货币名称", class: 'col-xs-12 select' %>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <%= f.submit '查询', class: 'btn btn-sm btn-filter btn-primary' %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+
+      <div class="col-sm-12 margin-top-15 no-padding">
+        <table id="vweddingTable" class="table table-bordered table-hover dataTable">
+          <thead>
+            <tr>
+              <th>货币名称</th>
+              <th>货币简称</th>
+              <th>排名</th>
+              <th>价格</th>
+              <th>24小时交易量</th>
+              <th>总市值</th>
+              <th>1小时涨跌</th>
+              <th>24小时涨跌</th>
+              <th>7天涨跌</th>
+              <th>已经获得的代币数量</th>
+              <th>总代币数量</th>
+              <th>更新时间</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @currencies.each do |currency| %>
+              <tr>
+                <td><%= currency.name %></td>
+                <td><%= currency.symbol %></td>
+                <td><%= currency.rank %></td>
+                <td><%= currency.price_cny %></td>
+                <td><%= currency.volume_cny %></td>
+                <td><%= currency.market_cap_cny %></td>
+                <td><%= currency.percent_change_1h %></td>
+                <td><%= currency.percent_change_24h %></td>
+                <td><%= currency.percent_change_7d %></td>
+                <td><%= currency.available_supply %></td>
+                <td><%= currency.total_supply %></td>
+                <td><%= currency.updated_at %></td>
+              </tr>
+            <% end.blank? %>
+          </tbody>
+        </table>
+        <div class="pagination page width-auto">
+          <%= page_entries_info @currencies %>
+        </div>
+        <%= paginate @currencies %>
+      </div>
+    </div>
+  </div>
+<% end %>

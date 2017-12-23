@@ -1,17 +1,6 @@
 class InitDb < ActiveRecord::Migration
 
   def change
-    create_table "logged_exceptions", :force => true do |t|
-      t.string   "exception_class"
-      t.string   "controller_name"
-      t.string   "action_name"
-      t.text     "message"
-      t.text     "backtrace"
-      t.text     "environment"
-      t.text     "request"
-      t.datetime "created_at"
-    end
-
     create_table "accounts", options: 'AUTO_INCREMENT = 10001', :force => true do |t|
       t.string   "nickname"
       t.string   "password_digest"
@@ -19,45 +8,39 @@ class InitDb < ActiveRecord::Migration
       t.datetime "updated_at",                                :null => false
     end
 
-    create_table "surveys" do |t|
-      t.string   "name"
-      t.integer  "survey_type",                              comment: "题目类型"
-      t.integer  "option_type",                              comment: "选项形式"
+    create_table "currencies" do |t|
+      t.string   "name",                             comment: "数字货币名称"
+      t.string   "symbol",                           comment: "数字货币简称"
+      t.integer  "rank",                             comment: "数字货币排名"
+      t.decimal  "price_usd",                        comment: "美元价格"
+      t.decimal  "price_btc",                        comment: "比特币价格"
+      t.float    "volume_usd",                       comment: "美元24小时交易量"
+      t.float    "market_cap_usd",                   comment: "美元总市值"
+      t.float    "available_supply",                 comment: "已经获得的代币数量"
+      t.float    "total_supply",                     comment: "总代币数量"
+      t.float    "max_supply",                       comment: "最大代币数量"
+      t.float    "percent_change_1h",                comment: "1小时涨跌"
+      t.float    "percent_change_24h",               comment: "24小时涨跌"
+      t.float    "percent_change_7d",                comment: "7天涨跌"
+      t.float    "last_updated",                     comment: "最后更新时间"
+      t.decimal  "price_cny",                        comment: "人民币价格"
+      t.float    "volume_cny",                       comment: "人民币24小时交易量"
+      t.float    "market_cap_cny",                   comment: "人民币总市值"
       t.integer  "position", default: 1, null: false
       t.integer  "status", default: 1, null: false
-      t.integer  "total_score",                              comment: "总分"
       t.datetime "created_at",                               :null => false
       t.datetime "updated_at",                               :null => false
     end
 
-    create_table "survey_items" do |t|
-      t.integer  "survey_id"
-      t.string   "answer"
-      t.integer  "point"
-      t.integer  "position", default: 1, null: false
-      t.integer  "status", default: 1, null: false
-      t.datetime "created_at",                               :null => false
-      t.datetime "updated_at",                               :null => false
-    end
+    add_index "currencies", ["name"], :name => "index_currencies_on_name"
 
-    create_table "survey_results" do |t|
+    create_table "notices" do |t|
       t.integer  "wx_user_id"
-      t.integer  "survey_type"
-      t.integer  "score"
-      t.integer  "status", default: 1, null: false
-      # t.text     "result", comment: "评测结果"
-      t.text     "metatada"
-      t.datetime "created_at",                               :null => false
-      t.datetime "updated_at",                               :null => false
-    end
-    add_index "survey_results", ["wx_user_id"], :name => "index_survey_results_on_wx_user_id"
-
-    create_table "feedbacks" do |t|
-      t.integer "wx_user_id"
-      t.string  "name"
-      t.string  "company_name"
-      t.string  "mobile"
-      t.string  "desctription"
+      t.integer  "currency_id"
+      t.string   "range",                            comment: "范围"
+      t.string   "form_id"
+      t.integer  "position", default: 1, null: false
+      t.integer  "status",   default: 1, null: false
       t.datetime "created_at",                               :null => false
       t.datetime "updated_at",                               :null => false
     end
@@ -81,6 +64,8 @@ class InitDb < ActiveRecord::Migration
       t.string   "location_y"
       t.string   "location_label"
       t.datetime "location_updated_at"
+      t.datetime "expires_in"
+      t.string   "access_token",          :limit => 512
       t.datetime "created_at",                                 :null => false
       t.datetime "updated_at",                                 :null => false
     end

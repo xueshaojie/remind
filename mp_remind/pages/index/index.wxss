@@ -1,0 +1,88 @@
+page {
+  word-wrap: break-word;
+  word-break: break-all;
+  background-color: #f9f9f9;
+}
+.index-content {
+  overflow: hidden;
+  background-color: #fff;
+  border-bottom: 1px solid #f6f6f6;
+}
+.search-inner {
+  margin: 28rpx 28rpx 40rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+  border: 1px solid #ccc;
+  border-radius: 8rpx;
+}
+.search-inner image {
+  margin: 15rpx 18rpx 0 20rpx;
+  width: 28rpx;
+  height: 28rpx;
+  display: inline-block;
+}
+.search-inner text {
+  vertical-align: 5rpx;
+  display: inline-block;
+  font-size: 28rpx;
+  color: #ccc;
+}
+.like-content {
+  background-color: #fff;
+  border-bottom: 1px solid #f6f6f6;
+  margin-bottom: 20rpx;
+}
+.like-inner {
+  padding: 28rpx 28rpx 28rpx 0;
+  margin-left: 28rpx;
+  border-bottom: 1px solid #f6f6f6;
+}
+
+.like-goods {
+  float: left;
+  width: 750rpx;
+  display: block;
+}
+
+.goods-name {
+  margin-left: 0rpx;
+  width: 150rpx;
+  line-height: 50rpx;
+  float: left;
+  font-size: 45rpx;
+  color: #333;
+}
+.goods-price {
+  margin-left: 256rpx;
+  float: left;
+  font-size: 36rpx;
+  color: #333;
+}
+
+.goods-percent {
+  margin-right: 50rpx;
+  float: right;
+  height: 50rpx;
+  width: 120rpx;
+  font-size: 24rpx;
+  color:#FFFFFF;
+  background-color:red;
+}
+
+.goods-usd {
+  padding-left: 0rpx;
+  margin-top: 85rpx;
+  font-size: 30rpx;
+  color: #333;
+  line-height: 50rpx;
+}
+
+.create-notice {
+  margin-right: 47rpx;
+  margin-top: -60rpx;
+  width: 290rpx;
+  float: right;
+  font-size: 27rpx;
+  color:#FFFFFF;
+  background-color:#1AAD19;
+}

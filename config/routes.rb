@@ -34,12 +34,8 @@ Wp::Application.routes.draw do
   namespace :admin do
     resources :passwords, only: [:new, :create]
 
-    resources :surveys do
-      resources :survey_items
-    end
-
-    resources :survey_results
-    resources :feedbacks
+    resources :currencies
+    resources :notices
   end
 
   namespace :api do

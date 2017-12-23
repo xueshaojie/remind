@@ -1,0 +1,22 @@
+<view class="index-content">
+  <view class="search-inner" bindtap="toSearch">
+    <image src="http://www.biaotutech.com/uploads/mp/icon/index_search.png"></image>
+    <text>搜索数字货币</text>
+  </view>
+</view>
+
+<block wx:for="{{currencies}}" wx:key="currency" wx:for-item="currency">
+  <view class="like-content">
+    <view class="like-inner clearfix">
+      <view class="like-goods">
+        <table class="goods-name" bindtap="toGoodsDetail" data-id="{{currency.id}}" data-name="{{currency.symbol}}">{{currency.symbol}}</table>
+        <table class="goods-price" bindtap="toGoodsDetail" data-id="{{currency.id}}" data-name="{{currency.symbol}}">￥{{currency.price_cny}}</table>
+        <button class="goods-percent" bindtap="toGoodsDetail" data-id="{{currency.id}}" data-name="{{currency.symbol}}">{{currency.percent}}%</button>
+        <view class="clearfix">
+          <view class="goods-usd" bindtap="toGoodsDetail" data-id="{{currency.id}}" data-name="{{currency.symbol}}">总市值：${{currency.market_cap_usd}}</view>
+          <button class="create-notice" bindtap='createNotice' data-id='{{currency.id}}' data-name='{{currency.symbol}}' data-price='{{currency.price_cny}}' data-updated_at='{{currency.updated_at}}' >创建提醒</button>
+        </view>
+      </view>
+    </view>
+  </view>
+</block>
