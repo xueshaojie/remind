@@ -107,6 +107,6 @@
 # 	rake "auto_generate_cycle_year_task:generate_tasks"
 # end
 
-every 15.months do
+every 15.minutes do
   rake "admin:update_currencies"
 end
