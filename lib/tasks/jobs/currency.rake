@@ -26,7 +26,9 @@ namespace :admin do
       r.save
   	end
 
-    Notice.no_notice.each do |notice|
+    Rails.logger.info "------------"
+
+    Notice.no_remind.each do |notice|
       if notice.currency.price_cny.to_i >= notice.range.split("-").first.to_i && notice.range.split("-").last.to_i >= notice.currency.price_cny.to_i
         notice.update_attributes(status: 0)
       end

@@ -8,16 +8,7 @@ class Api::Mp::WxUsersController < Api::Mp::BaseController
       encrypted_data = params[:encryptedData].gsub(" ", "+")
       iv = params[:iv].gsub(" ", "+")
 
-
-      Rails.logger.info "code=#{code}"
-      Rails.logger.info "-----------------------------------"
-      Rails.logger.info "encrypted_data=#{encrypted_data}"
-      Rails.logger.info "-----------------------------------"
-      Rails.logger.info "iv=#{iv}"
-      Rails.logger.info "-----------------------------------"
-
       url = "https://api.weixin.qq.com/sns/jscode2session?appid=#{app_id}&secret=#{secret}&js_code=#{params[:code]}&grant_type=authorization_code"
-      Rails.logger.info "url=#{url}"
       result = RestClient.get(url)
       session[:session_info] = JSON(result)
       encrypt_decrypt_key, openid = session[:session_info].values_at("session_key", "openid")
