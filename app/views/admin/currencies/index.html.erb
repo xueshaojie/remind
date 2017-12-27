@@ -27,7 +27,6 @@
         <table id="vweddingTable" class="table table-bordered table-hover dataTable">
           <thead>
             <tr>
-              <th>货币名称</th>
               <th>货币简称</th>
               <th>排名</th>
               <th>价格</th>
@@ -35,7 +34,6 @@
               <th>总市值</th>
               <th>1小时涨跌</th>
               <th>24小时涨跌</th>
-              <th>7天涨跌</th>
               <th>已经获得的代币数量</th>
               <th>总代币数量</th>
               <th>更新时间</th>
@@ -44,7 +42,6 @@
           <tbody>
             <% @currencies.each do |currency| %>
               <tr>
-                <td><%= currency.name %></td>
                 <td><%= currency.symbol %></td>
                 <td><%= currency.rank %></td>
                 <td><%= currency.price_cny %></td>
@@ -52,7 +49,6 @@
                 <td><%= currency.market_cap_cny %></td>
                 <td><%= currency.percent_change_1h %></td>
                 <td><%= currency.percent_change_24h %></td>
-                <td><%= currency.percent_change_7d %></td>
                 <td><%= currency.available_supply %></td>
                 <td><%= currency.total_supply %></td>
                 <td><%= currency.updated_at %></td>

@@ -1,4 +1,4 @@
-namespace :admin do
+namespace :currency do
 
   desc "Update currencies"
   task :update_currencies => :environment do
@@ -19,7 +19,7 @@ namespace :admin do
       r.max_supply = json_body[i]["max_supply"]
       r.percent_change_1h = json_body[i]["percent_change_1h"]
       r.percent_change_24h = json_body[i]["percent_change_24h"]
-      r.percent_change_7d = json_body[i]["last_updated"]
+      r.percent_change_7d = json_body[i]["percent_change_7d"]
       r.price_cny = json_body[i]["price_cny"].to_f.round(2)
       r.volume_cny = json_body[i]["24h_volume_cny"]
       r.market_cap_cny = json_body[i]["market_cap_cny"]

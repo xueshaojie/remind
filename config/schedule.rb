@@ -108,5 +108,5 @@
 # end
 
 every 15.minutes do
-  rake "admin:update_currencies"
+  rake "currency:update_currencies"
 end
