@@ -1,10 +1,12 @@
 namespace :currency do
 
-  desc "Update currencies"
+  desc "update currencies"
   task :update_currencies => :environment do
     url = "https://api.coinmarketcap.com/v1/ticker/?convert=CNY&limit=100"
     response = HTTParty.get(url)
     json_body = JSON.parse(response.body)
+
+    Rails.logger.info "**********************"
 
     json_body.size.times do |i|
       r = Currency.where(name: json_body[i]["name"]).first_or_initialize
