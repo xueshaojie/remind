@@ -5,6 +5,7 @@
 # http://en.wikipedia.org/wiki/Cron
 
 env :PATH, ENV['PATH'] #要用bundle時必須要加
+env :GEM_PATH, ENV['GEM_PATH']
 
 # Example:
 #
