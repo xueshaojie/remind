@@ -107,9 +107,9 @@ def config_deploy(application: 'remind', rails_env: 'production', branch: 'maste
   end
 end
 
-# def deploy_whenever
-#   set :whenever_command, 'bundle exec whenever'
-#   set :whenever_environment, defer { deploy_env }
-#   set :whenever_identifier, defer { "#{application}_#{deploy_env}" }
-#   require 'whenever/capistrano'
-# end
+def deploy_whenever
+  set :whenever_command, 'bundle exec whenever'
+  set :whenever_environment, defer { deploy_env }
+  set :whenever_identifier, defer { "#{application}_#{deploy_env}" }
+  require 'whenever/capistrano'
+end
