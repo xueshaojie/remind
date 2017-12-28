@@ -22,7 +22,7 @@ namespace :currency do
       r.percent_change_1h = json_body[i]["percent_change_1h"]
       r.percent_change_24h = json_body[i]["percent_change_24h"]
       r.percent_change_7d = json_body[i]["percent_change_7d"]
-      r.price_cny = json_body[i]["price_cny"].to_f.round(2)
+      r.price_cny = json_body[i]["price_cny"].to_f.round(4)
       r.volume_cny = json_body[i]["24h_volume_cny"]
       r.market_cap_cny = json_body[i]["market_cap_cny"]
       r.save
