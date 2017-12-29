@@ -97,8 +97,8 @@ App({
   globalData: {
     featureManager: {},
     userInfo: null,
-    //API_URL: 'http://119.23.104.220'
-    API_URL: 'http://127.0.0.1:3000'
+    API_URL: 'http://119.23.104.220'
+    //API_URL: 'http://127.0.0.1:3000'
     // API_URL: 'https://mp.dingyutech.com'
   }
 })

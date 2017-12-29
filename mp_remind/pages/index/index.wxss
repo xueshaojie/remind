@@ -66,7 +66,6 @@ page {
   width: 120rpx;
   font-size: 24rpx;
   color:#FFFFFF;
-  background-color:red;
 }
 
 .goods-usd {
@@ -84,5 +83,11 @@ page {
   float: right;
   font-size: 27rpx;
   color:#FFFFFF;
-  background-color:#1AAD19;
+  background-color:#63B8FF;
+}
+.red{
+  background-color: red;
+}
+.green{
+  background-color: #1AAD19;
 }
