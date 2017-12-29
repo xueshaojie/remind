@@ -8,10 +8,7 @@ set :rvm_type, :user # :user if RVM installed in $HOME
 # set :repository, 'ssh://git@git.biaotutech.com:1688/opt/repos/projects/sturgeon.git'
 # set :repository, 'ssh://git@github.com:xueshaojie/remind.git'
 set :repository, 'https://github.com/xueshaojie/remind.git'
-set :deploy_to, "/opt/apps/remind"
 
-
-set :scm, :git
 set :user, 'deploy'
 # set :admin_runner, 'root'
 set :use_sudo, false
