@@ -1,0 +1,20 @@
+<view class="ad_popError" wx:if="{{popErrorMsg}}">{{popErrorMsg}}</view>
+<form bindsubmit="formSubmit" report-submit="true">
+  <input hidden='{{true}}' value="{{currency_id}}" name='notice[currency_id]' />
+  <input hidden='{{true}}' value="{{notice.id}}" name='notice[id]' />
+  <view class="weui-cell__hd  weui-cell__hd_in-select-after wweui-label">
+      <view class="title-name">数字货币：{{name}}</view>
+      <view class="title-name">当前价格：{{price}}</view>
+  </view>
+  <view class="weui-cells weui-cells_after-title">
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__bd">
+        <view class="title-name">提醒价格区间：</view>
+        <input class="weui-input" style="margin-top: 30rpx;" id='notice' name='notice[range]' placeholder='请输入价格区间，示例：1-20000' value='{{notice.range}}' />
+      </view>
+    </view>
+  </view>
+  <view class="weui-btn-area">
+    <button class="weui-btn" style="margin-top: 30rpx;" type="primary" formType="submit">确定</button>
+  </view>
+</form>

@@ -8,10 +8,7 @@ set :rvm_type, :user # :user if RVM installed in $HOME
 # set :repository, 'ssh://git@git.biaotutech.com:1688/opt/repos/projects/sturgeon.git'
 # set :repository, 'ssh://git@github.com:xueshaojie/remind.git'
 set :repository, 'https://github.com/xueshaojie/remind.git'
-set :deploy_to, "/opt/apps/remind"
 
-
-set :scm, :git
 set :user, 'deploy'
 # set :admin_runner, 'root'
 set :use_sudo, false
@@ -33,9 +30,9 @@ task :production do
 
   config_deploy
 
-  # role :whenever, 'work.chinese-sturgeon.com.cn'
-  # set :whenever_roles, 'whenever'
-  # deploy_whenever
+  role :whenever, '119.23.104.220'
+  set :whenever_roles, 'whenever'
+  deploy_whenever
 end
 
 after 'deploy:restart', 'deploy:cleanup'
