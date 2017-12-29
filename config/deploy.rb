@@ -30,9 +30,9 @@ task :production do
 
   config_deploy
 
-  # role :whenever, 'work.chinese-sturgeon.com.cn'
-  # set :whenever_roles, 'whenever'
-  # deploy_whenever
+  role :whenever, '119.23.104.220'
+  set :whenever_roles, 'whenever'
+  deploy_whenever
 end
 
 after 'deploy:restart', 'deploy:cleanup'
