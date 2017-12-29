@@ -9,11 +9,11 @@
   <view class="like-content">
     <view class="like-inner clearfix">
       <view class="like-goods">
-        <table class="goods-name" bindtap="toGoodsDetail" data-id="{{currency.id}}" data-name="{{currency.symbol}}">{{currency.symbol}}</table>
-        <table class="goods-price" bindtap="toGoodsDetail" data-id="{{currency.id}}" data-name="{{currency.symbol}}">￥{{currency.price_cny}}</table>
-        <button class="goods-percent" bindtap="toGoodsDetail" data-id="{{currency.id}}" data-name="{{currency.symbol}}">{{currency.percent}}%</button>
+        <table class="goods-name">{{currency.symbol}}</table>
+        <table class="goods-price">￥{{currency.price_cny}}</table>
+        <button class="goods-percent" >{{currency.percent}}%</button>
         <view class="clearfix">
-          <view class="goods-usd" bindtap="toGoodsDetail" data-id="{{currency.id}}" data-name="{{currency.symbol}}">总市值：${{currency.market_cap_usd}}</view>
+          <view class="goods-usd">总市值：${{currency.market_cap_usd}}</view>
           <button class="create-notice" bindtap='createNotice' data-id='{{currency.id}}' data-name='{{currency.symbol}}' data-price='{{currency.price_cny}}' data-updated_at='{{currency.updated_at}}' >创建提醒</button>
         </view>
       </view>

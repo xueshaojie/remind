@@ -46,16 +46,16 @@ page {
 
 .goods-name {
   margin-left: 0rpx;
-  width: 150rpx;
+  width: 180rpx;
   line-height: 50rpx;
   float: left;
-  font-size: 45rpx;
+  font-size: 40rpx;
   color: #333;
 }
 .goods-price {
-  margin-left: 205rpx;
+  margin-left: 160rpx;
   float: left;
-  font-size: 36rpx;
+  font-size: 34rpx;
   color: #333;
 }
 
