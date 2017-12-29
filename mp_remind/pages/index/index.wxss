@@ -40,7 +40,7 @@ page {
 
 .like-goods {
   float: left;
-  width: 750rpx;
+  width: 720rpx;
   display: block;
 }
 
@@ -80,7 +80,7 @@ page {
 .create-notice {
   margin-right: 47rpx;
   margin-top: -60rpx;
-  width: 344rpx;
+  width: 312rpx;
   float: right;
   font-size: 27rpx;
   color:#FFFFFF;
