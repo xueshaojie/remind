@@ -34,7 +34,9 @@ Wp::Application.routes.draw do
   namespace :admin do
     resources :passwords, only: [:new, :create]
 
-    resources :currencies
+    resources :currencies do
+      post :update_sort, on: :member 
+    end
     resources :notices
   end
 

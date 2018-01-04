@@ -1,6 +1,6 @@
 class Admin::CurrenciesController < Admin::BaseController
 
-  before_filter :find_currency, only: [:show]
+  before_filter :find_currency, only: [:update_sort]
 
   def index
     params[:search] ||= {}
@@ -10,12 +10,13 @@ class Admin::CurrenciesController < Admin::BaseController
   	@currencies = @search.page(params[:page]).order("position desc")
   end
 
-  def show
-    @currency = Currency.normal.find(params[:id])
-    render layout: 'application_pop'
+  def update_sort
+    @currency.update_attributes(position: params[:position])
+    render js: "showTip('notice', '修改成功');"
   end
 
   private
+
     def find_currency
       @currency = Currency.normal.find(params[:id].to_i)
     end

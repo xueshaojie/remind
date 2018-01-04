@@ -9,7 +9,7 @@ namespace :dev do
 
   desc 'init account'
   task :init_account => :environment do
-    account = Account.where(nickname: "lee").first_or_create!(password: 111111)
+    account = Account.where(nickname: "admin").first_or_create!(password: 111111)
   end
 
 end

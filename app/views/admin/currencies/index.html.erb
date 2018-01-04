@@ -13,7 +13,7 @@
           <div class="col-sm-12  no-padding">
             <div class="col-md-2">
               <div class="input-group input-group-text">
-                <%= f.text_field :name_like, placeholder: "货币名称", class: 'col-xs-12 select' %>
+                <%= f.text_field :symbol_like, placeholder: "货币名称", class: 'col-xs-12 select' %>
               </div>
             </div>
             <div class="col-md-2">
@@ -27,7 +27,7 @@
         <table id="vweddingTable" class="table table-bordered table-hover dataTable">
           <thead>
             <tr>
-              <th>货币简称</th>
+              <th>货币名称</th>
               <th>排名</th>
               <th>价格</th>
               <th>24小时交易量</th>
@@ -36,12 +36,13 @@
               <th>24小时涨跌</th>
               <th>已经获得的代币数量</th>
               <th>总代币数量</th>
+              <th><%= sort_link @search, :position, '排序' %></th>
               <th>更新时间</th>
             </tr>
           </thead>
           <tbody>
             <% @currencies.each do |currency| %>
-              <tr>
+              <tr data-id="<%= currency.id %>">
                 <td><%= currency.symbol %></td>
                 <td><%= currency.rank %></td>
                 <td><%= currency.price_cny %>￥</td>
@@ -51,6 +52,7 @@
                 <td><%= currency.percent_change_24h %></td>
                 <td><%= currency.available_supply %></td>
                 <td><%= currency.total_supply %></td>
+                <td><input type="text" class="position" value="<%= currency.position %>" size="5"></td>
                 <td><%= currency.updated_at %></td>
               </tr>
             <% end.blank? %>
@@ -63,4 +65,13 @@
       </div>
     </div>
   </div>
+<% end %>
+
+<% content_for :custom_js do %>
+  <script>
+    $('input.position').blur(function(){
+      var id = $(this).closest('tr').attr('data-id');
+      $.post("/admin/currencies/"+id+"/update_sort?position=" + $(this).val());
+    });
+  </script>
 <% end %>

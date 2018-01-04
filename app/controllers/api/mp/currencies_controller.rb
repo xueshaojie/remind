@@ -2,7 +2,7 @@ class Api::Mp::CurrenciesController < Api::Mp::BaseController
   skip_before_filter :set_wx_user
 
   def index
-    @currencies = Currency.normal 
+    @currencies = Currency.normal.page(params[:page]) 
     respond_to :json
   end
 
