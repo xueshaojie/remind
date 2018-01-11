@@ -3,7 +3,7 @@ class Api::Mp::CurrenciesController < Api::Mp::BaseController
 
   def index
     @currencies = Currency.normal.page(params[:page])
-    @page = @currencies.size % 10 == 0? @currencies.size/10 : @currencies.size/10 + 1
+    @page = Currency.normal.size % 10 == 0? Currency.normal.size/10 : Currency.normal.size/10 + 1
     respond_to :json
   end
 
