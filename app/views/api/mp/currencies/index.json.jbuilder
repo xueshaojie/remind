@@ -5,3 +5,7 @@ json.currencies @currencies do |currency|
   json.market_cap_usd currency.market_cap_usd
   json.price_cny currency.price_cny
 end
+
+json.total_page do
+  json.page @page
+end
