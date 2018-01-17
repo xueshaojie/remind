@@ -25,12 +25,12 @@ set :keep_releases, 5
 
 # 主站的程序部署在 web1.biaotu.com、 web2.biaotu.com 上
 task :production do
-  role :app, *%w[119.23.104.220]
-  role :db, '119.23.104.220', primary: true
+  role :app, *%w[xueshaojie.top]
+  role :db, 'xueshaojie.top', primary: true
 
   config_deploy
 
-  role :whenever, '119.23.104.220'
+  role :whenever, 'xueshaojie.top'
   set :whenever_roles, 'whenever'
   deploy_whenever
 end
