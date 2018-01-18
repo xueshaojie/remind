@@ -2,7 +2,7 @@ namespace :currency do
 
   desc "update currencies"
   task :update_currencies => :environment do
-    url = "https://api.coinmarketcap.com/v1/ticker/?convert=CNY&limit=100"
+    url = "https://api.coinmarketcap.com/v1/ticker/?convert=CNY&limit=1000"
     response = HTTParty.get(url)
     json_body = JSON.parse(response.body)
 
