@@ -2,7 +2,7 @@ class Api::Mp::CurrenciesController < Api::Mp::BaseController
   skip_before_filter :set_wx_user
 
   def index
-    @currencies = Currency.normal.page(params[:page])
+    @currencies = Currency.normal.limit(100).page(params[:page])
     @page = Currency.normal.size % 10 == 0? Currency.normal.size/10 : Currency.normal.size/10 + 1
     respond_to :json
   end
