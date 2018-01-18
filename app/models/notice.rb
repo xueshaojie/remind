@@ -15,7 +15,8 @@ class Notice < ActiveRecord::Base
 
 
   before_save do
-    if self.changed.include?('status') && self.notice?
+    Rails.logger.info "********************"
+    if self.changed.include?('status') && self.remind?
       send_wx_message(notice(self.wx_user.openid, form_id))
     end
   end
