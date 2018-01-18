@@ -3,7 +3,7 @@ module MpTemplate
   def notice(openid, form_id)
     options = {
       touser: openid,
-      template_id: "qjXQJ5HPEBqBxU8kONO58CgucKCeMEOwl12JNFUu0WA",
+      template_id: "qjXQJ5HPEBqBxU8kONO58NURy7D9mmp6t3lZACVo5c8",
       # template_id:"#{user.wx_user.wx_mp_user.order_paid_wx_message_template_id}",
       form_id: form_id,
       # url:"#{Settings.m_host}/wap/orders/#{id}",
