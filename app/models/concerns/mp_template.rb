@@ -3,21 +3,25 @@ module MpTemplate
   def notice(openid, form_id)
     options = {
       touser: openid,
-      template_id: "qjXQJ5HPEBqBxU8kONO58NURy7D9mmp6t3lZACVo5c8",
+      template_id: "qjXQJ5HPEBqBxU8kONO58LU9sq9cOKwiJx4wDLdZAGQ",
       # template_id:"#{user.wx_user.wx_mp_user.order_paid_wx_message_template_id}",
       form_id: form_id,
-      # url:"#{Settings.m_host}/wap/orders/#{id}",
-      color:"#FF0000",
+      url: "pages/index/index",
+      color: "#FF0000",
       data:{
         keyword1:{
-          value:"#{currency.price_cny}元",
+          value:"#{currency.symbol}",
           color:"#173177"
         },
         keyword2:{
-          value: range,
+          value:"#{currency.price_cny}元",
           color:"#173177"
         },
         keyword3:{
+          value: range,
+          color:"#173177"
+        },
+        keyword4:{
           value: updated_at.to_s,
           color:"#173177"
         },
