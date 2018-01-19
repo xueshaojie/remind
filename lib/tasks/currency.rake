@@ -28,11 +28,12 @@ namespace :currency do
       r.save
   	end
 
-    Rails.logger.info "------------"
 
     Notice.no_remind.each do |notice|
       if notice.currency.price_cny.to_f >= notice.range.split("-").first.to_f && notice.range.split("-").last.to_f >= notice.currency.price_cny.to_f
+        Rails.logger.info "------------"
         notice.update_attributes(status: 0)
+        Rails.logger.info "***************"
       end
     end
 
