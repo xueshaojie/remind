@@ -36,7 +36,7 @@ namespace :shaojie do
         unless result["data"].blank?
           #卖出
           ask_pirce = current_price.to_f * 1.02
-          ask_pirce = ask_pirce.to_f.round(3)
+          ask_pirce = ask_pirce.to_f.round(3).to_s
           ask_params = { order_market: "BIG-EOS", order_side: "ASK", price: ask_pirce, amount: amount }.to_json
           response = HTTParty.post(url, headers: headers, body: ask_params)
         end
