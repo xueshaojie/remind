@@ -37,7 +37,7 @@ namespace :shaojie do
           #卖出
           ask_pirce = current_price.to_f * 1.02
           ask_pirce = ask_pirce.to_f.round(3)
-          ask_params = { order_market: "BIG-EOS", order_side: "ASK", price: bid_pirce, amount: amount }.to_json
+          ask_params = { order_market: "BIG-EOS", order_side: "ASK", price: ask_pirce, amount: amount }.to_json
           response = HTTParty.post(url, headers: headers, body: ask_params)
         end
       end
