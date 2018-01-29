@@ -5,7 +5,7 @@ namespace :shaojie do
 
     @user = User.where(name: "xueshaojie").first
     api_key = @user.api_key
-    id = @user.id
+    id = @user.uuid
     i = @user.count
 
     url = "https://api.big.one/orders?market=BIG-EOS" #获取订单列表
