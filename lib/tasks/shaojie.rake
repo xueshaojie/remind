@@ -25,10 +25,10 @@ namespace :shaojie do
         current_price = result["data"]["ticker"]["price"]
         url = "https://api.big.one/orders" #创建订单
 
-        amount = 10 * (1+0.04)**i
-        amount = amount.to_f.round(1).to_s
+        # amount = 10 * (1+0.04)**i
+        # amount = amount.to_f.round(1).to_s
 
-        #amount = "10"
+        amount = "5"
         #买入
         bid_pirce = current_price.to_f * 0.98
         bid_pirce = bid_pirce.to_f.round(3).to_s
