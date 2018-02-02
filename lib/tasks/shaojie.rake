@@ -17,6 +17,9 @@ namespace :shaojie do
 
     if result["data"].blank?
 
+      Rails.logger.info "******************"
+
+
       url = "https://api.big.one/markets/BIG-EOS" #拉取当前价格
       response = HTTParty.get(url, headers: headers)
       result = JSON.parse(response.body)
@@ -28,6 +31,8 @@ namespace :shaojie do
         # amount = 10 * (1+0.04)**i
         # amount = amount.to_f.round(1).to_s
 
+        Rails.logger.info "************------------"
+
         amount = "5"
         #买入
         bid_pirce = current_price.to_f * 0.98
@@ -36,6 +41,7 @@ namespace :shaojie do
         response = HTTParty.post(url, headers: headers, body: bid_params)
         result = JSON.parse(response.body)
         unless result["data"].blank?
+          Rails.logger.info "-----------------------"
           @user.update_attributes(count: i+1)
           #卖出
           ask_pirce = current_price.to_f * 1.02
