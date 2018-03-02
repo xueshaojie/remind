@@ -114,6 +114,6 @@ every 5.minutes do
   rake "shaojie:update_orders"
 end
 
-every 15.minutes do
+every 10.minutes do
   rake "currency:update_currencies"
 end
