@@ -51,12 +51,6 @@ class Api::Mp::NoticesController < Api::Mp::BaseController
     end
   end
 
-  def search
-    return render json: {products: []} if params[:name].blank?
-    @products = @current_site.ec_products.onshelf.where("name like ?", "%#{params[:name]}%").order("ec_products.position asc")
-    respond_to :json
-  end
-
   private
 
     def find_notice

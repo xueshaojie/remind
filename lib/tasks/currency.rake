@@ -22,11 +22,13 @@ namespace :currency do
     #   r.percent_change_1h = json_body[i]["percent_change_1h"]
     #   r.percent_change_24h = json_body[i]["percent_change_24h"]
     #   r.percent_change_7d = json_body[i]["percent_change_7d"]
-    #   # r.price_cny = json_body[i]["price_cny"].to_f.round(4)
+    #   r.price_cny = json_body[i]["price_cny"].to_f.round(4)
     #   r.volume_cny = json_body[i]["24h_volume_cny"]
     #   r.market_cap_cny = json_body[i]["market_cap_cny"]
     #   r.save
   	# end
+
+    Rails.logger.info "--------********"
 
     arr = ["EOS","PRS","BIG","ETH","BTC","XIN","QTUM","GXS"]
     arr.each do |c|
@@ -39,6 +41,8 @@ namespace :currency do
       r.name = result["quote_name"]
       r.save
     end
+
+
 
 
     Notice.no_remind.each do |notice|
