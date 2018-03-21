@@ -24,7 +24,7 @@ namespace :shaojie do
       response = HTTParty.get(url, headers: headers)
       result = JSON.parse(response.body)
 
-      unless result["data"].blank?
+      if result["data"].present?
         current_price = result["data"]["ticker"]["price"]
         url = "https://api.b1.run/orders" #创建订单
 
@@ -40,7 +40,7 @@ namespace :shaojie do
         bid_params = { order_market: "BIG-EOS", order_side: "BID", price: bid_pirce, amount: amount }.to_json
         response = HTTParty.post(url, headers: headers, body: bid_params)
         result = JSON.parse(response.body)
-        unless result["data"].blank?
+        if result["data"].present?
           Rails.logger.info "-----------------------"
           @user.update_attributes(count: i+1)
           #卖出

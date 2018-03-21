@@ -42,7 +42,19 @@ namespace :currency do
       r.save
     end
 
+    btc = Currency.where(symbol: "BTC").first.price_cny
+    arr = ["TNB","CRE","AWR","TCT","SHOW","SBTC"]
+    arr.each do |c|
+      url = "https://api.b1.run/markets/#{c}-BTC"
+      response = HTTParty.get(url)
+      result = JSON.parse(response.body)["data"]
 
+      r = Currency.where(symbol: "TNB").first_or_initialize
+      r = Currency.where(symbol: c).first_or_initialize
+      r.price_cny = btc * result["ticker"]["price"].to_f.round(8)
+      r.name = result["quote_name"]
+      r.save
+    end
 
 
     Notice.no_remind.each do |notice|
