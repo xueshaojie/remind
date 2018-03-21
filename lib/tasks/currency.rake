@@ -49,7 +49,6 @@ namespace :currency do
       response = HTTParty.get(url)
       result = JSON.parse(response.body)["data"]
 
-      r = Currency.where(symbol: "TNB").first_or_initialize
       r = Currency.where(symbol: c).first_or_initialize
       r.price_cny = btc * result["ticker"]["price"].to_f.round(8)
       r.name = result["quote_name"]
