@@ -32,7 +32,7 @@ namespace :currency do
 
     arr = ["EOS","PRS","BIG","ETH","BTC","XIN","QTUM","GXS"]
     arr.each do |c|
-      url = "https://api.big.one/markets/#{c}-BNC"
+      url = "https://api.b1.run/markets/#{c}-BNC"
       response = HTTParty.get(url)
       result = JSON.parse(response.body)["data"]
 

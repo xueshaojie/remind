@@ -8,7 +8,7 @@ namespace :shaojie do
     id = @user.uuid
     i = @user.count
 
-    url = "https://api.big.one/orders?market=BIG-EOS" #获取订单列表
+    url = "https://api.b1.run/orders?market=BIG-EOS" #获取订单列表
     headers = { 'Authorization' => api_key, 'Big-Device-Id' => id, 'Content-Type' => 'application/json'}
     response = HTTParty.get(url, headers: headers)
     result = JSON.parse(response.body)
@@ -20,13 +20,13 @@ namespace :shaojie do
       Rails.logger.info "******************"
 
 
-      url = "https://api.big.one/markets/BIG-EOS" #拉取当前价格
+      url = "https://api.b1.run/markets/BIG-EOS" #拉取当前价格
       response = HTTParty.get(url, headers: headers)
       result = JSON.parse(response.body)
 
       unless result["data"].blank?
         current_price = result["data"]["ticker"]["price"]
-        url = "https://api.big.one/orders" #创建订单
+        url = "https://api.b1.run/orders" #创建订单
 
         # amount = 10 * (1+0.04)**i
         # amount = amount.to_f.round(1).to_s
