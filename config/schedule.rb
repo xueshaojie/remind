@@ -110,9 +110,9 @@
 # 	rake "auto_generate_cycle_year_task:generate_tasks"
 # end
 
-every 5.minutes do
-  rake "shaojie:update_orders"
-end
+# every 5.minutes do
+#   rake "shaojie:update_orders"
+# end
 
 every 10.minutes do
   rake "currency:update_currencies"
