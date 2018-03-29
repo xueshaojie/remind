@@ -39,7 +39,11 @@ namespace :currency do
       r = Currency.where(symbol: c).first_or_initialize
       price_cny = result["ticker"]["price"].to_f.round(2)
       r.price_cny = price_cny
-      r.percent_change_24h = (result["ticker"]["close"].to_f.round(4) - result["ticker"]["open"].to_f.round(4))/ result["ticker"]["open"].to_f.round(4) * 100 
+      if result["ticker"]["close"].to_f.round(4) == 0 && result["ticker"]["open"].to_f.round(4) == 0
+        r.percent_change_24h = 0.0
+      else 
+        r.percent_change_24h = ((result["ticker"]["close"].to_f.round(4) - result["ticker"]["open"].to_f.round(4))/result["ticker"]["open"].to_f.round(4) * 100).to_f.round(2)
+      end 
       r.volume_cny = result["ticker"]["volume"].to_f.round(4) * price_cny
 
       r.name = result["quote_name"]
@@ -56,13 +60,16 @@ namespace :currency do
       r = Currency.where(symbol: c).first_or_initialize
       price_cny = btc * result["ticker"]["price"].to_f.round(8)
       r.price_cny = price_cny
-      r.percent_change_24h = (result["ticker"]["close"].to_f.round(8) - result["ticker"]["open"].to_f.round(8))/ result["ticker"]["open"].to_f.round(8) * 100 
+      if result["ticker"]["close"].to_f.round(4) == 0 && result["ticker"]["open"].to_f.round(4) == 0
+        r.percent_change_24h = 0.0
+      else 
+        r.percent_change_24h = ((result["ticker"]["close"].to_f.round(4) - result["ticker"]["open"].to_f.round(4))/result["ticker"]["open"].to_f.round(4) * 100).to_f.round(2)
+      end
       r.volume_cny = result["ticker"]["volume"].to_f.round(4) * price_cny
 
       r.name = result["quote_name"]
       r.save
     end
-
 
     Notice.no_remind.each do |notice|
       if notice.currency.price_cny.to_f >= notice.range.split("-").first.to_f && notice.range.split("-").last.to_f >= notice.currency.price_cny.to_f
