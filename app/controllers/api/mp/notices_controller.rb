@@ -4,9 +4,9 @@ class Api::Mp::NoticesController < Api::Mp::BaseController
   def index
     #接口传递参数  {"openid" =>  'openid'}
     if params[:status].blank? || params[:status] == "undefined"
-      @notices = @current_wx_user.notices.normal.order("created_at desc")
+      @notices = @current_wx_user.notices.normal.page(params[:page]).order("created_at desc")
     else
-      @notices = @current_wx_user.notices.where(status: params[:status]).order("created_at desc")
+      @notices = @current_wx_user.notices.where(status: params[:status]).page(params[:page]).order("created_at desc")
     end
     respond_to :json
   end

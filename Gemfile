@@ -40,6 +40,7 @@ gem "ckeditor", "4.0.4"
 # gem 'ueditor-rails'
 
 gem 'rest-client'
+gem 'wx_pay'
 
 gem 'squeel'
 gem "exception_logger", :require => "exception_logger", :git => "git://github.com/liangwenke/exception_logger.git"
