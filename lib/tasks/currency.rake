@@ -37,7 +37,11 @@ namespace :currency do
       result = JSON.parse(response.body)["data"]
 
       r = Currency.where(symbol: c).first_or_initialize
-      r.price_cny = result["ticker"]["price"].to_f.round(2)
+      price_cny = result["ticker"]["price"].to_f.round(2)
+      r.price_cny = price_cny
+      r.percent_change_24h = (result["ticker"]["close"].to_f.round(4) - result["ticker"]["open"].to_f.round(4))/ result["ticker"]["open"].to_f.round(4) * 100 
+      r.volume_cny = result["ticker"]["volume"].to_f.round(4) * price_cny
+
       r.name = result["quote_name"]
       r.save
     end
@@ -50,7 +54,11 @@ namespace :currency do
       result = JSON.parse(response.body)["data"]
 
       r = Currency.where(symbol: c).first_or_initialize
-      r.price_cny = btc * result["ticker"]["price"].to_f.round(8)
+      price_cny = btc * result["ticker"]["price"].to_f.round(8)
+      r.price_cny = price_cny
+      r.percent_change_24h = (result["ticker"]["close"].to_f.round(8) - result["ticker"]["open"].to_f.round(8))/ result["ticker"]["open"].to_f.round(8) * 100 
+      r.volume_cny = result["ticker"]["volume"].to_f.round(4) * price_cny
+
       r.name = result["quote_name"]
       r.save
     end

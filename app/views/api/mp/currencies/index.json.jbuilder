@@ -2,10 +2,6 @@ json.currencies @currencies do |currency|
   json.id currency.id
   json.symbol currency.symbol
   json.percent currency.percent_change_24h
-  json.market_cap_usd currency.market_cap_usd
+  json.volume_cny currency.volume_cny
   json.price_cny currency.price_cny
-end
-
-json.total_page do
-  json.page @page
 end
