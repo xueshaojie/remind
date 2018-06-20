@@ -172,6 +172,10 @@
           <div class="li-input li-login">
             <%= submit_tag "立即登录", class: "btn btn-green btn-submit", disable_with: "提交中..."%>
           </div>
+          <%= link_to '货币交易', "https://exin.one" %>
+          <%= link_to '货币回调地址', "https://exin.one/auth" %>
+          <%= link_to 'PRESS_ONE', "https://press.one" %>
+          <%= link_to 'PRESS_ONE回调地址', "https://press.one/api/auth/mixin/callback" %>          
           <% if flash[:notice].present? %>
             <div class="m-tips m-tips-error"><%= flash[:notice]%></div>
           <% end %>
